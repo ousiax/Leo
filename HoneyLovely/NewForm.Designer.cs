@@ -192,18 +192,17 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DateTimePicker dtpBirthday;
-        private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCardNo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Label lblGender;
-        private System.Windows.Forms.ComboBox combGender;
+        public System.Windows.Forms.DateTimePicker dtpBirthday;
+        public System.Windows.Forms.TextBox txtPhone;
+        public System.Windows.Forms.TextBox txtCardNo;
+        public System.Windows.Forms.TextBox txtName;
+        public System.Windows.Forms.ComboBox combGender;
     }
 }

@@ -18,6 +18,11 @@ namespace HoneyLovely
             this.btnCancel.Click += (s, a) =>
             {
                 this.Close();
+                this.DialogResult = DialogResult.Cancel;
+            };
+            this.btnConfirm.Click += (s, a) =>
+            {
+                this.DialogResult = DialogResult.OK;
             };
         }
     }

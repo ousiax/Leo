@@ -89,7 +89,19 @@ namespace HoneyLovely
                 using (var frm = new NewForm())
                 {
                     frm.Text = "新增会员信息";
-                    frm.ShowDialog();
+                    var result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        _member.Add(new Member
+                        {
+                            Name = frm.txtName.Text,
+                            Birthday = frm.dtpBirthday.Value,
+                            Gender = (string)frm.combGender.SelectedValue,
+                            Phone = frm.txtPhone.Text,
+                            CardNo = frm.txtCardNo.Text
+                        });
+                        memberBindingSource.Position = _member.Count - 1;
+                    }
                 }
             };
 
