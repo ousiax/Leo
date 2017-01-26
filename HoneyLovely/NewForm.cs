@@ -13,8 +13,8 @@ namespace HoneyLovely
 
         private void NewForm_Load(object sender, EventArgs e)
         {
-            this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男宝宝"));
-            this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女宝宝"));
+            this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
+            this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
             this.btnCancel.Click += (s, a) =>
             {
                 this.Close();
