@@ -107,7 +107,7 @@ namespace HoneyLovely.Models
             get { return _detail; }
         }
 
-        public void Dump(Member mem)
+        public Member Dump(Member mem)
         {
             this.Name = mem.Name;
             this.Gender = mem.Gender;
@@ -117,6 +117,8 @@ namespace HoneyLovely.Models
             this.CardNo = mem.CardNo;
             this._detail.Clear();
             this.Detail.AddRange(mem.Detail);
+
+            return this;
         }
     }
 }

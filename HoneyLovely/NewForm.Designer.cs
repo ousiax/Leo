@@ -50,7 +50,7 @@
             this.dtpBirthday.Margin = new System.Windows.Forms.Padding(5);
             this.dtpBirthday.Name = "dtpBirthday";
             this.dtpBirthday.Size = new System.Drawing.Size(184, 29);
-            this.dtpBirthday.TabIndex = 2;
+            this.dtpBirthday.TabIndex = 20;
             // 
             // txtPhone
             // 
@@ -58,7 +58,7 @@
             this.txtPhone.Margin = new System.Windows.Forms.Padding(5);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(184, 29);
-            this.txtPhone.TabIndex = 3;
+            this.txtPhone.TabIndex = 40;
             // 
             // label3
             // 
@@ -76,7 +76,7 @@
             this.txtCardNo.Margin = new System.Windows.Forms.Padding(5);
             this.txtCardNo.Name = "txtCardNo";
             this.txtCardNo.Size = new System.Drawing.Size(184, 29);
-            this.txtCardNo.TabIndex = 4;
+            this.txtCardNo.TabIndex = 60;
             // 
             // label2
             // 
@@ -104,7 +104,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(5);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(184, 29);
-            this.txtName.TabIndex = 1;
+            this.txtName.TabIndex = 10;
             // 
             // lblName
             // 
@@ -123,7 +123,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(125, 37);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 80;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -133,7 +133,7 @@
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(5);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(125, 37);
-            this.btnConfirm.TabIndex = 5;
+            this.btnConfirm.TabIndex = 70;
             this.btnConfirm.Text = "  确定";
             this.btnConfirm.UseVisualStyleBackColor = true;
             // 
@@ -154,7 +154,7 @@
             this.combGender.Location = new System.Drawing.Point(112, 92);
             this.combGender.Name = "combGender";
             this.combGender.Size = new System.Drawing.Size(56, 29);
-            this.combGender.TabIndex = 36;
+            this.combGender.TabIndex = 30;
             this.combGender.ValueMember = "Key";
             // 
             // NewForm
@@ -199,10 +199,10 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Label lblGender;
-        public System.Windows.Forms.DateTimePicker dtpBirthday;
-        public System.Windows.Forms.TextBox txtPhone;
-        public System.Windows.Forms.TextBox txtCardNo;
-        public System.Windows.Forms.TextBox txtName;
-        public System.Windows.Forms.ComboBox combGender;
+        private System.Windows.Forms.DateTimePicker dtpBirthday;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.TextBox txtCardNo;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.ComboBox combGender;
     }
 }

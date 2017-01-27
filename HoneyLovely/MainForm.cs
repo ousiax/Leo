@@ -129,14 +129,7 @@ namespace HoneyLovely
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        var newMember = new Member
-                        {
-                            Name = frm.txtName.Text,
-                            Birthday = frm.dtpBirthday.Value,
-                            Gender = (string)frm.combGender.SelectedValue,
-                            Phone = frm.txtPhone.Text,
-                            CardNo = frm.txtCardNo.Text
-                        };
+                        var newMember = new Member().Dump(frm.CurrentMember);
                         using (var conn = new SQLiteConnection(_connectionString))
                         {
                             conn.Open();
@@ -164,7 +157,28 @@ namespace HoneyLovely
                 using (var frm = new NewForm())
                 {
                     frm.Text = "修改会议信息";
-                    frm.ShowDialog();
+                    frm.CurrentMember.Dump(_currentMember);
+                    var result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        _currentMember.Dump(frm.CurrentMember);
+                        using (var conn = new SQLiteConnection(_connectionString))
+                        {
+                            conn.Open();
+                            using (var cmd = conn.CreateCommand())
+                            {
+                                cmd.CommandText = "UPDATE member "
+                                + "SET id=@id, name=@name , phone=@phone , gender=@gender , birthday=@birthday , cardno=@cardno";
+                                cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = Guid.NewGuid() });
+                                cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = _currentMember.Name });
+                                cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = _currentMember.Phone });
+                                cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = _currentMember.Gender });
+                                cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = _currentMember.Birthday });
+                                cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = _currentMember.CardNo });
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
                 }
             };
 
