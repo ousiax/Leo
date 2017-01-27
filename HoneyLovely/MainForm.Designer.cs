@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtAge = new System.Windows.Forms.TextBox();
             this.lblAge = new System.Windows.Forms.Label();
@@ -52,19 +56,12 @@
             this.menuNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuModify = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.memberBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -80,7 +77,7 @@
             this.colDate,
             this.colItem,
             this.colCount,
-            this.txtHeight,
+            this.colHeight,
             this.colWeight});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -89,6 +86,47 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(1022, 551);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // colDate
+            // 
+            this.colDate.DataPropertyName = "Date";
+            dataGridViewCellStyle2.Format = "yyyy年MM月dd日 HH时mm分ss秒";
+            this.colDate.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colDate.HeaderText = "日期";
+            this.colDate.Name = "colDate";
+            this.colDate.ReadOnly = true;
+            // 
+            // colItem
+            // 
+            this.colItem.DataPropertyName = "Item";
+            this.colItem.HeaderText = "项目";
+            this.colItem.Name = "colItem";
+            this.colItem.ReadOnly = true;
+            // 
+            // colCount
+            // 
+            this.colCount.DataPropertyName = "Count";
+            this.colCount.HeaderText = "次数";
+            this.colCount.Name = "colCount";
+            this.colCount.ReadOnly = true;
+            // 
+            // txtHeight
+            // 
+            this.colHeight.DataPropertyName = "Height";
+            dataGridViewCellStyle3.Format = "##.##";
+            this.colHeight.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colHeight.HeaderText = "身高 (CM)";
+            this.colHeight.Name = "txtHeight";
+            this.colHeight.ReadOnly = true;
+            // 
+            // colWeight
+            // 
+            this.colWeight.DataPropertyName = "Weight";
+            dataGridViewCellStyle4.Format = "##.##";
+            this.colWeight.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colWeight.HeaderText = "体重 (KG)";
+            this.colWeight.Name = "colWeight";
+            this.colWeight.ReadOnly = true;
             // 
             // splitContainer1
             // 
@@ -124,7 +162,6 @@
             // 
             // txtAge
             // 
-            this.txtAge.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "Age", true));
             this.txtAge.Enabled = false;
             this.txtAge.Location = new System.Drawing.Point(467, 51);
             this.txtAge.Margin = new System.Windows.Forms.Padding(5);
@@ -168,7 +205,6 @@
             // dtpBirthday
             // 
             this.dtpBirthday.CustomFormat = "yyyy 年 MM 月 dd 日";
-            this.dtpBirthday.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.memberBindingSource, "Birthday", true));
             this.dtpBirthday.Enabled = false;
             this.dtpBirthday.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpBirthday.Location = new System.Drawing.Point(114, 51);
@@ -179,7 +215,6 @@
             // 
             // txtPhone
             // 
-            this.txtPhone.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "Phone", true));
             this.txtPhone.Enabled = false;
             this.txtPhone.Location = new System.Drawing.Point(467, 14);
             this.txtPhone.Margin = new System.Windows.Forms.Padding(5);
@@ -200,7 +235,6 @@
             // 
             // txtCardNo
             // 
-            this.txtCardNo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "CardNo", true));
             this.txtCardNo.Enabled = false;
             this.txtCardNo.Location = new System.Drawing.Point(803, 51);
             this.txtCardNo.Margin = new System.Windows.Forms.Padding(5);
@@ -231,7 +265,6 @@
             // 
             // txtName
             // 
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.memberBindingSource, "Name", true));
             this.txtName.Enabled = false;
             this.txtName.Location = new System.Drawing.Point(114, 14);
             this.txtName.Margin = new System.Windows.Forms.Padding(5);
@@ -281,51 +314,6 @@
             this.menuFind.Size = new System.Drawing.Size(45, 19);
             this.menuFind.Text = "查找";
             // 
-            // colDate
-            // 
-            this.colDate.DataPropertyName = "Date";
-            dataGridViewCellStyle2.Format = "yyyy年MM月dd日 HH时mm分ss秒";
-            this.colDate.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colDate.HeaderText = "日期";
-            this.colDate.Name = "colDate";
-            this.colDate.ReadOnly = true;
-            // 
-            // colItem
-            // 
-            this.colItem.DataPropertyName = "Item";
-            this.colItem.HeaderText = "项目";
-            this.colItem.Name = "colItem";
-            this.colItem.ReadOnly = true;
-            // 
-            // colCount
-            // 
-            this.colCount.DataPropertyName = "Count";
-            this.colCount.HeaderText = "次数";
-            this.colCount.Name = "colCount";
-            this.colCount.ReadOnly = true;
-            // 
-            // txtHeight
-            // 
-            this.txtHeight.DataPropertyName = "Height";
-            dataGridViewCellStyle3.Format = "##.##";
-            this.txtHeight.DefaultCellStyle = dataGridViewCellStyle3;
-            this.txtHeight.HeaderText = "身高 (CM)";
-            this.txtHeight.Name = "txtHeight";
-            this.txtHeight.ReadOnly = true;
-            // 
-            // colWeight
-            // 
-            this.colWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle4.Format = "##.##";
-            this.colWeight.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colWeight.HeaderText = "体重 (KG)";
-            this.colWeight.Name = "colWeight";
-            this.colWeight.ReadOnly = true;
-            // 
-            // memberBindingSource
-            // 
-            this.memberBindingSource.DataSource = typeof(HoneyLovely.Models.Member);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -349,7 +337,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.memberBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -373,12 +360,11 @@
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.TextBox txtAge;
         private System.Windows.Forms.Label lblAge;
-        private System.Windows.Forms.BindingSource memberBindingSource;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn txtHeight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHeight;
         private System.Windows.Forms.DataGridViewTextBoxColumn colWeight;
     }
 }

@@ -41,6 +41,10 @@
     <ApplicationIcon>wx.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Alyio.Extensions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Alyio.Extensions.1.0.1\lib\net451\Alyio.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -103,6 +107,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\HoneyLovely.Models.Member.datasource" />
+    <None Include="Properties\DataSources\HoneyLovely.Models.MemberDetail.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

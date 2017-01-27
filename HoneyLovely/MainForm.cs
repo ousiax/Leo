@@ -1,65 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using System.Windows.Forms;
+using Alyio.Extensions;
 using HoneyLovely.Models;
 
 namespace HoneyLovely
 {
     public partial class MainForm : Form
     {
-        private const string CREATE_MEMBER_SQL = "CREATE TABLE IF NOT EXISTS member (id integer NOT NULL, name text NOT NULL, phone text NOT NULL, gender text, birthday datetime, cardno text);";
+        private const string CREATE_MEMBER_SQL = "CREATE TABLE IF NOT EXISTS member (id text NOT NULL, name text NOT NULL, phone text NOT NULL, gender text, birthday text, cardno text);";
 
-        private const string CREATE_MEMBER_DETAIL_SQL = "CREATE TABLE IF NOT EXISTS member_detail (id integer NOT NULL, date text NOT NULL, item text NOT NULL, count integer, height number, weight number);";
+        private const string CREATE_MEMBER_DETAIL_SQL = "CREATE TABLE IF NOT EXISTS member_detail (id text NOT NULL, date text NOT NULL, item text NOT NULL, count integer, height number, weight number);";
 
-        private readonly IList<Member> _member = new List<Member>();
+        private string _connectionString;
+
+        private readonly IList<Member> _members = new List<Member>();
+        private readonly Member _currentMember = new Member();
 
         public MainForm()
         {
-            InitializeDatabase();
             InitializeComponent();
             InitializeDataBinding();
+            InitializeDatabase();
+            var mem = _members.FirstOrDefault();
+            if (mem != null)
+            {
+                _currentMember.Dump(mem);
+            }
         }
 
         private void InitializeDataBinding()
         {
-            this.dataGridView1.AutoGenerateColumns = false;
             this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
             this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
 
-            _member.Add(new Member { Name = "张三", Gender = "girl", Birthday = DateTime.Now.AddDays(-180) });
-            _member.Add(new Member
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.txtName.DataBindings.Add(new Binding("Text", _currentMember, "Name"));
+            this.txtAge.DataBindings.Add(new Binding("Text", _currentMember, "Age"));
+            this.txtCardNo.DataBindings.Add(new Binding("Text", _currentMember, "CardNo"));
+            this.txtPhone.DataBindings.Add(new Binding("Text", _currentMember, "Phone"));
+            this.dtpBirthday.DataBindings.Add(new Binding("Value", _currentMember, "Birthday"));
+
+            _currentMember.PropertyChanged += (s, a) =>
             {
-                Name = "李四",
-                Gender = "boy",
-                Birthday = DateTime.Now.AddDays(-540),
-                Phone = "18651625872",
-                CardNo = "18651625872",
-                Detail = new List<MemberDetail> { new MemberDetail { Date = DateTime.Now.AddDays(-30) }, new MemberDetail { Date = DateTime.Now.AddDays(-30) }, new MemberDetail { Date = DateTime.Now.AddDays(-30) }, new MemberDetail { Date = DateTime.Now.AddDays(-30) }, new MemberDetail { Date = DateTime.Now.AddDays(-30) } }
-            });
-
-            this.memberBindingSource.DataSource = _member;
-            this.dataGridView1.DataSource = this.memberBindingSource;
-            this.dataGridView1.DataMember = "Detail";
-
-            this.memberBindingSource.Position = 1;
-
-            var current = (Member)this.memberBindingSource.Current;
-            for (int i = 0; i < this.combGender.Items.Count; i++)
-            {
-                if (string.Equals(current.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                if (string.Equals("Gender", a.PropertyName))
                 {
-                    this.combGender.SelectedIndex = i;
+                    for (int i = 0; i < this.combGender.Items.Count; i++)
+                    {
+                        if (string.Equals(_currentMember.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                        {
+                            this.combGender.SelectedIndex = i;
+                        }
+                    }
                 }
-            }
+            };
+
+            this.dataGridView1.DataSource = new BindingList<MemberDetail>(_currentMember.Detail);
         }
 
         private void InitializeDatabase()
         {
-            var connStr = ConfigurationManager.ConnectionStrings["sqlite"].ConnectionString;
-            using (var conn = new SQLiteConnection(connStr))
+            _connectionString = ConfigurationManager.ConnectionStrings["sqlite"].ConnectionString;
+            using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
@@ -70,14 +77,44 @@ namespace HoneyLovely
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = "SELECT * FROM member";
-                    var dataSet = new DataSet();
-                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-                    adapter.Fill(dataSet);
 
-                    dataSet = new DataSet();
-                    cmd.CommandText = "SELECT * FROM member_detail";
-                    SQLiteDataAdapter adapter2 = new SQLiteDataAdapter(cmd);
-                    adapter.Fill(dataSet);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            _members.Add(new Member
+                            {
+                                Id = Guid.Parse(reader["id"].ToString()),
+                                Name = reader["name"].ToString(),
+                                Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
+                                CardNo = reader["cardno"].ToString(),
+                                Gender = reader["gender"].ToString(),
+                                Phone = reader["phone"].ToString()
+                            });
+                        }
+                    }
+
+                    cmd.CommandText = "SELECT * FROM member_detail WHERE id = @id";
+                    foreach (var mem in _members)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = mem.Id });
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                mem.Detail.Add(new MemberDetail
+                                {
+                                    MemberId = Guid.Parse(reader["id"].ToString()),
+                                    Date = reader["date"].ToDateTime().Value,
+                                    Item = reader["item"].ToString(),
+                                    Count = reader["count"].ToInt32() ?? 0,
+                                    Height = reader["gender"].ToDouble() ?? 0.0d,
+                                    Weight = reader["phone"].ToDouble() ?? 0.0d
+                                });
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -92,15 +129,32 @@ namespace HoneyLovely
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        _member.Add(new Member
+                        var newMember = new Member
                         {
                             Name = frm.txtName.Text,
                             Birthday = frm.dtpBirthday.Value,
                             Gender = (string)frm.combGender.SelectedValue,
                             Phone = frm.txtPhone.Text,
                             CardNo = frm.txtCardNo.Text
-                        });
-                        memberBindingSource.Position = _member.Count - 1;
+                        };
+                        using (var conn = new SQLiteConnection(_connectionString))
+                        {
+                            conn.Open();
+                            using (var cmd = conn.CreateCommand())
+                            {
+                                cmd.CommandText = "INSERT INTO member (id, name , phone , gender , birthday , cardno) "
+                                + "VALUES (@id, @name , @phone , @gender , @birthday , @cardno)";
+                                cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = Guid.NewGuid() });
+                                cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = newMember.Name });
+                                cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = newMember.Phone });
+                                cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = newMember.Gender });
+                                cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = newMember.Birthday });
+                                cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = newMember.CardNo });
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        _members.Add(newMember);
+                        _currentMember.Dump(newMember);
                     }
                 }
             };
