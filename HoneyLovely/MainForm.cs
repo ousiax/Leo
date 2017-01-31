@@ -13,7 +13,7 @@ namespace HoneyLovely
 {
     public partial class MainForm : Form
     {
-        private const string CREATE_MEMBER_SQL = "CREATE TABLE IF NOT EXISTS member (id text NOT NULL, name text NOT NULL, phone text NOT NULL, gender text, birthday text, cardno text);";
+        private const string CREATE_MEMBER_SQL = "CREATE TABLE IF NOT EXISTS member (id text PRIMARY KEY, name text NOT NULL, phone text NOT NULL, gender text, birthday text, cardno text);";
 
         private const string CREATE_MEMBER_DETAIL_SQL = "CREATE TABLE IF NOT EXISTS member_detail (id text NOT NULL, date text NOT NULL, item text NOT NULL, count integer, height number, weight number);";
 
@@ -162,13 +162,15 @@ namespace HoneyLovely
                     if (result == DialogResult.OK)
                     {
                         _currentMember.Dump(frm.CurrentMember);
+                        _members.First(o => o.Id.Equals(_currentMember.Id)).Dump(_currentMember);
                         using (var conn = new SQLiteConnection(_connectionString))
                         {
                             conn.Open();
                             using (var cmd = conn.CreateCommand())
                             {
                                 cmd.CommandText = "UPDATE member "
-                                + "SET id=@id, name=@name , phone=@phone , gender=@gender , birthday=@birthday , cardno=@cardno";
+                                + "SET name=@name , phone=@phone , gender=@gender , birthday=@birthday , cardno=@cardno "
+                                + "WHERE id=@id";
                                 cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = Guid.NewGuid() });
                                 cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = _currentMember.Name });
                                 cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = _currentMember.Phone });
@@ -184,9 +186,13 @@ namespace HoneyLovely
 
             menuFind.Click += (s, a) =>
             {
-                using (var frm = new FindForm())
+                using (var frm = new FindForm(_members))
                 {
-                    frm.ShowDialog();
+                    var result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        _currentMember.Dump(frm.Member);
+                    }
                 }
             };
         }

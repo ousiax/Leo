@@ -109,10 +109,10 @@ namespace HoneyLovely.Models
 
         public Member Dump(Member mem)
         {
+            this.Id = mem.Id;
             this.Name = mem.Name;
             this.Gender = mem.Gender;
             this.Birthday = mem.Birthday;
-            this.Id = mem.Id;
             this.Phone = mem.Phone;
             this.CardNo = mem.CardNo;
             this._detail.Clear();
