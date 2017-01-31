@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Alyio.Extensions;
@@ -32,6 +33,61 @@ namespace HoneyLovely
             {
                 _currentMember.Dump(mem);
             }
+            InitializeContextMenu();
+        }
+
+        private void InitializeContextMenu()
+        {
+            this.dataGridView1.MouseClick += (_, e) =>
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    var menu = new ContextMenu(new MenuItem[]
+                    {
+                        new MenuItem("新增", (s, a)=> {
+                            using(var frm = new RecordForm(new MemberDetail
+                            {
+                                Id = _currentMember.Id,
+                                Date = DateTime.Now
+                            }))
+                            {
+                                frm.Text = "新增";
+                                var result = frm.ShowDialog();
+                                if(result == DialogResult.OK)
+                                {
+                                    var newDetail = new MemberDetail().Dump(frm.Detail);
+                                    _currentMember.Detail.Add(newDetail);
+                                    using (var conn = new SQLiteConnection(_connectionString))
+                                    {
+                                        conn.Open();
+                                        using (var cmd = conn.CreateCommand())
+                                        {
+                                            cmd.CommandText = "INSERT INTO member_detail (id, date , item , count , height , weight) "
+                                            + "VALUES (@id, @date , @item , @count , @height , @weight)";
+                                            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = newDetail.Id });
+                                            cmd.Parameters.Add(new SQLiteParameter("@date") { DbType = DbType.String, Value = newDetail.Date });
+                                            cmd.Parameters.Add(new SQLiteParameter("@item") { DbType = DbType.String, Value = newDetail.Item });
+                                            cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.String, Value = newDetail.Count });
+                                            cmd.Parameters.Add(new SQLiteParameter("@height") { DbType = DbType.String, Value = newDetail.Height });
+                                            cmd.Parameters.Add(new SQLiteParameter("@weight") { DbType = DbType.String, Value = newDetail.Weight });
+                                            cmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+                            }
+                        }),
+                    });
+
+                    int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+
+                    if (currentMouseOverRow >= 0)
+                    {
+                        menu.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+                    }
+
+                    menu.Show(this.dataGridView1, new Point(e.X, e.Y), LeftRightAlignment.Left);
+                }
+            };
         }
 
         private void InitializeDataBinding()
@@ -60,7 +116,7 @@ namespace HoneyLovely
                 }
             };
 
-            this.dataGridView1.DataSource = new BindingList<MemberDetail>(_currentMember.Detail);
+            this.dataGridView1.DataSource = new BindingSource { DataSource = _currentMember.Detail };
         }
 
         private void InitializeDatabase()
@@ -73,6 +129,7 @@ namespace HoneyLovely
                 {
                     cmd.CommandText = CREATE_MEMBER_SQL;
                     cmd.ExecuteNonQuery();
+
                     cmd.CommandText = CREATE_MEMBER_DETAIL_SQL;
                     cmd.ExecuteNonQuery();
 
@@ -105,7 +162,7 @@ namespace HoneyLovely
                             {
                                 mem.Detail.Add(new MemberDetail
                                 {
-                                    MemberId = Guid.Parse(reader["id"].ToString()),
+                                    Id = Guid.Parse(reader["id"].ToString()),
                                     Date = reader["date"].ToDateTime().Value,
                                     Item = reader["item"].ToString(),
                                     Count = reader["count"].ToInt32() ?? 0,

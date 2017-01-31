@@ -57,14 +57,17 @@ namespace HoneyLovely
                 }
             };
 
-            this.dataGridView1.DoubleClick += (s, a) =>
+            this.dataGridView1.MouseDoubleClick += (s, a) =>
             {
-                var mem = dataGridView1.CurrentRow.DataBoundItem as Member;
-                if (mem != null)
+                if (a.Button == MouseButtons.Left && dataGridView1.HitTest(a.X, a.Y).RowIndex > 0)
                 {
-                    this.Member.Dump(mem);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    var mem = dataGridView1.CurrentRow.DataBoundItem as Member;
+                    if (mem != null)
+                    {
+                        this.Member.Dump(mem);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
                 }
             };
         }
