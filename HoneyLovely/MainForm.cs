@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Alyio.Extensions;
+using HoneyLovely.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Alyio.Extensions;
-using HoneyLovely.Models;
 
 namespace HoneyLovely
 {
@@ -42,9 +41,10 @@ namespace HoneyLovely
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    var menu = new ContextMenu(new MenuItem[]
-                    {
-                        new MenuItem("新增", (s, a)=> {
+                    var menu = new ContextMenuStrip();
+                    menu.Items.AddRange(new ToolStripMenuItem[]
+                     {
+                        new ToolStripMenuItem("新增",null, (s, a)=> {
                             using(var frm = new RecordForm(new MemberDetail
                             {
                                 Id = _currentMember.Id,
@@ -76,16 +76,16 @@ namespace HoneyLovely
                                 }
                             }
                         }),
-                    });
+                     });
 
                     int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
 
                     if (currentMouseOverRow >= 0)
                     {
-                        menu.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+                        menu.Items.Add(new ToolStripMenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
                     }
 
-                    menu.Show(this.dataGridView1, new Point(e.X, e.Y), LeftRightAlignment.Left);
+                    menu.Show(this.dataGridView1, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);
                 }
             };
         }
