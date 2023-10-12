@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace HoneyLovely
 {
@@ -9,11 +9,18 @@ namespace HoneyLovely
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            var host = Host.CreateDefaultBuilder(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddSingleton<MainForm>();
+                })
+                .Build();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            var mainFrm = host.Services.GetRequiredService<MainForm>();
+            Application.Run(mainFrm);
         }
     }
 }
