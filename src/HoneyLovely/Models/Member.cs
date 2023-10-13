@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace HoneyLovely.Models
@@ -13,7 +11,7 @@ namespace HoneyLovely.Models
         private string _gender;
         private DateTime _birthday;
         private string _cardNo;
-        private readonly List<MemberDetail> _detail = new List<MemberDetail>();
+        private readonly List<MemberDetail> _details = new List<MemberDetail>();
 
         public Guid Id
         {
@@ -102,9 +100,9 @@ namespace HoneyLovely.Models
             }
         }
 
-        public List<MemberDetail> Detail
+        public List<MemberDetail> Details
         {
-            get { return _detail; }
+            get { return _details; }
         }
 
         public Member Dump(Member mem)
@@ -115,8 +113,8 @@ namespace HoneyLovely.Models
             this.Birthday = mem.Birthday;
             this.Phone = mem.Phone;
             this.CardNo = mem.CardNo;
-            this._detail.Clear();
-            this.Detail.AddRange(mem.Detail);
+            this._details.Clear();
+            this.Details.AddRange(mem.Details);
 
             return this;
         }
