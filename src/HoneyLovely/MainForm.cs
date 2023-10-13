@@ -4,10 +4,12 @@ namespace HoneyLovely
 {
     public partial class MainForm : Form
     {
-        private readonly List<Member> _members = new List<Member>();
-        private readonly Member _currentMember = new Member();
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
+        private readonly BindingSource _bindingSource = new() { DataSource = new List<Member>() };
+
+        private List<Member> Members { get { return _bindingSource.DataSource as List<Member>; } }
+        private Member Member { get { return _bindingSource.Current as Member; } }
 
         public MainForm(IMemberService memberService, IMemberDetailService memberDetailService)
         {
@@ -17,11 +19,6 @@ namespace HoneyLovely
             InitializeComponent();
             InitializeDataBinding();
             InitializeDatabase();
-            var mem = _members.FirstOrDefault();
-            if (mem != null)
-            {
-                _currentMember.Dump(mem);
-            }
             InitializeContextMenu();
         }
 
@@ -37,7 +34,7 @@ namespace HoneyLovely
                         new ToolStripMenuItem("新增",null, (s, a)=> {
                             using(var frm = new RecordForm(new MemberDetail
                             {
-                                Id = _currentMember.Id,
+                                Id = Member.Id,
                                 Date = DateTime.Now
                             }))
                             {
@@ -47,7 +44,7 @@ namespace HoneyLovely
                                 {
                                     var newDetail = new MemberDetail().Dump(frm.Detail);
                                     _memberDetailService.CreateAsync(newDetail).ContinueWith(t=>{
-                                        if(t.IsCompletedSuccessfully){_currentMember.Details.Add(newDetail);
+                                        if(t.IsCompletedSuccessfully){Member.Details.Add(newDetail);
                                         }
                                     });
                                 }
@@ -72,28 +69,29 @@ namespace HoneyLovely
             this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
             this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
 
+            this.txtName.DataBindings.Add(new Binding("Text", _bindingSource, "Name"));
+            this.txtAge.DataBindings.Add(new Binding("Text", _bindingSource, "Age"));
+            this.txtCardNo.DataBindings.Add(new Binding("Text", _bindingSource, "CardNo"));
+            this.txtPhone.DataBindings.Add(new Binding("Text", _bindingSource, "Phone"));
+            this.dtpBirthday.DataBindings.Add(new Binding("Value", _bindingSource, "Birthday"));
+
+            //Member.PropertyChanged += (s, a) =>
+            //{
+            //    if (string.Equals("Gender", a.PropertyName))
+            //    {
+            //        for (int i = 0; i < this.combGender.Items.Count; i++)
+            //        {
+            //            if (string.Equals(_bindingSource.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+            //            {
+            //                this.combGender.SelectedIndex = i;
+            //            }
+            //        }
+            //    }
+            //};
+
             this.dataGridView1.AutoGenerateColumns = false;
-            this.txtName.DataBindings.Add(new Binding("Text", _currentMember, "Name"));
-            this.txtAge.DataBindings.Add(new Binding("Text", _currentMember, "Age"));
-            this.txtCardNo.DataBindings.Add(new Binding("Text", _currentMember, "CardNo"));
-            this.txtPhone.DataBindings.Add(new Binding("Text", _currentMember, "Phone"));
-            this.dtpBirthday.DataBindings.Add(new Binding("Value", _currentMember, "Birthday"));
-
-            _currentMember.PropertyChanged += (s, a) =>
-            {
-                if (string.Equals("Gender", a.PropertyName))
-                {
-                    for (int i = 0; i < this.combGender.Items.Count; i++)
-                    {
-                        if (string.Equals(_currentMember.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
-                        {
-                            this.combGender.SelectedIndex = i;
-                        }
-                    }
-                }
-            };
-
-            this.dataGridView1.DataSource = new BindingSource { DataSource = _currentMember.Details };
+            //this.dataGridView1.DataSource = new BindingSource { DataSource = _bindingSource };
+            //this.dataGridView1.DataMember = "Details";
         }
 
         private void InitializeDatabase()
@@ -102,7 +100,8 @@ namespace HoneyLovely
             {
                 if (t.IsCompletedSuccessfully)
                 {
-                    _members.AddRange(t.Result);
+                    Members.AddRange(t.Result);
+                    _bindingSource.ResetBindings(false);
                 }
             });
         }
@@ -122,8 +121,8 @@ namespace HoneyLovely
                         _memberService.CreateAsync(newMember).ContinueWith(t =>
                         {
                         });
-                        _members.Add(newMember);
-                        _currentMember.Dump(newMember);
+                        Members.Add(newMember);
+                        Member.Dump(newMember);
                     }
                 }
             };
@@ -133,25 +132,25 @@ namespace HoneyLovely
                 using (var frm = new NewForm())
                 {
                     frm.Text = "修改会议信息";
-                    frm.CurrentMember.Dump(_currentMember);
+                    frm.CurrentMember.Dump(Member);
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        _currentMember.Dump(frm.CurrentMember);
-                        _members.First(o => o.Id.Equals(_currentMember.Id)).Dump(_currentMember);
-                        _memberService.UpdateAsync(_currentMember).ContinueWith(t => { });
+                        Member.Dump(frm.CurrentMember);
+                        Members.First(o => o.Id.Equals(Member.Id)).Dump(Member);
+                        _memberService.UpdateAsync(Member).ContinueWith(t => { });
                     }
                 }
             };
 
             menuFind.Click += (s, a) =>
             {
-                using (var frm = new FindForm(_members))
+                using (var frm = new FindForm(Members))
                 {
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        _currentMember.Dump(frm.Member);
+                        Member.Dump(frm.Member);
                     }
                 }
             };
