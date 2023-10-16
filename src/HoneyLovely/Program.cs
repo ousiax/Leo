@@ -25,8 +25,10 @@ namespace HoneyLovely
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var database = host.Services.GetRequiredService<IDatabaseService>();
-            await database.InitializeAsync();
+            using (var services = host.Services.CreateScope())
+            {
+                await services.ServiceProvider.GetRequiredService<IDatabaseService>().InitializeAsync();
+            }
             var mainFrm = host.Services.GetRequiredService<MainForm>();
             Application.Run(mainFrm);
         }
