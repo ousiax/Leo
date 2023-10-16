@@ -1,41 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using HoneyLovely.Models;
+﻿using HoneyLovely.Models;
 
 namespace HoneyLovely
 {
     public partial class NewForm : Form
     {
-        public Member CurrentMember { get; private set; } = new Member();
+        private readonly Member _member;
 
-        public NewForm()
+        public NewForm(Member member)
         {
+            this._member = member;
             InitializeComponent();
             this.Load += (s, a) => InitializeDataBindings();
         }
 
         private void InitializeDataBindings()
         {
-            this.txtName.DataBindings.Add(new Binding("Text", CurrentMember, "Name"));
-            this.txtCardNo.DataBindings.Add(new Binding("Text", CurrentMember, "CardNo"));
-            this.txtPhone.DataBindings.Add(new Binding("Text", CurrentMember, "Phone"));
-            this.dtpBirthday.DataBindings.Add(new Binding("Value", CurrentMember, "Birthday"));
+            this.txtName.DataBindings.Add(new Binding("Text", _member, "Name"));
+            this.txtCardNo.DataBindings.Add(new Binding("Text", _member, "CardNo"));
+            this.txtPhone.DataBindings.Add(new Binding("Text", _member, "Phone"));
+            this.dtpBirthday.DataBindings.Add(new Binding("Value", _member, "Birthday"));
 
             for (int i = 0; i < this.combGender.Items.Count; i++)
             {
-                if (string.Equals(CurrentMember.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                if (string.Equals(_member.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
                 {
                     this.combGender.SelectedIndex = i;
                 }
             }
-            CurrentMember.PropertyChanged += (s, a) =>
+            _member.PropertyChanged += (s, a) =>
             {
                 if (string.Equals("Gender", a.PropertyName))
                 {
                     for (int i = 0; i < this.combGender.Items.Count; i++)
                     {
-                        if (string.Equals(CurrentMember.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                        if (string.Equals(_member.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
                         {
                             this.combGender.SelectedIndex = i;
                         }
@@ -57,7 +55,7 @@ namespace HoneyLovely
             {
                 if (combGender.SelectedItem != null)
                 {
-                    this.CurrentMember.Gender = ((KeyValuePair<string, string>)combGender.SelectedItem).Key;
+                    this._member.Gender = ((KeyValuePair<string, string>)combGender.SelectedItem).Key;
                 }
                 this.DialogResult = DialogResult.OK;
             };

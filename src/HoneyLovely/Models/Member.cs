@@ -104,19 +104,5 @@ namespace HoneyLovely.Models
         {
             get { return _details; }
         }
-
-        public Member Dump(Member mem)
-        {
-            this.Id = mem.Id;
-            this.Name = mem.Name;
-            this.Gender = mem.Gender;
-            this.Birthday = mem.Birthday;
-            this.Phone = mem.Phone;
-            this.CardNo = mem.CardNo;
-            this._details.Clear();
-            this.Details.AddRange(mem.Details);
-
-            return this;
-        }
     }
 }

@@ -6,11 +6,7 @@ namespace HoneyLovely
     {
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
-        private readonly BindingSource _bindingSource = new() { DataSource = new List<Member>() };
-
-        private List<Member> Members { get { return _bindingSource.DataSource as List<Member>; } }
-
-        private Member Member { get { return _bindingSource.Current as Member; } }
+        private readonly BindingSource _bdsMembers = new() { DataSource = new List<Member>() };
 
         public MainForm(IMemberService memberService, IMemberDetailService memberDetailService)
         {
@@ -23,6 +19,10 @@ namespace HoneyLovely
             InitializeContextMenu();
         }
 
+        private List<Member> Members { get { return _bdsMembers.DataSource as List<Member>; } }
+
+        private Member CurrentMember { get { return _bdsMembers.Current as Member; } }
+
         private void InitializeContextMenu()
         {
             this.dgvMemberDetails.MouseClick += (_, e) =>
@@ -32,23 +32,23 @@ namespace HoneyLovely
                     var menu = new ContextMenuStrip();
                     menu.Items.AddRange(new ToolStripMenuItem[]
                      {
-                        new ToolStripMenuItem("新增",null, (s, a)=> {
-                            using(var frm = new RecordForm(new MemberDetail
+                        new ToolStripMenuItem("新增", null, (s, a) => {
+                            var newMemberDetail = new MemberDetail
                             {
-                                Id = Member.Id,
+                                Id = CurrentMember.Id,
                                 Date = DateTime.Now
-                            }))
+                            };
+
+                            using var frm = new RecordForm(newMemberDetail);
+                            frm.Text = "新增";
+                            var result = frm.ShowDialog();
+                            if(result == DialogResult.OK)
                             {
-                                frm.Text = "新增";
-                                var result = frm.ShowDialog();
-                                if(result == DialogResult.OK)
-                                {
-                                    var newDetail = new MemberDetail().Dump(frm.Detail);
-                                    _memberDetailService.CreateAsync(newDetail).ContinueWith(t=>{
-                                        if(t.IsCompletedSuccessfully){Member.Details.Add(newDetail);
-                                        }
-                                    });
-                                }
+                                _memberDetailService.CreateAsync(newMemberDetail).ContinueWith(t => {
+                                    if(t.IsCompletedSuccessfully){
+                                        CurrentMember.Details.Add(newMemberDetail);
+                                    }
+                                });
                             }
                         }),
                      });
@@ -70,11 +70,11 @@ namespace HoneyLovely
             this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
             this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
 
-            this.txtName.DataBindings.Add(new Binding("Text", _bindingSource, "Name"));
-            this.txtAge.DataBindings.Add(new Binding("Text", _bindingSource, "Age"));
-            this.txtCardNo.DataBindings.Add(new Binding("Text", _bindingSource, "CardNo"));
-            this.txtPhone.DataBindings.Add(new Binding("Text", _bindingSource, "Phone"));
-            this.dtpBirthday.DataBindings.Add(new Binding("Value", _bindingSource, "Birthday"));
+            this.txtName.DataBindings.Add(new Binding("Text", _bdsMembers, "Name"));
+            this.txtAge.DataBindings.Add(new Binding("Text", _bdsMembers, "Age"));
+            this.txtCardNo.DataBindings.Add(new Binding("Text", _bdsMembers, "CardNo"));
+            this.txtPhone.DataBindings.Add(new Binding("Text", _bdsMembers, "Phone"));
+            this.dtpBirthday.DataBindings.Add(new Binding("Value", _bdsMembers, "Birthday"));
 
             //Member.PropertyChanged += (s, a) =>
             //{
@@ -102,7 +102,7 @@ namespace HoneyLovely
                 if (t.IsCompletedSuccessfully)
                 {
                     Members.AddRange(t.Result);
-                    _bindingSource.ResetBindings(false);
+                    _bdsMembers.ResetBindings(false);
                 }
             });
         }
@@ -111,48 +111,46 @@ namespace HoneyLovely
         {
             menuNew.Click += (s, a) =>
             {
-                using (var frm = new NewForm())
+                var newMember = new Member();
+                using var frm = new NewForm(newMember);
+                frm.Text = "新增会员信息";
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    frm.Text = "新增会员信息";
-                    var result = frm.ShowDialog();
-                    if (result == DialogResult.OK)
+                    _memberService.CreateAsync(newMember).ContinueWith(t =>
                     {
-                        var newMember = new Member().Dump(frm.CurrentMember);
-
-                        _memberService.CreateAsync(newMember).ContinueWith(t =>
+                        if (t.IsCompletedSuccessfully)
                         {
-                        });
-                        Members.Add(newMember);
-                        Member.Dump(newMember);
-                    }
+                            Members.Add(newMember);
+                            _bdsMembers.ResetBindings(false);
+                            _bdsMembers.Position = Members.IndexOf(newMember);
+                        }
+                    });
                 }
             };
 
             menuModify.Click += (s, a) =>
             {
-                using (var frm = new NewForm())
+                using var frm = new NewForm(CurrentMember);
+                frm.Text = "修改会议信息";
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    frm.Text = "修改会议信息";
-                    frm.CurrentMember.Dump(Member);
-                    var result = frm.ShowDialog();
-                    if (result == DialogResult.OK)
+                    _memberService.UpdateAsync(CurrentMember).ContinueWith(t =>
                     {
-                        Member.Dump(frm.CurrentMember);
-                        Members.First(o => o.Id.Equals(Member.Id)).Dump(Member);
-                        _memberService.UpdateAsync(Member).ContinueWith(t => { });
-                    }
+                        _bdsMembers.ResetBindings(false);
+                        _bdsMembers.Position = Members.IndexOf(CurrentMember);
+                    });
                 }
             };
 
             menuFind.Click += (s, a) =>
             {
-                using (var frm = new FindForm(Members))
+                using var frm = new FindForm(Members);
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    var result = frm.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        Member.Dump(frm.Member);
-                    }
+                    _bdsMembers.Position = Members.IndexOf(frm.Index);
                 }
             };
         }

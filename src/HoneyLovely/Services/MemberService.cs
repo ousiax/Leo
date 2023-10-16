@@ -14,6 +14,30 @@ namespace HoneyLovely.Services
             _dbConnectionManager = dbConnectionManager;
         }
 
+        public async Task<Member> GetAsync(Guid id)
+        {
+            var member = (Member)null;
+            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM member"
+                + "WHERE id = @id";
+            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = id });
+            using var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false);
+            if (reader.Read())
+            {
+                member = new Member
+                {
+                    Id = Guid.Parse(reader["id"].ToString()),
+                    Name = reader["name"].ToString(),
+                    Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
+                    CardNo = reader["cardno"].ToString(),
+                    Gender = reader["gender"].ToString(),
+                    Phone = reader["phone"].ToString()
+                };
+            }
+            return member;
+        }
+
         public async Task<List<Member>> GetAsync()
         {
             var members = new List<Member>();
@@ -63,11 +87,15 @@ namespace HoneyLovely.Services
 
         public async Task<int> CreateAsync(Member member)
         {
+            if (member.Id == Guid.Empty)
+            {
+                member.Id = Guid.NewGuid();
+            }
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "INSERT INTO member (id, name , phone , gender , birthday , cardno) "
                 + "VALUES (@id, @name , @phone , @gender , @birthday , @cardno)";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = Guid.NewGuid() });
+            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
             cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
             cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });

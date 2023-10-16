@@ -28,182 +28,182 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.combSearchField = new System.Windows.Forms.ComboBox();
-            this.txtSearchText = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnCancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            combSearchField = new ComboBox();
+            txtSearchText = new TextBox();
+            btnSearch = new Button();
+            dgvMembers = new DataGridView();
+            colName = new DataGridViewTextBoxColumn();
+            colBirthday = new DataGridViewTextBoxColumn();
+            colGender = new DataGridViewComboBoxColumn();
+            colAge = new DataGridViewTextBoxColumn();
+            colPhone = new DataGridViewTextBoxColumn();
+            colCardNo = new DataGridViewTextBoxColumn();
+            colId = new DataGridViewTextBoxColumn();
+            btnCancel = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvMembers).BeginInit();
+            SuspendLayout();
             // 
             // combSearchField
             // 
-            this.combSearchField.DisplayMember = "Value";
-            this.combSearchField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.combSearchField.FormattingEnabled = true;
-            this.combSearchField.Location = new System.Drawing.Point(20, 19);
-            this.combSearchField.Margin = new System.Windows.Forms.Padding(5);
-            this.combSearchField.Name = "combSearchField";
-            this.combSearchField.Size = new System.Drawing.Size(97, 29);
-            this.combSearchField.TabIndex = 0;
-            this.combSearchField.ValueMember = "Key";
+            combSearchField.DisplayMember = "Value";
+            combSearchField.DropDownStyle = ComboBoxStyle.DropDownList;
+            combSearchField.FormattingEnabled = true;
+            combSearchField.Location = new Point(20, 19);
+            combSearchField.Margin = new Padding(5);
+            combSearchField.Name = "combSearchField";
+            combSearchField.Size = new Size(97, 39);
+            combSearchField.TabIndex = 0;
+            combSearchField.ValueMember = "Key";
             // 
             // txtSearchText
             // 
-            this.txtSearchText.Location = new System.Drawing.Point(130, 19);
-            this.txtSearchText.Margin = new System.Windows.Forms.Padding(5);
-            this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(292, 29);
-            this.txtSearchText.TabIndex = 1;
+            txtSearchText.Location = new Point(130, 19);
+            txtSearchText.Margin = new Padding(5);
+            txtSearchText.Name = "txtSearchText";
+            txtSearchText.Size = new Size(292, 39);
+            txtSearchText.TabIndex = 1;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(574, 14);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(5);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(125, 37);
-            this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "查找";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Location = new Point(574, 14);
+            btnSearch.Margin = new Padding(5);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(125, 37);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "查找";
+            btnSearch.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvMembers
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colName,
-            this.colBirthday,
-            this.colGender,
-            this.colAge,
-            this.colPhone,
-            this.colCardNo,
-            this.colId});
-            this.dataGridView1.Location = new System.Drawing.Point(20, 63);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(814, 273);
-            this.dataGridView1.TabIndex = 3;
+            dgvMembers.AllowUserToAddRows = false;
+            dgvMembers.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle3.BackColor = Color.Silver;
+            dgvMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgvMembers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMembers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMembers.Columns.AddRange(new DataGridViewColumn[] { colName, colBirthday, colGender, colAge, colPhone, colCardNo, colId });
+            dgvMembers.Location = new Point(20, 63);
+            dgvMembers.Margin = new Padding(5);
+            dgvMembers.MultiSelect = false;
+            dgvMembers.Name = "dgvMembers";
+            dgvMembers.ReadOnly = true;
+            dgvMembers.RowHeadersWidth = 62;
+            dgvMembers.Size = new Size(814, 273);
+            dgvMembers.TabIndex = 3;
             // 
             // colName
             // 
-            this.colName.DataPropertyName = "Name";
-            this.colName.HeaderText = "姓名";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
+            colName.DataPropertyName = "Name";
+            colName.HeaderText = "姓名";
+            colName.MinimumWidth = 8;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
             // 
             // colBirthday
             // 
-            this.colBirthday.DataPropertyName = "Birthday";
-            dataGridViewCellStyle2.Format = "yyyy/MM/dd";
-            this.colBirthday.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colBirthday.HeaderText = "出生日期";
-            this.colBirthday.Name = "colBirthday";
-            this.colBirthday.ReadOnly = true;
+            colBirthday.DataPropertyName = "Birthday";
+            dataGridViewCellStyle4.Format = "yyyy/MM/dd";
+            colBirthday.DefaultCellStyle = dataGridViewCellStyle4;
+            colBirthday.HeaderText = "出生日期";
+            colBirthday.MinimumWidth = 8;
+            colBirthday.Name = "colBirthday";
+            colBirthday.ReadOnly = true;
             // 
             // colGender
             // 
-            this.colGender.DataPropertyName = "Gender";
-            this.colGender.HeaderText = "性别";
-            this.colGender.Name = "colGender";
-            this.colGender.ReadOnly = true;
-            this.colGender.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colGender.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            colGender.DataPropertyName = "Gender";
+            colGender.HeaderText = "性别";
+            colGender.MinimumWidth = 8;
+            colGender.Name = "colGender";
+            colGender.ReadOnly = true;
+            colGender.Resizable = DataGridViewTriState.True;
+            colGender.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // colAge
             // 
-            this.colAge.DataPropertyName = "Age";
-            this.colAge.HeaderText = "年龄";
-            this.colAge.Name = "colAge";
-            this.colAge.ReadOnly = true;
+            colAge.DataPropertyName = "Age";
+            colAge.HeaderText = "年龄";
+            colAge.MinimumWidth = 8;
+            colAge.Name = "colAge";
+            colAge.ReadOnly = true;
             // 
             // colPhone
             // 
-            this.colPhone.DataPropertyName = "Phone";
-            this.colPhone.HeaderText = "手机";
-            this.colPhone.Name = "colPhone";
-            this.colPhone.ReadOnly = true;
+            colPhone.DataPropertyName = "Phone";
+            colPhone.HeaderText = "手机";
+            colPhone.MinimumWidth = 8;
+            colPhone.Name = "colPhone";
+            colPhone.ReadOnly = true;
             // 
             // colCardNo
             // 
-            this.colCardNo.DataPropertyName = "CardNo";
-            this.colCardNo.HeaderText = "卡号";
-            this.colCardNo.Name = "colCardNo";
-            this.colCardNo.ReadOnly = true;
+            colCardNo.DataPropertyName = "CardNo";
+            colCardNo.HeaderText = "卡号";
+            colCardNo.MinimumWidth = 8;
+            colCardNo.Name = "colCardNo";
+            colCardNo.ReadOnly = true;
             // 
             // colId
             // 
-            this.colId.DataPropertyName = "Id";
-            this.colId.HeaderText = "Id";
-            this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
-            this.colId.Visible = false;
+            colId.DataPropertyName = "Id";
+            colId.HeaderText = "Id";
+            colId.MinimumWidth = 8;
+            colId.Name = "colId";
+            colId.ReadOnly = true;
+            colId.Visible = false;
             // 
             // btnCancel
             // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(709, 14);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(125, 37);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "取消";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.DialogResult = DialogResult.Cancel;
+            btnCancel.Location = new Point(709, 14);
+            btnCancel.Margin = new Padding(5);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(125, 37);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "取消";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // FindForm
             // 
-            this.AcceptButton = this.btnSearch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(848, 355);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.txtSearchText);
-            this.Controls.Add(this.combSearchField);
-            this.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(5);
-            this.MaximizeBox = false;
-            this.Name = "FindForm";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "查找会员";
-            this.Load += new System.EventHandler(this.FindForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AcceptButton = btnSearch;
+            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
+            ClientSize = new Size(848, 355);
+            Controls.Add(btnCancel);
+            Controls.Add(dgvMembers);
+            Controls.Add(btnSearch);
+            Controls.Add(txtSearchText);
+            Controls.Add(combSearchField);
+            Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Margin = new Padding(5);
+            MaximizeBox = false;
+            Name = "FindForm";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "查找会员";
+            Load += FindForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvMembers).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox combSearchField;
-        private System.Windows.Forms.TextBox txtSearchText;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBirthday;
-        private System.Windows.Forms.DataGridViewComboBoxColumn colGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPhone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCardNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private ComboBox combSearchField;
+        private TextBox txtSearchText;
+        private Button btnSearch;
+        private DataGridView dgvMembers;
+        private Button btnCancel;
+        private DataGridViewTextBoxColumn colName;
+        private DataGridViewTextBoxColumn colBirthday;
+        private DataGridViewComboBoxColumn colGender;
+        private DataGridViewTextBoxColumn colAge;
+        private DataGridViewTextBoxColumn colPhone;
+        private DataGridViewTextBoxColumn colCardNo;
+        private DataGridViewTextBoxColumn colId;
     }
 }

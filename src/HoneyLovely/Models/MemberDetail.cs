@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace HoneyLovely.Models
@@ -82,17 +81,6 @@ namespace HoneyLovely.Models
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        public MemberDetail Dump(MemberDetail detail)
-        {
-            this.Id = detail.Id;
-            this.Date = detail.Date;
-            this.Item = detail.Item;
-            this.Count = detail.Count;
-            this.Height = detail.Height;
-            this.Weight = detail.Weight;
-            return this;
         }
     }
 }

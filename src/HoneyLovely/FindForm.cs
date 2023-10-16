@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using HoneyLovely.Models;
+﻿using HoneyLovely.Models;
 
 namespace HoneyLovely
 {
     public partial class FindForm : Form
     {
-        private readonly IList<Member> _members;
+        private readonly IReadOnlyList<Member> _members;
 
-        public Member Member { get; private set; } = new Member();
+        public Member Index { get; private set; }
 
-        public FindForm(IList<Member> members)
+        public FindForm(IReadOnlyList<Member> members)
         {
             _members = members;
             InitializeComponent();
@@ -31,10 +27,10 @@ namespace HoneyLovely
             this.colGender.ValueMember = "Key";
             this.colGender.DisplayMember = "Value";
 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.DataSource = _members;
+            this.dgvMembers.AutoGenerateColumns = false;
+            this.dgvMembers.DataSource = _members;
 
-            this.dataGridView1.RowTemplate.Height += 10;
+            this.dgvMembers.RowTemplate.Height += 10;
         }
 
         private void FindForm_Load(object sender, EventArgs e)
@@ -46,25 +42,25 @@ namespace HoneyLovely
                 switch (selectedValue)
                 {
                     case "name":
-                        this.dataGridView1.DataSource = _members.Where(o => o.Name.Contains(txtSearchText.Text)).ToList();
+                        this.dgvMembers.DataSource = _members.Where(o => o.Name.Contains(txtSearchText.Text)).ToList();
                         break;
                     case "card":
-                        this.dataGridView1.DataSource = _members.Where(o => o.CardNo.Contains(txtSearchText.Text)).ToList();
+                        this.dgvMembers.DataSource = _members.Where(o => o.CardNo.Contains(txtSearchText.Text)).ToList();
                         break;
                     case "phone":
-                        this.dataGridView1.DataSource = _members.Where(o => o.Phone.Contains(txtSearchText.Text)).ToList();
+                        this.dgvMembers.DataSource = _members.Where(o => o.Phone.Contains(txtSearchText.Text)).ToList();
                         break;
                 }
             };
 
-            this.dataGridView1.MouseDoubleClick += (s, a) =>
+            this.dgvMembers.MouseDoubleClick += (s, a) =>
             {
-                if (a.Button == MouseButtons.Left && dataGridView1.HitTest(a.X, a.Y).RowIndex > 0)
+                if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex > 0)
                 {
-                    var mem = dataGridView1.CurrentRow.DataBoundItem as Member;
+                    var mem = dgvMembers.CurrentRow.DataBoundItem as Member;
                     if (mem != null)
                     {
-                        this.Member.Dump(mem);
+                        this.Index = mem;
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }

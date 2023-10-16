@@ -1,14 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-using HoneyLovely.Models;
+﻿using HoneyLovely.Models;
 
 namespace HoneyLovely
 {
     public partial class RecordForm : Form
     {
         private readonly MemberDetail _detail;
-
-        public MemberDetail Detail { get { return _detail; } }
 
         public RecordForm(MemberDetail detail)
         {
