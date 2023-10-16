@@ -9,6 +9,7 @@ namespace HoneyLovely
         private readonly BindingSource _bindingSource = new() { DataSource = new List<Member>() };
 
         private List<Member> Members { get { return _bindingSource.DataSource as List<Member>; } }
+
         private Member Member { get { return _bindingSource.Current as Member; } }
 
         public MainForm(IMemberService memberService, IMemberDetailService memberDetailService)
@@ -24,7 +25,7 @@ namespace HoneyLovely
 
         private void InitializeContextMenu()
         {
-            this.dataGridView1.MouseClick += (_, e) =>
+            this.dgvMemberDetails.MouseClick += (_, e) =>
             {
                 if (e.Button == MouseButtons.Right)
                 {
@@ -52,14 +53,14 @@ namespace HoneyLovely
                         }),
                      });
 
-                    int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+                    int currentMouseOverRow = dgvMemberDetails.HitTest(e.X, e.Y).RowIndex;
 
                     if (currentMouseOverRow >= 0)
                     {
                         menu.Items.Add(new ToolStripMenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
                     }
 
-                    menu.Show(this.dataGridView1, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);
+                    menu.Show(this.dgvMemberDetails, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);
                 }
             };
         }
@@ -89,7 +90,7 @@ namespace HoneyLovely
             //    }
             //};
 
-            this.dataGridView1.AutoGenerateColumns = false;
+            this.dgvMemberDetails.AutoGenerateColumns = false;
             //this.dataGridView1.DataSource = new BindingSource { DataSource = _bindingSource };
             //this.dataGridView1.DataMember = "Details";
         }
