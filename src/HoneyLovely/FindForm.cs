@@ -10,9 +10,10 @@ namespace HoneyLovely
 
         public FindForm(IReadOnlyList<Member> members)
         {
-            _members = members;
             InitializeComponent();
             InitializeDataBindings();
+            _members = members;
+            bdsMembers.DataSource = _members;
         }
 
         private void InitializeDataBindings()
@@ -27,35 +28,16 @@ namespace HoneyLovely
             this.colGender.ValueMember = "Key";
             this.colGender.DisplayMember = "Value";
 
-            this.dgvMembers.AutoGenerateColumns = false;
-            this.dgvMembers.DataSource = _members;
-
             this.dgvMembers.RowTemplate.Height += 10;
         }
 
-        private void FindForm_Load(object sender, EventArgs e)
+
+        private void SearchForm_Load(object sender, EventArgs e)
         {
-            this.btnSearch.Click += (s, a) =>
-            {
-                var selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem).Key;
-
-                switch (selectedValue)
-                {
-                    case "name":
-                        this.dgvMembers.DataSource = _members.Where(o => o.Name.Contains(txtSearchText.Text)).ToList();
-                        break;
-                    case "card":
-                        this.dgvMembers.DataSource = _members.Where(o => o.CardNo.Contains(txtSearchText.Text)).ToList();
-                        break;
-                    case "phone":
-                        this.dgvMembers.DataSource = _members.Where(o => o.Phone.Contains(txtSearchText.Text)).ToList();
-                        break;
-                }
-            };
-
             this.dgvMembers.MouseDoubleClick += (s, a) =>
             {
-                if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex > 0)
+                var dgvMembers = s as DataGridView;
+                if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex >= 0)
                 {
                     var mem = dgvMembers.CurrentRow.DataBoundItem as Member;
                     if (mem != null)
@@ -64,6 +46,24 @@ namespace HoneyLovely
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
+                }
+            };
+
+            this.btnSearch.Click += (s, a) =>
+            {
+                var selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem).Key;
+
+                switch (selectedValue)
+                {
+                    case "name":
+                        this.bdsMembers.DataSource = _members.Where(o => o.Name.Contains(txtSearchText.Text)).ToList();
+                        break;
+                    case "card":
+                        this.bdsMembers.DataSource = _members.Where(o => o.CardNo.Contains(txtSearchText.Text)).ToList();
+                        break;
+                    case "phone":
+                        this.bdsMembers.DataSource = _members.Where(o => o.Phone.Contains(txtSearchText.Text)).ToList();
+                        break;
                 }
             };
         }
