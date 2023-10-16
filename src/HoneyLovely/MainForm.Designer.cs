@@ -41,7 +41,7 @@
             colHeight = new DataGridViewTextBoxColumn();
             colWeight = new DataGridViewTextBoxColumn();
             bdsMemberDetails = new BindingSource(components);
-            _bdsMembers = new BindingSource(components);
+            bdsMembers = new BindingSource(components);
             splitContainer1 = new SplitContainer();
             txtAge = new TextBox();
             lblAge = new Label();
@@ -61,7 +61,7 @@
             menuFind = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)_bdsMembers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdsMembers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -139,11 +139,11 @@
             // _bdsMemberDetails
             // 
             bdsMemberDetails.DataMember = "Details";
-            bdsMemberDetails.DataSource = _bdsMembers;
+            bdsMemberDetails.DataSource = bdsMembers;
             // 
             // _bdsMembers
             // 
-            _bdsMembers.DataSource = typeof(Models.Member);
+            bdsMembers.DataSource = typeof(Models.Member);
             // 
             // splitContainer1
             // 
@@ -179,7 +179,7 @@
             // 
             // txtAge
             // 
-            txtAge.DataBindings.Add(new Binding("Text", _bdsMembers, "Age", true));
+            txtAge.DataBindings.Add(new Binding("Text", bdsMembers, "Age", true));
             txtAge.Enabled = false;
             txtAge.Location = new Point(467, 51);
             txtAge.Margin = new Padding(5);
@@ -200,7 +200,7 @@
             // 
             // combGender
             // 
-            combGender.DataBindings.Add(new Binding("Text", _bdsMembers, "Gender", true));
+            combGender.DataBindings.Add(new Binding("Text", bdsMembers, "Gender", true));
             combGender.DisplayMember = "Value";
             combGender.DropDownStyle = ComboBoxStyle.DropDownList;
             combGender.Enabled = false;
@@ -224,7 +224,7 @@
             // dtpBirthday
             // 
             dtpBirthday.CustomFormat = "yyyy 年 MM 月 dd 日";
-            dtpBirthday.DataBindings.Add(new Binding("Value", _bdsMembers, "Birthday", true));
+            dtpBirthday.DataBindings.Add(new Binding("Value", bdsMembers, "Birthday", true));
             dtpBirthday.Enabled = false;
             dtpBirthday.Format = DateTimePickerFormat.Custom;
             dtpBirthday.Location = new Point(114, 51);
@@ -235,7 +235,7 @@
             // 
             // txtPhone
             // 
-            txtPhone.DataBindings.Add(new Binding("Text", _bdsMembers, "Phone", true));
+            txtPhone.DataBindings.Add(new Binding("Text", bdsMembers, "Phone", true));
             txtPhone.Enabled = false;
             txtPhone.Location = new Point(467, 14);
             txtPhone.Margin = new Padding(5);
@@ -256,7 +256,7 @@
             // 
             // txtCardNo
             // 
-            txtCardNo.DataBindings.Add(new Binding("Text", _bdsMembers, "CardNo", true));
+            txtCardNo.DataBindings.Add(new Binding("Text", bdsMembers, "CardNo", true));
             txtCardNo.Enabled = false;
             txtCardNo.Location = new Point(803, 51);
             txtCardNo.Margin = new Padding(5);
@@ -287,7 +287,7 @@
             // 
             // txtName
             // 
-            txtName.DataBindings.Add(new Binding("Text", _bdsMembers, "Name", true));
+            txtName.DataBindings.Add(new Binding("Text", bdsMembers, "Name", true));
             txtName.Enabled = false;
             txtName.Location = new Point(114, 14);
             txtName.Margin = new Padding(5);
@@ -352,7 +352,7 @@
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).EndInit();
             ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).EndInit();
-            ((System.ComponentModel.ISupportInitialize)_bdsMembers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdsMembers).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -388,7 +388,7 @@
         private DataGridViewTextBoxColumn colCount;
         private DataGridViewTextBoxColumn colHeight;
         private DataGridViewTextBoxColumn colWeight;
-        private BindingSource _bdsMembers;
+        private BindingSource bdsMembers;
         private BindingSource bdsMemberDetails;
     }
 }

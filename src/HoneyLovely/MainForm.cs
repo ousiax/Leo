@@ -17,9 +17,9 @@ namespace HoneyLovely
             LoadMembersAsync();
         }
 
-        private List<Member> Members { get { return _bdsMembers.List as List<Member>; } }
+        private List<Member> Members { get { return bdsMembers.List as List<Member>; } }
 
-        private Member CurrentMember { get { return _bdsMembers.Current as Member; } }
+        private Member CurrentMember { get { return bdsMembers.Current as Member; } }
 
         private void InitializeContextMenu()
         {
@@ -84,7 +84,7 @@ namespace HoneyLovely
 
                     var members = new List<Member>();
                     members.AddRange(t.Result);
-                    _bdsMembers.DataSource = members;
+                    bdsMembers.DataSource = members;
                     //_bdsMembers.ResetBindings(false);
                 }
             });
@@ -105,8 +105,11 @@ namespace HoneyLovely
                         if (t.IsCompletedSuccessfully)
                         {
                             Members.Add(newMember);
-                            _bdsMembers.ResetBindings(false);
-                            _bdsMembers.Position = Members.IndexOf(newMember);
+                            this.Invoke(() =>
+                            {
+                                bdsMembers.ResetBindings(false);
+                                bdsMembers.Position = Members.IndexOf(newMember);
+                            });
                         }
                     });
                 }
@@ -121,8 +124,8 @@ namespace HoneyLovely
                 {
                     _memberService.UpdateAsync(CurrentMember).ContinueWith(t =>
                     {
-                        _bdsMembers.ResetBindings(false);
-                        _bdsMembers.Position = Members.IndexOf(CurrentMember);
+                        bdsMembers.ResetBindings(false);
+                        bdsMembers.Position = Members.IndexOf(CurrentMember);
                     });
                 }
             };
@@ -133,7 +136,7 @@ namespace HoneyLovely
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    _bdsMembers.Position = Members.IndexOf(frm.Index);
+                    bdsMembers.Position = Members.IndexOf(frm.Index);
                 }
             };
         }
