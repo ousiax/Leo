@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             dgvMemberDetails = new DataGridView();
             colDate = new DataGridViewTextBoxColumn();
@@ -39,6 +40,8 @@
             colCount = new DataGridViewTextBoxColumn();
             colHeight = new DataGridViewTextBoxColumn();
             colWeight = new DataGridViewTextBoxColumn();
+            _bdsMemberDetails = new BindingSource(components);
+            _bdsMembers = new BindingSource(components);
             splitContainer1 = new SplitContainer();
             txtAge = new TextBox();
             lblAge = new Label();
@@ -57,6 +60,8 @@
             menuModify = new ToolStripMenuItem();
             menuFind = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_bdsMemberDetails).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_bdsMembers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -68,12 +73,14 @@
             // 
             dgvMemberDetails.AllowUserToAddRows = false;
             dgvMemberDetails.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle5.SelectionBackColor = Color.Silver;
-            dgvMemberDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle1.SelectionBackColor = Color.Silver;
+            dgvMemberDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvMemberDetails.AutoGenerateColumns = false;
             dgvMemberDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMemberDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMemberDetails.Columns.AddRange(new DataGridViewColumn[] { colDate, colItem, colCount, colHeight, colWeight });
+            dgvMemberDetails.DataSource = _bdsMemberDetails;
             dgvMemberDetails.Dock = DockStyle.Fill;
             dgvMemberDetails.Location = new Point(0, 0);
             dgvMemberDetails.Margin = new Padding(5);
@@ -86,8 +93,8 @@
             // colDate
             // 
             colDate.DataPropertyName = "Date";
-            dataGridViewCellStyle6.Format = "yyyy年MM月dd日 HH时mm分ss秒";
-            colDate.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Format = "yyyy年MM月dd日 HH时mm分ss秒";
+            colDate.DefaultCellStyle = dataGridViewCellStyle2;
             colDate.HeaderText = "日期";
             colDate.MinimumWidth = 8;
             colDate.Name = "colDate";
@@ -112,8 +119,8 @@
             // colHeight
             // 
             colHeight.DataPropertyName = "Height";
-            dataGridViewCellStyle7.Format = "##.##";
-            colHeight.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Format = "##.##";
+            colHeight.DefaultCellStyle = dataGridViewCellStyle3;
             colHeight.HeaderText = "身高 (CM)";
             colHeight.MinimumWidth = 8;
             colHeight.Name = "colHeight";
@@ -122,12 +129,21 @@
             // colWeight
             // 
             colWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle8.Format = "##.##";
-            colWeight.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Format = "##.##";
+            colWeight.DefaultCellStyle = dataGridViewCellStyle4;
             colWeight.HeaderText = "体重 (KG)";
             colWeight.MinimumWidth = 8;
             colWeight.Name = "colWeight";
             colWeight.ReadOnly = true;
+            // 
+            // _bdsMemberDetails
+            // 
+            _bdsMemberDetails.DataMember = "Details";
+            _bdsMemberDetails.DataSource = _bdsMembers;
+            // 
+            // _bdsMembers
+            // 
+            _bdsMembers.DataSource = typeof(Models.Member);
             // 
             // splitContainer1
             // 
@@ -163,6 +179,7 @@
             // 
             // txtAge
             // 
+            txtAge.DataBindings.Add(new Binding("Text", _bdsMembers, "Age", true));
             txtAge.Enabled = false;
             txtAge.Location = new Point(467, 51);
             txtAge.Margin = new Padding(5);
@@ -183,6 +200,7 @@
             // 
             // combGender
             // 
+            combGender.DataBindings.Add(new Binding("Text", _bdsMembers, "Gender", true));
             combGender.DisplayMember = "Value";
             combGender.DropDownStyle = ComboBoxStyle.DropDownList;
             combGender.Enabled = false;
@@ -206,6 +224,7 @@
             // dtpBirthday
             // 
             dtpBirthday.CustomFormat = "yyyy 年 MM 月 dd 日";
+            dtpBirthday.DataBindings.Add(new Binding("Value", _bdsMembers, "Birthday", true));
             dtpBirthday.Enabled = false;
             dtpBirthday.Format = DateTimePickerFormat.Custom;
             dtpBirthday.Location = new Point(114, 51);
@@ -216,6 +235,7 @@
             // 
             // txtPhone
             // 
+            txtPhone.DataBindings.Add(new Binding("Text", _bdsMembers, "Phone", true));
             txtPhone.Enabled = false;
             txtPhone.Location = new Point(467, 14);
             txtPhone.Margin = new Padding(5);
@@ -236,6 +256,7 @@
             // 
             // txtCardNo
             // 
+            txtCardNo.DataBindings.Add(new Binding("Text", _bdsMembers, "CardNo", true));
             txtCardNo.Enabled = false;
             txtCardNo.Location = new Point(803, 51);
             txtCardNo.Margin = new Padding(5);
@@ -266,6 +287,7 @@
             // 
             // txtName
             // 
+            txtName.DataBindings.Add(new Binding("Text", _bdsMembers, "Name", true));
             txtName.Enabled = false;
             txtName.Location = new Point(114, 14);
             txtName.Margin = new Padding(5);
@@ -329,6 +351,8 @@
             Text = "会员管理系统";
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_bdsMemberDetails).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_bdsMembers).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -364,6 +388,8 @@
         private DataGridViewTextBoxColumn colCount;
         private DataGridViewTextBoxColumn colHeight;
         private DataGridViewTextBoxColumn colWeight;
+        private BindingSource _bdsMembers;
+        private BindingSource _bdsMemberDetails;
     }
 }
 

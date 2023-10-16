@@ -6,7 +6,6 @@ namespace HoneyLovely
     {
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
-        private readonly BindingSource _bdsMembers = new() { DataSource = new List<Member>() };
 
         public MainForm(IMemberService memberService, IMemberDetailService memberDetailService)
         {
@@ -14,12 +13,11 @@ namespace HoneyLovely
             _memberDetailService = memberDetailService;
 
             InitializeComponent();
-            InitializeDataBinding();
-            InitializeDatabase();
             InitializeContextMenu();
+            LoadMembersAsync();
         }
 
-        private List<Member> Members { get { return _bdsMembers.DataSource as List<Member>; } }
+        private List<Member> Members { get { return _bdsMembers.List as List<Member>; } }
 
         private Member CurrentMember { get { return _bdsMembers.Current as Member; } }
 
@@ -65,44 +63,28 @@ namespace HoneyLovely
             };
         }
 
-        private void InitializeDataBinding()
+        private Task LoadMembersAsync()
         {
-            this.combGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
-            this.combGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
-
-            this.txtName.DataBindings.Add(new Binding("Text", _bdsMembers, "Name"));
-            this.txtAge.DataBindings.Add(new Binding("Text", _bdsMembers, "Age"));
-            this.txtCardNo.DataBindings.Add(new Binding("Text", _bdsMembers, "CardNo"));
-            this.txtPhone.DataBindings.Add(new Binding("Text", _bdsMembers, "Phone"));
-            this.dtpBirthday.DataBindings.Add(new Binding("Value", _bdsMembers, "Birthday"));
-
-            //Member.PropertyChanged += (s, a) =>
-            //{
-            //    if (string.Equals("Gender", a.PropertyName))
-            //    {
-            //        for (int i = 0; i < this.combGender.Items.Count; i++)
-            //        {
-            //            if (string.Equals(_bindingSource.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
-            //            {
-            //                this.combGender.SelectedIndex = i;
-            //            }
-            //        }
-            //    }
-            //};
-
-            this.dgvMemberDetails.AutoGenerateColumns = false;
-            //this.dataGridView1.DataSource = new BindingSource { DataSource = _bindingSource };
-            //this.dataGridView1.DataMember = "Details";
-        }
-
-        private void InitializeDatabase()
-        {
-            _memberService.GetAsync().ContinueWith(t =>
+            return _memberService.GetAsync().ContinueWith(t =>
             {
                 if (t.IsCompletedSuccessfully)
                 {
-                    Members.AddRange(t.Result);
-                    _bdsMembers.ResetBindings(false);
+                    //var restore = _bdsMembers.RaiseListChangedEvents;
+                    //_bdsMembers.RaiseListChangedEvents = false;
+                    //foreach (var member in t.Result)
+                    //{
+                    //    _bdsMembers.Add(member);
+                    //}
+                    //if (restore)
+                    //{
+                    //    _bdsMembers.ResetBindings(true);
+                    //}
+                    //_bdsMembers.RaiseListChangedEvents = restore;
+
+                    var members = new List<Member>();
+                    members.AddRange(t.Result);
+                    _bdsMembers.DataSource = members;
+                    //_bdsMembers.ResetBindings(false);
                 }
             });
         }
