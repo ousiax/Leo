@@ -1,4 +1,6 @@
 ﻿using HoneyLovely.Services;
+using HoneyLovely.Web;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -13,6 +15,10 @@ namespace HoneyLovely
         static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(builder =>
+                {
+                    builder.UseStartup<Startup>();
+                })
                 .ConfigureServices(services =>
                 {
                     services.AddSingleton<IDbConnectionManager, DbConnectionManager>();
