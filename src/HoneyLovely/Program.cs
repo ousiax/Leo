@@ -30,6 +30,14 @@ namespace HoneyLovely
                 await services.ServiceProvider.GetRequiredService<IDatabaseService>().InitializeAsync();
             }
             var mainFrm = host.Services.GetRequiredService<MainForm>();
+
+            // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host
+            // When a host starts, it calls IHostedService.StartAsync on each implementation of IHostedService registered
+            // in the service container's collection of hosted services. In a worker service app, all IHostedService
+            // implementations that contain BackgroundService instances have their BackgroundService.ExecuteAsync methods called.
+            mainFrm.Load += async (s, e) => await host.StartAsync();
+            mainFrm.FormClosed += async (s, e) => await host.StopAsync();
+
             Application.Run(mainFrm);
         }
     }
