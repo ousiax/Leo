@@ -45,6 +45,7 @@ namespace HoneyLovely
                                 _memberDetailService.CreateAsync(newMemberDetail).ContinueWith(t => {
                                     if(t.IsCompletedSuccessfully){
                                         CurrentMember.Details.Add(newMemberDetail);
+                                        this.Invoke(() => bdsMemberDetails.ResetBindings(false));
                                     }
                                 });
                             }

@@ -40,7 +40,7 @@
             colCount = new DataGridViewTextBoxColumn();
             colHeight = new DataGridViewTextBoxColumn();
             colWeight = new DataGridViewTextBoxColumn();
-            _bdsMemberDetails = new BindingSource(components);
+            bdsMemberDetails = new BindingSource(components);
             _bdsMembers = new BindingSource(components);
             splitContainer1 = new SplitContainer();
             txtAge = new TextBox();
@@ -60,7 +60,7 @@
             menuModify = new ToolStripMenuItem();
             menuFind = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)_bdsMemberDetails).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)_bdsMembers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -80,7 +80,7 @@
             dgvMemberDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMemberDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMemberDetails.Columns.AddRange(new DataGridViewColumn[] { colDate, colItem, colCount, colHeight, colWeight });
-            dgvMemberDetails.DataSource = _bdsMemberDetails;
+            dgvMemberDetails.DataSource = bdsMemberDetails;
             dgvMemberDetails.Dock = DockStyle.Fill;
             dgvMemberDetails.Location = new Point(0, 0);
             dgvMemberDetails.Margin = new Padding(5);
@@ -138,8 +138,8 @@
             // 
             // _bdsMemberDetails
             // 
-            _bdsMemberDetails.DataMember = "Details";
-            _bdsMemberDetails.DataSource = _bdsMembers;
+            bdsMemberDetails.DataMember = "Details";
+            bdsMemberDetails.DataSource = _bdsMembers;
             // 
             // _bdsMembers
             // 
@@ -351,7 +351,7 @@
             Text = "会员管理系统";
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).EndInit();
-            ((System.ComponentModel.ISupportInitialize)_bdsMemberDetails).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).EndInit();
             ((System.ComponentModel.ISupportInitialize)_bdsMembers).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
@@ -389,7 +389,7 @@
         private DataGridViewTextBoxColumn colHeight;
         private DataGridViewTextBoxColumn colWeight;
         private BindingSource _bdsMembers;
-        private BindingSource _bdsMemberDetails;
+        private BindingSource bdsMemberDetails;
     }
 }
 
