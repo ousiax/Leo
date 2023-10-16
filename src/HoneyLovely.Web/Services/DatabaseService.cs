@@ -1,4 +1,4 @@
-﻿namespace HoneyLovely.Services
+﻿namespace HoneyLovely.Web.Services
 {
     internal class DatabaseService : IDatabaseService
     {

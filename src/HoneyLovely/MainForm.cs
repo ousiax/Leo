@@ -84,7 +84,7 @@ namespace HoneyLovely
 
                     var members = new List<Member>();
                     members.AddRange(t.Result);
-                    bdsMembers.DataSource = members;
+                    this.Invoke(() => bdsMembers.DataSource = members);
                     //_bdsMembers.ResetBindings(false);
                 }
             });

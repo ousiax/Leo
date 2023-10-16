@@ -1,31 +1,27 @@
-﻿using HoneyLovely.Models;
-using System.Data;
-using System.Data.SQLite;
+﻿using Alyio.Extensions;
+using HoneyLovely.Models;
+using HoneyLovely.Options;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace HoneyLovely.Services
 {
     internal sealed class MemberDetailService : IMemberDetailService
     {
-        private readonly IDbConnectionManager _dbConnectionManager;
+        private readonly HttpClient _http;
 
-        public MemberDetailService(IDbConnectionManager dbConnectionManager)
+        public MemberDetailService(IHttpClientFactory httpClientFactory, IOptions<WebHostAddressOptions> addressProvider)
         {
-            _dbConnectionManager = dbConnectionManager;
+            _http = httpClientFactory.CreateClient();
+            _http.BaseAddress = addressProvider.Value.BaseAddress;
         }
 
         public async Task<int> CreateAsync(MemberDetail detail)
         {
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member_detail (id, date , item , count , height , weight) "
-                + "VALUES (@id, @date , @item , @count , @height , @weight)";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = detail.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@date") { DbType = DbType.String, Value = detail.Date });
-            cmd.Parameters.Add(new SQLiteParameter("@item") { DbType = DbType.String, Value = detail.Item });
-            cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.String, Value = detail.Count });
-            cmd.Parameters.Add(new SQLiteParameter("@height") { DbType = DbType.String, Value = detail.Height });
-            cmd.Parameters.Add(new SQLiteParameter("@weight") { DbType = DbType.String, Value = detail.Weight });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var response = await _http.PostAsJsonAsync("/member-details", detail);
+            response.EnsureSuccessStatusCode();
+            var count = await response.Content.ReadAsStringAsync();
+            return count.ToInt32().Value;
         }
     }
 }

@@ -1,10 +1,21 @@
-﻿namespace HoneyLovely.Web
+﻿using HoneyLovely.Web.Routing;
+using HoneyLovely.Web.Services;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+
+namespace HoneyLovely.Web
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddSingleton<IDbConnectionManager, DbConnectionManager>();
+            services.AddTransient<IDatabaseService, DatabaseService>();
+            services.AddSingleton<IMemberService, MemberService>();
+            services.AddSingleton<IMemberDetailService, MemberDetailService>();
+            services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }

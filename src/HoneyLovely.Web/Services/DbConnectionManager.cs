@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.SQLite;
 
-namespace HoneyLovely.Services
+namespace HoneyLovely.Web.Services
 {
     internal class DbConnectionManager : IDbConnectionManager
     {

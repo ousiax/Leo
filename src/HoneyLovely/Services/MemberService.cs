@@ -1,123 +1,54 @@
-﻿using Alyio.Extensions;
-using HoneyLovely.Models;
-using System.Data;
-using System.Data.SQLite;
+﻿using HoneyLovely.Models;
+using HoneyLovely.Options;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace HoneyLovely.Services
 {
     internal sealed class MemberService : IMemberService
     {
-        private readonly IDbConnectionManager _dbConnectionManager;
+        private readonly HttpClient _http;
 
-        public MemberService(IDbConnectionManager dbConnectionManager)
+        public MemberService(IHttpClientFactory httpClientFactory, IOptions<WebHostAddressOptions> addressProvider)
         {
-            _dbConnectionManager = dbConnectionManager;
+            _http = httpClientFactory.CreateClient();
+            _http.BaseAddress = addressProvider.Value.BaseAddress;
         }
 
         public async Task<Member> GetAsync(Guid id)
         {
-            var member = (Member)null;
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member"
-                + "WHERE id = @id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = id });
-            using var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false);
-            if (reader.Read())
-            {
-                member = new Member
-                {
-                    Id = Guid.Parse(reader["id"].ToString()),
-                    Name = reader["name"].ToString(),
-                    Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
-                    CardNo = reader["cardno"].ToString(),
-                    Gender = reader["gender"].ToString(),
-                    Phone = reader["phone"].ToString()
-                };
-            }
-            return member;
+            var res = await _http.GetAsync($"/members/{id}");
+            res.EnsureSuccessStatusCode();
+            return await res.Content.ReadFromJsonAsync<Member>();
         }
 
         public async Task<List<Member>> GetAsync()
         {
-            var members = new List<Member>();
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member";
-            using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
+            var res = await _http.GetAsync($"/members");
+            res.EnsureSuccessStatusCode();
+            var members = await res.Content.ReadFromJsonAsync<List<Member>>();
+            foreach (var member in members)
             {
-                while (reader.Read())
-                {
-                    members.Add(new Member
-                    {
-                        Id = Guid.Parse(reader["id"].ToString()),
-                        Name = reader["name"].ToString(),
-                        Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
-                        CardNo = reader["cardno"].ToString(),
-                        Gender = reader["gender"].ToString(),
-                        Phone = reader["phone"].ToString()
-                    });
-                }
+                res = await _http.GetAsync($"/members/{member.Id}/details");
+                res.EnsureSuccessStatusCode();
+                var details = await res.Content.ReadFromJsonAsync<List<MemberDetail>>();
+                member.Details.AddRange(details);
             }
-
-            cmd.CommandText = "SELECT * FROM member_detail WHERE id = @id";
-            foreach (var mem in members)
-            {
-                cmd.Parameters.Clear();
-                cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = mem.Id });
-                using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-                {
-                    while (reader.Read())
-                    {
-                        mem.Details.Add(new MemberDetail
-                        {
-                            Id = Guid.Parse(reader["id"].ToString()),
-                            Date = reader["date"].ToDateTime().Value,
-                            Item = reader["item"].ToString(),
-                            Count = reader["count"].ToInt32() ?? 0,
-                            Height = reader["height"].ToDouble() ?? 0.0d,
-                            Weight = reader["weight"].ToDouble() ?? 0.0d
-                        });
-                    }
-                }
-            }
-
             return members;
         }
 
         public async Task<int> CreateAsync(Member member)
         {
-            if (member.Id == Guid.Empty)
-            {
-                member.Id = Guid.NewGuid();
-            }
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member (id, name , phone , gender , birthday , cardno) "
-                + "VALUES (@id, @name , @phone , @gender , @birthday , @cardno)";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
-            cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
-            cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
-            cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var res = await _http.PostAsJsonAsync("/members", member);
+            res.EnsureSuccessStatusCode();
+            return 0;
         }
 
         public async Task<int> UpdateAsync(Member member)
         {
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE member "
-                + "SET name=@name , phone=@phone , gender=@gender , birthday=@birthday , cardno=@cardno "
-                + "WHERE id=@id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
-            cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
-            cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
-            cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var res = await _http.PutAsJsonAsync("/members", member);
+            res.EnsureSuccessStatusCode();
+            return 0;
         }
     }
 }

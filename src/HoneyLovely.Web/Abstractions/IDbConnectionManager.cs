@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace HoneyLovely
+namespace HoneyLovely.Web
 {
     public interface IDbConnectionManager
     {
