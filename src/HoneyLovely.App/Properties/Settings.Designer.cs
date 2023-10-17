@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HoneyLovely.Properties {
+namespace HoneyLovely.App.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

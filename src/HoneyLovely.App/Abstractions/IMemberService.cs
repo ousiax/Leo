@@ -1,6 +1,6 @@
-﻿using HoneyLovely.Models;
+﻿using HoneyLovely.App.Models;
 
-namespace HoneyLovely
+namespace HoneyLovely.App
 {
     public interface IMemberService
     {

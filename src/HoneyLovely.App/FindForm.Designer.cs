@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace HoneyLovely
+namespace HoneyLovely.App
 {
     partial class FindForm
     {

@@ -1,9 +1,9 @@
-﻿using HoneyLovely.Models;
-using HoneyLovely.Options;
+﻿using HoneyLovely.App.Models;
+using HoneyLovely.App.Options;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 
-namespace HoneyLovely.Services
+namespace HoneyLovely.App.Services
 {
     internal sealed class MemberService : IMemberService
     {

@@ -1,4 +1,4 @@
-﻿namespace HoneyLovely.Options
+﻿namespace HoneyLovely.App.Options
 {
     internal class WebHostAddressOptions
     {

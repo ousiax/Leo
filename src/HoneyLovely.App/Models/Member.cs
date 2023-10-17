@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HoneyLovely.Models
+namespace HoneyLovely.App.Models
 {
     public class Member : INotifyPropertyChanged
     {

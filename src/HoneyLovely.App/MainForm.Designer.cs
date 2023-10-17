@@ -1,4 +1,4 @@
-﻿namespace HoneyLovely
+﻿namespace HoneyLovely.App
 {
     partial class MainForm
     {

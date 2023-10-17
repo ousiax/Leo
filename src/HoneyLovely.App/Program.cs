@@ -1,5 +1,5 @@
-﻿using HoneyLovely.Options;
-using HoneyLovely.Services;
+﻿using HoneyLovely.App.Options;
+using HoneyLovely.App.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace HoneyLovely
+namespace HoneyLovely.App
 {
     static class Program
     {
