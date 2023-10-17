@@ -5,9 +5,11 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E719A028-C79F-4B69-A87B-614DD4CC5748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Web", "src\Leo.Web\Leo.Web.csproj", "{E0D523F0-03C8-4B5B-B916-EA5DE198C573}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Web", "src\Leo.Web\Leo.Web.csproj", "{E0D523F0-03C8-4B5B-B916-EA5DE198C573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.App", "src\Leo.App\Leo.App.csproj", "{0919CD0D-BF4D-4B83-B429-1CE63C830B0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.App", "src\Leo.App\Leo.App.csproj", "{0919CD0D-BF4D-4B83-B429-1CE63C830B0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.App.Services", "src\Leo.App.Services\Leo.App.Services.csproj", "{DB11A9F8-3DB0-4149-BA09-68A394627357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,18 @@ Global
 		{0919CD0D-BF4D-4B83-B429-1CE63C830B0E}.Release|x64.Build.0 = Release|Any CPU
 		{0919CD0D-BF4D-4B83-B429-1CE63C830B0E}.Release|x86.ActiveCfg = Release|Any CPU
 		{0919CD0D-BF4D-4B83-B429-1CE63C830B0E}.Release|x86.Build.0 = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|x64.Build.0 = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Debug|x86.Build.0 = Debug|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|x64.ActiveCfg = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|x64.Build.0 = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|x86.ActiveCfg = Release|Any CPU
+		{DB11A9F8-3DB0-4149-BA09-68A394627357}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +64,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E0D523F0-03C8-4B5B-B916-EA5DE198C573} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
 		{0919CD0D-BF4D-4B83-B429-1CE63C830B0E} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
+		{DB11A9F8-3DB0-4149-BA09-68A394627357} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA7F0677-1F7B-476F-A1BF-A55979EDF2E5}
 	EndGlobalSection
 EndGlobal

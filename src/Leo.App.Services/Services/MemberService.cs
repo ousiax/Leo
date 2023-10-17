@@ -9,7 +9,7 @@ namespace Leo.App.Services
     {
         private readonly HttpClient _http;
 
-        public MemberService(IHttpClientFactory httpClientFactory, IOptions<WebHostAddressOptions> addressProvider)
+        public MemberService(IHttpClientFactory httpClientFactory, IOptions<WebOptions> addressProvider)
         {
             _http = httpClientFactory.CreateClient();
             _http.BaseAddress = addressProvider.Value.BaseAddress;

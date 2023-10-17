@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ImplicitUsings>true</ImplicitUsings>
+    <Nullable>warnings</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>wx.ico</ApplicationIcon>
@@ -14,6 +15,7 @@
     <Content Include="wx.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Leo.App.Services\Leo.App.Services.csproj" />
     <ProjectReference Include="..\Leo.Web\Leo.Web.csproj" />
   </ItemGroup>
   <ItemGroup>

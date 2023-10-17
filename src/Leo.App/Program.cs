@@ -22,15 +22,9 @@ namespace Leo.App
                 {
                     builder.UseStartup<Leo.Web.Startup>();
                 })
-                .ConfigureAppConfiguration((ctx, conf) =>
-                {
-                })
                 .ConfigureServices(services =>
                 {
-                    services.Configure<WebHostAddressOptions>(_ => { });
-                    //services.AddSingleton<IWebHostAddressProvider, WebHostAddressProvider>();
-                    services.AddSingleton<IMemberService, MemberService>();
-                    services.AddSingleton<IMemberDetailService, MemberDetailService>();
+                    services.AddAppServices().AddOptions<WebOptions>();
                     services.AddSingleton<MainForm>();
                     services.AddHttpClient();
                 })
@@ -43,7 +37,7 @@ namespace Leo.App
                 await scope.ServiceProvider.GetRequiredService<Leo.Web.IDatabaseService>().InitializeAsync();
 
                 var address = scope.ServiceProvider.GetRequiredService<IServer>().Features.Get<IServerAddressesFeature>().Addresses.First();
-                scope.ServiceProvider.GetRequiredService<IOptions<WebHostAddressOptions>>().Value.BaseAddress = new Uri(address);
+                scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);
             }
 
             Application.EnableVisualStyles();

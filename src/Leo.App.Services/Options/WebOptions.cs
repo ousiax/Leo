@@ -1,6 +1,6 @@
 ﻿namespace Leo.App.Options
 {
-    internal class WebHostAddressOptions
+    public sealed class WebOptions
     {
         public Uri BaseAddress { get; set; }
     }
