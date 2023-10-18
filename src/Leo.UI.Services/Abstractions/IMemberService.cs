@@ -1,6 +1,6 @@
-﻿using Leo.App.Models;
+﻿using Leo.UI.Models;
 
-namespace Leo.App
+namespace Leo.UI
 {
     public interface IMemberService
     {

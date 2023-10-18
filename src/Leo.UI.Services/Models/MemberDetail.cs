@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Leo.App.Models
+namespace Leo.UI.Models
 {
     public class MemberDetail : INotifyPropertyChanged
     {

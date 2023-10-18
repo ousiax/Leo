@@ -143,7 +143,7 @@
             // 
             // _bdsMembers
             // 
-            bdsMembers.DataSource = typeof(Models.Member);
+            bdsMembers.DataSource = typeof(UI.Models.Member);
             // 
             // splitContainer1
             // 

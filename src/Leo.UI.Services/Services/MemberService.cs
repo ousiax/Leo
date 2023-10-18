@@ -1,9 +1,9 @@
-﻿using Leo.App.Models;
-using Leo.App.Options;
+﻿using Leo.UI.Models;
+using Leo.UI.Options;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 
-namespace Leo.App.Services
+namespace Leo.UI.Services
 {
     internal sealed class MemberService : IMemberService
     {

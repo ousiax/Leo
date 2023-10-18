@@ -1,4 +1,5 @@
-﻿using Leo.App.Models;
+﻿using Leo.UI;
+using Leo.UI.Models;
 
 namespace Leo.App
 {

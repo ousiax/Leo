@@ -174,7 +174,7 @@ namespace Leo.App
             // 
             // bdsMembers
             // 
-            bdsMembers.DataSource = typeof(Models.Member);
+            bdsMembers.DataSource = typeof(UI.Models.Member);
             // 
             // FindForm
             // 

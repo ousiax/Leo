@@ -1,4 +1,4 @@
-﻿namespace Leo.App.Options
+﻿namespace Leo.UI.Options
 {
     public sealed class WebOptions
     {

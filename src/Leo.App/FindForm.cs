@@ -1,4 +1,4 @@
-﻿using Leo.App.Models;
+﻿using Leo.UI.Models;
 
 namespace Leo.App
 {

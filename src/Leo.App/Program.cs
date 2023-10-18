@@ -1,5 +1,5 @@
-﻿using Leo.App.Options;
-using Leo.App.Services;
+﻿using Leo.UI.Options;
+using Leo.UI.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
