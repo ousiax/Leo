@@ -1,4 +1,4 @@
-﻿namespace Leo.Web.Models
+﻿namespace Leo.Web.Data.Models
 {
     public class Member
     {
@@ -13,5 +13,14 @@
         public DateTime Birthday { get; set; }
 
         public string CardNo { get; set; }
+
+        public ICollection<MemberDetail> Details { get; set; }
+    }
+
+    public enum Gender
+    {
+        Male,
+        Female,
+        Unkonw
     }
 }

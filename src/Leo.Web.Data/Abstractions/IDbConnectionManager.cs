@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Leo.Web
+namespace Leo.Web.Data
 {
     public interface IDbConnectionManager
     {

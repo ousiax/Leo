@@ -1,17 +1,21 @@
-﻿using Leo.Web.Routing;
-using Leo.Web.Services;
+﻿using Leo.Web.Data;
+using Leo.Web.Routing;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Leo.Web
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDbConnectionManager, DbConnectionManager>();
-            services.AddTransient<IDatabaseService, DatabaseService>();
-            services.AddSingleton<IMemberService, MemberService>();
-            services.AddSingleton<IMemberDetailService, MemberDetailService>();
+            services.AddDataServices();
             services.AddControllers(options =>
             {
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));

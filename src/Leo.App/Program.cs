@@ -34,7 +34,7 @@ namespace Leo.App
 
             using (var scope = host.Services.CreateScope())
             {
-                await scope.ServiceProvider.GetRequiredService<Leo.Web.IDatabaseService>().InitializeAsync();
+                await scope.ServiceProvider.GetRequiredService<Leo.Web.Data.IDatabaseService>().InitializeAsync();
 
                 var address = scope.ServiceProvider.GetRequiredService<IServer>().Features.Get<IServerAddressesFeature>().Addresses.First();
                 scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);

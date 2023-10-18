@@ -1,4 +1,5 @@
-using Leo.Web.Models;
+using Leo.Web.Data;
+using Leo.Web.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leo.Web.Controllers

@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Alyio.Extensions" Version="1.0.1" />
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leo.Web.Data.SQLite\Leo.Web.Data.SQLite.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 ﻿using Alyio.Extensions;
-using Leo.Web.Models;
+using Leo.Web.Data.Models;
 using System.Data;
 using System.Data.SQLite;
 
-namespace Leo.Web.Services
+namespace Leo.Web.Data.Services
 {
     internal sealed class MemberService : IMemberService
     {

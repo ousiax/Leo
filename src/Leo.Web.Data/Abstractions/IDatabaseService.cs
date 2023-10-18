@@ -1,4 +1,4 @@
-﻿namespace Leo.Web
+﻿namespace Leo.Web.Data
 {
     public interface IDatabaseService
     {

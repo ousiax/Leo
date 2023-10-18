@@ -1,4 +1,4 @@
-﻿namespace Leo.Web.Services
+﻿namespace Leo.Web.Data.Services
 {
     internal class DatabaseService : IDatabaseService
     {
