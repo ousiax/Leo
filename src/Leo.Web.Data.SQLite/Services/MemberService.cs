@@ -14,12 +14,12 @@ namespace Leo.Web.Data.Services
             _dbConnectionManager = dbConnectionManager;
         }
 
-        public async Task<Member> GetAsync(Guid id)
+        public async Task<Member?> GetAsync(Guid id)
         {
-            var member = (Member)null;
+            var member = null as Member;
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member"
+            cmd.CommandText = "SELECT * FROM member "
                 + "WHERE id = @id";
             cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = id });
             using var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false);
@@ -29,7 +29,7 @@ namespace Leo.Web.Data.Services
                 {
                     Id = Guid.Parse(reader["id"].ToString()),
                     Name = reader["name"].ToString(),
-                    Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
+                    Birthday = reader["birthday"].ToDateTime(),
                     CardNo = reader["cardno"].ToString(),
                     Gender = reader["gender"].ToString(),
                     Phone = reader["phone"].ToString()

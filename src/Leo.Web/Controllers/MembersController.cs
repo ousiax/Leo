@@ -26,7 +26,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Member> GetAsync(Guid id)
+        public Task<Member?> GetAsync(Guid id)
         {
             return _memberService.GetAsync(id);
         }

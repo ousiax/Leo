@@ -4,7 +4,7 @@ namespace Leo.UI
 {
     public interface IMemberService
     {
-        Task<Member> GetAsync(Guid id);
+        Task<Member?> GetAsync(Guid id);
 
         Task<List<Member>> GetAsync();
 

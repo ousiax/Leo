@@ -15,18 +15,18 @@ namespace Leo.UI.Services
             _http.BaseAddress = addressProvider.Value.BaseAddress;
         }
 
-        public async Task<Member> GetAsync(Guid id)
+        public async Task<Member?> GetAsync(Guid id)
         {
             var res = await _http.GetAsync($"/members/{id}");
             res.EnsureSuccessStatusCode();
-            return await res.Content.ReadFromJsonAsync<Member>();
+            return await res.Content.ReadFromJsonAsync<Member?>();
         }
 
         public async Task<List<Member>> GetAsync()
         {
             var res = await _http.GetAsync($"/members");
             res.EnsureSuccessStatusCode();
-            var members = await res.Content.ReadFromJsonAsync<List<Member>>();
+            var members = await res.Content.ReadFromJsonAsync<List<Member>>() ?? new();
             foreach (var member in members)
             {
                 res = await _http.GetAsync($"/members/{member.Id}/details");

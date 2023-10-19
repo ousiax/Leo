@@ -6,12 +6,12 @@ namespace Leo.UI.Models
     public class Member : INotifyPropertyChanged
     {
         private Guid _id;
-        private string _name;
-        private string _phone;
-        private string _gender;
-        private DateTime _birthday;
-        private string _cardNo;
-        private readonly List<MemberDetail> _details = new List<MemberDetail>();
+        private string? _name;
+        private string? _phone;
+        private string? _gender;
+        private DateTime? _birthday;
+        private string? _cardNo;
+        private readonly List<MemberDetail> _details = new();
 
         public Guid Id
         {
@@ -23,7 +23,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string Name
+        public string? Name
         {
             get { return _name; }
             set
@@ -33,7 +33,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string Phone
+        public string? Phone
         {
             get { return _phone; }
             set
@@ -43,7 +43,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string Gender
+        public string? Gender
         {
             get { return _gender; }
             set
@@ -55,7 +55,7 @@ namespace Leo.UI.Models
 
         public DateTime Birthday
         {
-            get { return DateTime.MinValue.Equals(_birthday) ? DateTime.Now : _birthday; }
+            get { return _birthday == null ? DateTime.MinValue : _birthday.Value; }
             set
             {
                 _birthday = value;
@@ -63,7 +63,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string Age
+        public string? Age
         {
             get
             {
@@ -79,7 +79,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string CardNo
+        public string? CardNo
         {
             get { return _cardNo; }
             set
@@ -89,15 +89,11 @@ namespace Leo.UI.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public List<MemberDetail> Details

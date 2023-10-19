@@ -18,9 +18,9 @@ namespace Leo.App
             LoadMembersAsync();
         }
 
-        private List<Member> Members { get { return bdsMembers.List as List<Member>; } }
+        private List<Member> Members { get { return (List<Member>)bdsMembers.List; } }
 
-        private Member CurrentMember { get { return bdsMembers.Current as Member; } }
+        private Member CurrentMember { get { return (Member)bdsMembers.Current; } }
 
         private void InitializeContextMenu()
         {
@@ -135,7 +135,7 @@ namespace Leo.App
             {
                 using var frm = new FindForm(Members);
                 var result = frm.ShowDialog();
-                if (result == DialogResult.OK)
+                if (result == DialogResult.OK && frm.Index != null)
                 {
                     bdsMembers.Position = Members.IndexOf(frm.Index);
                 }

@@ -21,7 +21,7 @@ namespace Leo.UI.Services
             var response = await _http.PostAsJsonAsync("/member-details", detail);
             response.EnsureSuccessStatusCode();
             var count = await response.Content.ReadAsStringAsync();
-            return count.ToInt32().Value;
+            return count.ToInt32() ?? 0;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Leo.UI.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Leo.App
 {
@@ -6,13 +7,13 @@ namespace Leo.App
     {
         private readonly IReadOnlyList<Member> _members;
 
-        public Member Index { get; private set; }
+        public Member? Index { get; private set; }
 
-        public FindForm(IReadOnlyList<Member> members)
+        public FindForm([DisallowNull] IReadOnlyList<Member> members)
         {
+            _members = members ?? throw new ArgumentNullException(nameof(members));
             InitializeComponent();
             InitializeDataBindings();
-            _members = members;
             bdsMembers.DataSource = _members;
         }
 
@@ -36,7 +37,6 @@ namespace Leo.App
         {
             this.dgvMembers.MouseDoubleClick += (s, a) =>
             {
-                var dgvMembers = s as DataGridView;
                 if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex >= 0)
                 {
                     var mem = dgvMembers.CurrentRow.DataBoundItem as Member;
@@ -56,13 +56,13 @@ namespace Leo.App
                 switch (selectedValue)
                 {
                     case "name":
-                        this.bdsMembers.DataSource = _members.Where(o => o.Name.Contains(txtSearchText.Text)).ToList();
+                        bdsMembers.DataSource = _members.Where(m => m.Name?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "card":
-                        this.bdsMembers.DataSource = _members.Where(o => o.CardNo.Contains(txtSearchText.Text)).ToList();
+                        this.bdsMembers.DataSource = _members.Where(m => m.CardNo?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "phone":
-                        this.bdsMembers.DataSource = _members.Where(o => o.Phone.Contains(txtSearchText.Text)).ToList();
+                        this.bdsMembers.DataSource = _members.Where(m => m.Phone?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                 }
             };

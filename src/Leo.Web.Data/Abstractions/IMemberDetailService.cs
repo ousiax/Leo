@@ -6,7 +6,7 @@ namespace Leo.Web.Data
     {
         Task<List<MemberDetail>> GetByMemberIdAsync(Guid memberId);
 
-        Task<MemberDetail> GetByIdAsync(Guid id);
+        Task<MemberDetail?> GetByIdAsync(Guid id);
 
         Task<int> CreateAsync(MemberDetail detail);
     }

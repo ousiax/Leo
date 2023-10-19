@@ -29,9 +29,9 @@ namespace Leo.Web.Data.Services
             return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public async Task<MemberDetail> GetByIdAsync(Guid id)
+        public async Task<MemberDetail?> GetByIdAsync(Guid id)
         {
-            var detail = (MemberDetail)null;
+            var detail = null as MemberDetail;
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT * FROM member_detail WHERE id = @id";
@@ -43,7 +43,7 @@ namespace Leo.Web.Data.Services
                     detail = new MemberDetail
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
-                        Date = reader["date"].ToDateTime().Value,
+                        Date = reader["date"].ToDateTime(),
                         Item = reader["item"].ToString(),
                         Count = reader["count"].ToInt32() ?? 0,
                         Height = reader["height"].ToDouble() ?? 0.0d,
@@ -68,7 +68,7 @@ namespace Leo.Web.Data.Services
                     members.Add(new MemberDetail
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
-                        Date = reader["date"].ToDateTime().Value,
+                        Date = reader["date"].ToDateTime(),
                         Item = reader["item"].ToString(),
                         Count = reader["count"].ToInt32() ?? 0,
                         Height = reader["height"].ToDouble() ?? 0.0d,

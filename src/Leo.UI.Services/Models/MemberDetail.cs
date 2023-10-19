@@ -6,8 +6,8 @@ namespace Leo.UI.Models
     public class MemberDetail : INotifyPropertyChanged
     {
         private Guid _id;
-        private DateTime _date;
-        private string _item;
+        private DateTime? _date;
+        private string? _item;
         private int _count;
         private double _height;
         private double _weight;
@@ -22,7 +22,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public DateTime Date
+        public DateTime? Date
         {
             get { return _date; }
             set
@@ -32,7 +32,7 @@ namespace Leo.UI.Models
             }
         }
 
-        public string Item
+        public string? Item
         {
             get { return _item; }
             set
@@ -72,15 +72,11 @@ namespace Leo.UI.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
-            var handler = PropertyChanged;
-            if (handler != null && propertyName != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

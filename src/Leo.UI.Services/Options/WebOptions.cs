@@ -2,6 +2,6 @@
 {
     public sealed class WebOptions
     {
-        public Uri BaseAddress { get; set; }
+        public Uri? BaseAddress { get; set; }
     }
 }
