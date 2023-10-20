@@ -1,3 +1,4 @@
+using Alyio.AspNetCore.ApiMessages;
 using Leo.Web.Data;
 using Leo.Web.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -26,19 +27,20 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Member?> GetAsync(Guid id)
+        public async Task<Member?> GetAsync(Guid id)
         {
-            return _memberService.GetAsync(id);
+            return await _memberService.GetAsync(id) ?? throw new NotFoundMessage();
         }
 
         [HttpPost]
-        public Task<int> CreateAsync([FromBody] Member member)
+        public async Task<CreatedMessage> CreateAsync([FromBody] Member member)
         {
-            return _memberService.CreateAsync(member);
+            var id = await _memberService.CreateAsync(member);
+            return this.CreatedMessageAtAction(nameof(GetAsync), new { id }, id.ToString());
         }
 
         [HttpPut]
-        public Task<int> UpdateAsync([FromBody] Member member)
+        public Task UpdateAsync([FromBody] Member member)
         {
             return _memberService.UpdateAsync(member);
         }

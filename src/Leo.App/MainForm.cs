@@ -95,7 +95,7 @@ namespace Leo.App
         {
             menuNew.Click += (s, a) =>
             {
-                var newMember = new Member();
+                var newMember = new Member { Birthday = DateTime.Now };
                 using var frm = new NewForm(newMember);
                 frm.Text = "新增会员信息";
                 var result = frm.ShowDialog();

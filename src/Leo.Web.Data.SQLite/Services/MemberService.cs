@@ -31,7 +31,7 @@ namespace Leo.Web.Data.Services
                     Name = reader["name"].ToString(),
                     Birthday = reader["birthday"].ToDateTime(),
                     CardNo = reader["cardno"].ToString(),
-                    Gender = reader["gender"].ToString(),
+                    Gender = reader["gender"].ToEnum<Gender>(),
                     Phone = reader["phone"].ToString()
                 };
             }
@@ -54,7 +54,7 @@ namespace Leo.Web.Data.Services
                         Name = reader["name"].ToString(),
                         Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
                         CardNo = reader["cardno"].ToString(),
-                        Gender = reader["gender"].ToString(),
+                        Gender = reader["gender"].ToEnum<Gender>(),
                         Phone = reader["phone"].ToString()
                     });
                 }
@@ -63,12 +63,13 @@ namespace Leo.Web.Data.Services
             return members;
         }
 
-        public async Task<int> CreateAsync(Member member)
+        public async Task<Guid> CreateAsync(Member member)
         {
             if (member.Id == Guid.Empty)
             {
                 member.Id = Guid.NewGuid();
             }
+
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "INSERT INTO member (id, name , phone , gender , birthday , cardno) "
@@ -79,10 +80,11 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
             cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            return member.Id;
         }
 
-        public async Task<int> UpdateAsync(Member member)
+        public async Task UpdateAsync(Member member)
         {
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
@@ -95,7 +97,7 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
             cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
     }
 }

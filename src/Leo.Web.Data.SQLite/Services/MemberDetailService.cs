@@ -14,8 +14,10 @@ namespace Leo.Web.Data.Services
             _dbConnectionManager = dbConnectionManager;
         }
 
-        public async Task<int> CreateAsync(MemberDetail detail)
+        public async Task<Guid> CreateAsync(MemberDetail detail)
         {
+            detail.Id = Guid.NewGuid();
+
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "INSERT INTO member_detail (id, date , item , count , height , weight) "
@@ -26,7 +28,8 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.String, Value = detail.Count });
             cmd.Parameters.Add(new SQLiteParameter("@height") { DbType = DbType.String, Value = detail.Height });
             cmd.Parameters.Add(new SQLiteParameter("@weight") { DbType = DbType.String, Value = detail.Weight });
-            return await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            return detail.Id;
         }
 
         public async Task<MemberDetail?> GetByIdAsync(Guid id)

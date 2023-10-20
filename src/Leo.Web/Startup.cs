@@ -1,4 +1,5 @@
-﻿using Leo.Web.Data;
+﻿using Alyio.AspNetCore.ApiMessages;
+using Leo.Web.Data;
 using Leo.Web.Routing;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
@@ -29,12 +30,14 @@ namespace Leo.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseApiMessageHandler();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseApiMessageHandler();
                 app.UseHsts();
             }
 
