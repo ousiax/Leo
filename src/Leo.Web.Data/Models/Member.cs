@@ -13,8 +13,6 @@
         public DateTime? Birthday { get; set; }
 
         public string? CardNo { get; set; }
-
-        public ICollection<MemberDetail> Details { get; set; } = new List<MemberDetail>();
     }
 
     public enum Gender
