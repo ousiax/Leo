@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Alyio.Extensions" Version="2.1.0" />
+    <PackageReference Include="Alyio.Extensions.Http.Logging" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
   </ItemGroup>

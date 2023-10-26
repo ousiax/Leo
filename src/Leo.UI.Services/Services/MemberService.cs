@@ -1,18 +1,19 @@
 ﻿using Leo.UI.Models;
-using Leo.UI.Options;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
+using System.Text.Json.Nodes;
 
 namespace Leo.UI.Services
 {
     internal sealed class MemberService : IMemberService
     {
         private readonly HttpClient _http;
+        private readonly ILogger<MemberService> _logger;
 
-        public MemberService(IHttpClientFactory httpClientFactory, IOptions<WebOptions> addressProvider)
+        public MemberService(IHttpClientFactory httpClientFactory, ILogger<MemberService> logger)
         {
-            _http = httpClientFactory.CreateClient();
-            _http.BaseAddress = addressProvider.Value.BaseAddress;
+            _http = httpClientFactory.CreateClient("Leo");
+            _logger = logger;
         }
 
         public async Task<Member?> GetAsync(Guid id)
@@ -37,11 +38,23 @@ namespace Leo.UI.Services
             return members;
         }
 
-        public async Task<int> CreateAsync(Member member)
+        public async Task<string?> CreateAsync(Member member)
         {
+            string? id = null;
+
             var res = await _http.PostAsJsonAsync("/members", member);
-            res.EnsureSuccessStatusCode();
-            return 0;
+            if (res.IsSuccessStatusCode)
+            {
+                var result = await res.Content.ReadFromJsonAsync<JsonObject>();
+                id = result!["id"]!.ToString();
+            }
+            else
+            {
+                var error = await res.Content.ReadAsStringAsync();
+                _logger.LogError("Failed to create member: {}", error);
+            }
+
+            return id;
         }
 
         public async Task<int> UpdateAsync(Member member)

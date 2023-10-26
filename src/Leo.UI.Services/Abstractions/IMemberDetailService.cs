@@ -4,6 +4,6 @@ namespace Leo.UI
 {
     public interface IMemberDetailService
     {
-        Task<int> CreateAsync(MemberDetail detail);
+        Task<string?> CreateAsync(MemberDetail detail);
     }
 }
