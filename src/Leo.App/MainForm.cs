@@ -160,7 +160,7 @@ namespace Leo.App
         }
 
         // Fix multiple current changed event triggers problem when the form first loads.
-        private MemberViewModel _previousMemberViewModel;
+        private MemberViewModel? _previousMemberViewModel;
 
         private async void bdsMembers_CurrentChanged(object sender, EventArgs e)
         {
