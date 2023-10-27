@@ -78,7 +78,7 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
             cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
+            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
             await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
             return member.Id;
@@ -95,7 +95,7 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
             cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.String, Value = member.Birthday });
+            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
             await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
