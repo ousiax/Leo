@@ -28,6 +28,19 @@ namespace Leo.App
                     services.AddSingleton<MainForm>();
                     services.AddHttpClient();
                 })
+                .ConfigureLogging((ctx, logging) =>
+                {
+                    var logger = new StreamWriter(
+                        new FileStream(
+                            Path.Combine(ctx.HostingEnvironment.ContentRootPath, "log.txt"),
+                            FileMode.OpenOrCreate))
+                    {
+                        AutoFlush = true
+                    };
+                    // Redirect stdout, stderr to file stream.
+                    Console.SetOut(logger);
+                    Console.SetError(logger);
+                })
                 .Build();
 
             await host.StartAsync();

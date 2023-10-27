@@ -24,8 +24,8 @@ namespace Leo.App
             this.combSearchField.Items.Add(new KeyValuePair<string, string>("card", "卡号"));
             this.combSearchField.SelectedIndex = 0;
 
-            this.colGender.Items.Add(new KeyValuePair<string, string>("boy", "男"));
-            this.colGender.Items.Add(new KeyValuePair<string, string>("girl", "女"));
+            this.colGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
+            this.colGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
             this.colGender.ValueMember = "Key";
             this.colGender.DisplayMember = "Value";
 

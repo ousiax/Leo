@@ -1,5 +1,6 @@
 ﻿using Leo.UI;
 using Leo.UI.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Leo.App
 {
@@ -7,13 +8,16 @@ namespace Leo.App
     {
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
+        private readonly ILogger<MainForm> _logger;
 
-        public MainForm(IMemberService memberService, IMemberDetailService memberDetailService)
+        public MainForm(IMemberService memberService, IMemberDetailService memberDetailService, ILogger<MainForm> logger)
         {
             _memberService = memberService;
             _memberDetailService = memberDetailService;
+            _logger = logger;
 
             InitializeComponent();
+
             InitializeContextMenu();
             LoadMembersAsync();
         }
