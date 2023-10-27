@@ -1,6 +1,8 @@
 using Alyio.AspNetCore.ApiMessages;
+using AutoMapper;
+using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.Models;
 using Leo.Web.Data;
-using Leo.Web.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leo.Web.Controllers
@@ -12,43 +14,54 @@ namespace Leo.Web.Controllers
         private readonly ILogger<MembersController> _logger;
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
+        private readonly IMapper _mapper;
 
-        public MembersController(IMemberService memberService, IMemberDetailService memberDetailService, ILogger<MembersController> logger)
+        public MembersController(
+            IMemberService memberService,
+            IMemberDetailService memberDetailService,
+            IMapper mapper,
+            ILogger<MembersController> logger)
         {
             _memberService = memberService;
             _memberDetailService = memberDetailService;
+            _mapper = mapper;
             _logger = logger;
         }
 
         [HttpGet]
-        public Task<List<Member>> GetAsync()
+        public async Task<List<MemberDto>> GetAsync()
         {
-            return _memberService.GetAsync();
+            var members = await _memberService.GetAsync();
+            return _mapper.Map<List<MemberDto>>(members);
         }
 
         [HttpGet("{id}")]
-        public async Task<Member?> GetAsync(Guid id)
+        public async Task<MemberDto?> GetAsync(Guid id)
         {
-            return await _memberService.GetAsync(id) ?? throw new NotFoundMessage();
+            var member = await _memberService.GetAsync(id) ?? throw new NotFoundMessage();
+            return _mapper.Map<MemberDto?>(member);
         }
 
         [HttpPost]
-        public async Task<CreatedMessage> CreateAsync([FromBody] Member member)
+        public async Task<CreatedMessage> CreateAsync([FromBody] MemberDto memberDto)
         {
+            var member = _mapper.Map<Member>(memberDto);
             var id = await _memberService.CreateAsync(member);
             return this.CreatedMessageAtAction(nameof(GetAsync), new { id }, id.ToString());
         }
 
         [HttpPut]
-        public Task UpdateAsync([FromBody] Member member)
+        public Task UpdateAsync([FromBody] MemberDto memberDto)
         {
+            var member = _mapper.Map<Member>(memberDto);
             return _memberService.UpdateAsync(member);
         }
 
         [HttpGet("{id}/details")]
-        public Task<List<MemberDetail>> GetByMemberIdAsync(Guid id)
+        public async Task<List<MemberDetailDto>> GetByMemberIdAsync(Guid id)
         {
-            return _memberDetailService.GetByMemberIdAsync(id);
+            var details = await _memberDetailService.GetByMemberIdAsync(id);
+            return _mapper.Map<List<MemberDetailDto>>(details);
         }
     }
 }

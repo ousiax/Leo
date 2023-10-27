@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Leo.Data.Domain.ViewModels;
+using System.Windows.Forms;
 
 namespace Leo.App
 {
@@ -174,7 +175,7 @@ namespace Leo.App
             // 
             // bdsMembers
             // 
-            bdsMembers.DataSource = typeof(UI.Models.Member);
+            bdsMembers.DataSource = typeof(MemberViewModel);
             // 
             // FindForm
             // 

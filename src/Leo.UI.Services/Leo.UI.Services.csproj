@@ -12,6 +12,11 @@
     <PackageReference Include="Alyio.Extensions.Http.Logging" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leo.Data.Domain\Leo.Data.Domain.csproj" />
   </ItemGroup>
 
 </Project>

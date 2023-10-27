@@ -1,15 +1,15 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.Dtos;
 
 namespace Leo.UI
 {
     public interface IMemberService
     {
-        Task<Member?> GetAsync(Guid id);
+        Task<MemberDto?> GetAsync(Guid id);
 
-        Task<List<Member>> GetAsync();
+        Task<List<MemberDto>> GetAsync();
 
-        Task<string?> CreateAsync(Member member);
+        Task<string?> CreateAsync(MemberDto member);
 
-        Task<int> UpdateAsync(Member member);
+        Task<int> UpdateAsync(MemberDto member);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Leo.App
+﻿using Leo.Data.Domain.ViewModels;
+
+namespace Leo.App
 {
     partial class MainForm
     {
@@ -143,7 +145,7 @@
             // 
             // _bdsMembers
             // 
-            bdsMembers.DataSource = typeof(UI.Models.Member);
+            bdsMembers.DataSource = typeof(MemberViewModel);
             // 
             // splitContainer1
             // 

@@ -7,8 +7,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Leo.Data.Domain\Leo.Data.Domain.csproj" />
-  </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
+  </ItemGroup>
 </Project>

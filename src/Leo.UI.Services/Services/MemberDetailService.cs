@@ -1,4 +1,4 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.Dtos;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
@@ -16,7 +16,7 @@ namespace Leo.UI.Services
             _logger = logger;
         }
 
-        public async Task<string?> CreateAsync(MemberDetail detail)
+        public async Task<string?> CreateAsync(MemberDetailDto detail)
         {
             string? id = null;
 

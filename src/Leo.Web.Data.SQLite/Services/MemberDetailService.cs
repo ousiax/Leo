@@ -1,5 +1,5 @@
 ﻿using Alyio.Extensions;
-using Leo.Web.Data.Models;
+using Leo.Data.Domain.Models;
 using System.Data;
 using System.Data.SQLite;
 

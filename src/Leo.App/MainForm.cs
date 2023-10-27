@@ -1,5 +1,7 @@
-﻿using Leo.UI;
-using Leo.UI.Models;
+﻿using AutoMapper;
+using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.ViewModels;
+using Leo.UI;
 using Microsoft.Extensions.Logging;
 
 namespace Leo.App
@@ -8,12 +10,18 @@ namespace Leo.App
     {
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
+        private readonly IMapper _mapper;
         private readonly ILogger<MainForm> _logger;
 
-        public MainForm(IMemberService memberService, IMemberDetailService memberDetailService, ILogger<MainForm> logger)
+        public MainForm(
+            IMemberService memberService,
+            IMemberDetailService memberDetailService,
+            IMapper mapper,
+            ILogger<MainForm> logger)
         {
             _memberService = memberService;
             _memberDetailService = memberDetailService;
+            _mapper = mapper;
             _logger = logger;
 
             InitializeComponent();
@@ -22,9 +30,9 @@ namespace Leo.App
             LoadMembersAsync();
         }
 
-        private List<Member> Members { get { return (List<Member>)bdsMembers.List; } }
+        private List<MemberViewModel> Members { get { return (List<MemberViewModel>)bdsMembers.List; } }
 
-        private Member CurrentMember { get { return (Member)bdsMembers.Current; } }
+        private MemberViewModel CurrentMember { get { return (MemberViewModel)bdsMembers.Current; } }
 
         private void InitializeContextMenu()
         {
@@ -36,20 +44,22 @@ namespace Leo.App
                     menu.Items.AddRange(new ToolStripMenuItem[]
                      {
                         new ToolStripMenuItem("新增", null, (s, a) => {
-                            var newMemberDetail = new MemberDetail
+                            var newMemberDetailViewModel = new MemberDetailViewModel
                             {
                                 Id = CurrentMember.Id,
                                 Date = DateTime.Now
                             };
 
-                            using var frm = new RecordForm(newMemberDetail);
+                            using var frm = new RecordForm(newMemberDetailViewModel);
                             frm.Text = "新增";
                             var result = frm.ShowDialog();
                             if(result == DialogResult.OK)
                             {
-                                _memberDetailService.CreateAsync(newMemberDetail).ContinueWith(t => {
+                                var newMemberDetailDto = _mapper.Map<MemberDetailDto>(newMemberDetailViewModel);
+                                _memberDetailService.CreateAsync(newMemberDetailDto).ContinueWith(t => {
                                     if(t.IsCompletedSuccessfully){
-                                        CurrentMember.Details.Add(newMemberDetail);
+                                        // TODO load object from backend service
+                                        CurrentMember.Details.Add(newMemberDetailViewModel);
                                         this.Invoke(() => bdsMemberDetails.ResetBindings(false));
                                     }
                                 });
@@ -87,8 +97,8 @@ namespace Leo.App
                     //}
                     //_bdsMembers.RaiseListChangedEvents = restore;
 
-                    var members = new List<Member>();
-                    members.AddRange(t.Result);
+                    var members = new List<MemberViewModel>();
+                    members.AddRange(_mapper.Map<List<MemberViewModel>>(t.Result));
                     this.Invoke(() => bdsMembers.DataSource = members);
                     //_bdsMembers.ResetBindings(false);
                 }
@@ -99,21 +109,22 @@ namespace Leo.App
         {
             menuNew.Click += (s, a) =>
             {
-                var newMember = new Member { Birthday = DateTime.Now };
-                using var frm = new NewForm(newMember);
+                var newMemberViewModel = new MemberViewModel { Birthday = DateTime.Now };
+                using var frm = new NewForm(newMemberViewModel);
                 frm.Text = "新增会员信息";
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    _memberService.CreateAsync(newMember).ContinueWith(t =>
+                    var newMemberDto = _mapper.Map<MemberDto>(newMemberViewModel);
+                    _memberService.CreateAsync(newMemberDto).ContinueWith(t =>
                     {
                         if (t.IsCompletedSuccessfully)
                         {
-                            Members.Add(newMember);
+                            Members.Add(newMemberViewModel);
                             this.Invoke(() =>
                             {
                                 bdsMembers.ResetBindings(false);
-                                bdsMembers.Position = Members.IndexOf(newMember);
+                                bdsMembers.Position = Members.IndexOf(newMemberViewModel);
                             });
                         }
                     });
@@ -127,10 +138,11 @@ namespace Leo.App
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    _memberService.UpdateAsync(CurrentMember).ContinueWith(t =>
+                    var memberDto = _mapper.Map<MemberDto>(CurrentMember);
+                    _memberService.UpdateAsync(memberDto).ContinueWith(t =>
                     {
                         bdsMembers.ResetBindings(false);
-                        bdsMembers.Position = Members.IndexOf(CurrentMember);
+                        //bdsMembers.Position = Members.IndexOf(CurrentMember);
                     });
                 }
             };

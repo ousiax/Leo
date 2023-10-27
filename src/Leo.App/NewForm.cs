@@ -1,12 +1,12 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.ViewModels;
 
 namespace Leo.App
 {
     public partial class NewForm : Form
     {
-        private readonly Member _member;
+        private readonly MemberViewModel _member;
 
-        public NewForm(Member member)
+        public NewForm(MemberViewModel member)
         {
             this._member = member;
             InitializeComponent();

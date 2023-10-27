@@ -1,6 +1,6 @@
-﻿namespace Leo.Web.Data.Models
+﻿namespace Leo.Data.Domain.Dtos
 {
-    public class MemberDetail
+    public class MemberDetailDto
     {
         public Guid Id { get; set; }
 

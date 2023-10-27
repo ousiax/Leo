@@ -1,4 +1,4 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.Dtos;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
@@ -16,29 +16,22 @@ namespace Leo.UI.Services
             _logger = logger;
         }
 
-        public async Task<Member?> GetAsync(Guid id)
+        public async Task<MemberDto?> GetAsync(Guid id)
         {
             var res = await _http.GetAsync($"/members/{id}");
             res.EnsureSuccessStatusCode();
-            return await res.Content.ReadFromJsonAsync<Member?>();
+            return await res.Content.ReadFromJsonAsync<MemberDto?>();
         }
 
-        public async Task<List<Member>> GetAsync()
+        public async Task<List<MemberDto>> GetAsync()
         {
             var res = await _http.GetAsync($"/members");
             res.EnsureSuccessStatusCode();
-            var members = await res.Content.ReadFromJsonAsync<List<Member>>() ?? new();
-            foreach (var member in members)
-            {
-                res = await _http.GetAsync($"/members/{member.Id}/details");
-                res.EnsureSuccessStatusCode();
-                var details = await res.Content.ReadFromJsonAsync<List<MemberDetail>>();
-                member.Details.AddRange(details);
-            }
+            var members = await res.Content.ReadFromJsonAsync<List<MemberDto>>() ?? new();
             return members;
         }
 
-        public async Task<string?> CreateAsync(Member member)
+        public async Task<string?> CreateAsync(MemberDto member)
         {
             string? id = null;
 
@@ -57,7 +50,7 @@ namespace Leo.UI.Services
             return id;
         }
 
-        public async Task<int> UpdateAsync(Member member)
+        public async Task<int> UpdateAsync(MemberDto member)
         {
             var res = await _http.PutAsJsonAsync("/members", member);
             res.EnsureSuccessStatusCode();

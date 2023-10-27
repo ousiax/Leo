@@ -1,15 +1,15 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Leo.App
 {
     public partial class FindForm : Form
     {
-        private readonly IReadOnlyList<Member> _members;
+        private readonly IReadOnlyList<MemberViewModel> _members;
 
-        public Member? Index { get; private set; }
+        public MemberViewModel? Index { get; private set; }
 
-        public FindForm([DisallowNull] IReadOnlyList<Member> members)
+        public FindForm([DisallowNull] IReadOnlyList<MemberViewModel> members)
         {
             _members = members ?? throw new ArgumentNullException(nameof(members));
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace Leo.App
             {
                 if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex >= 0)
                 {
-                    var mem = dgvMembers.CurrentRow.DataBoundItem as Member;
+                    var mem = dgvMembers.CurrentRow.DataBoundItem as MemberViewModel;
                     if (mem != null)
                     {
                         this.Index = mem;

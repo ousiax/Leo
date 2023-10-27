@@ -7,6 +7,7 @@ namespace Leo.Web
         static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddLeoDomain();
 
             var startup = new Startup(builder.Configuration);
             startup.ConfigureServices(builder.Services);

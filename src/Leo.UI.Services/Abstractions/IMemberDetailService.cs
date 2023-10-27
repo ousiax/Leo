@@ -1,9 +1,9 @@
-﻿using Leo.UI.Models;
+﻿using Leo.Data.Domain.Dtos;
 
 namespace Leo.UI
 {
     public interface IMemberDetailService
     {
-        Task<string?> CreateAsync(MemberDetail detail);
+        Task<string?> CreateAsync(MemberDetailDto detail);
     }
 }

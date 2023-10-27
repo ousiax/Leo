@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Leo.UI.Models
+namespace Leo.Data.Domain.ViewModels
 {
-    public class MemberDetail : INotifyPropertyChanged
+    public class MemberDetailViewModel : INotifyPropertyChanged
     {
         private Guid _id;
         private DateTime? _date;

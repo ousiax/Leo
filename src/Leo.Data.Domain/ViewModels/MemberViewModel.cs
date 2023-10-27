@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Leo.UI.Models
+namespace Leo.Data.Domain.ViewModels
 {
-    public class Member : INotifyPropertyChanged
+    public class MemberViewModel : INotifyPropertyChanged
     {
         private Guid _id;
         private string? _name;
@@ -11,7 +11,7 @@ namespace Leo.UI.Models
         private string? _gender;
         private DateTime? _birthday;
         private string? _cardNo;
-        private readonly List<MemberDetail> _details = new();
+        private readonly List<MemberDetailViewModel> _details = new();
 
         public Guid Id
         {
@@ -96,7 +96,7 @@ namespace Leo.UI.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public List<MemberDetail> Details
+        public List<MemberDetailViewModel> Details
         {
             get { return _details; }
         }
