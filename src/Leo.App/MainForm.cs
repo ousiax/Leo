@@ -26,7 +26,7 @@ namespace Leo.App
 
             InitializeComponent();
             InitializeContextMenu();
-            LoadMembersAsync();
+            this.Load += async (s, e) => await LoadMembersAsync();
         }
 
         private List<MemberViewModel> Members { get { return (List<MemberViewModel>)bdsMembers.List; } }
