@@ -4,6 +4,8 @@
     {
         public Guid Id { get; set; }
 
+        public Guid MemberId { get; set; }
+
         public DateTime? Date { get; set; }
 
         public string? Item { get; set; }

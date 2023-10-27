@@ -20,9 +20,10 @@ namespace Leo.Web.Data.Services
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member_detail (id, date , item , count , height , weight) "
-                + "VALUES (@id, @date , @item , @count , @height , @weight)";
+            cmd.CommandText = "INSERT INTO member_detail (id, member_id, date , item , count , height , weight) "
+                + "VALUES (@id, @member_id, @date , @item , @count , @height , @weight)";
             cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = detail.Id });
+            cmd.Parameters.Add(new SQLiteParameter("@member_id") { DbType = DbType.String, Value = detail.MemberId });
             cmd.Parameters.Add(new SQLiteParameter("@date") { DbType = DbType.String, Value = detail.Date });
             cmd.Parameters.Add(new SQLiteParameter("@item") { DbType = DbType.String, Value = detail.Item });
             cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.String, Value = detail.Count });
@@ -46,6 +47,7 @@ namespace Leo.Web.Data.Services
                     detail = new MemberDetail
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
+                        MemberId = Guid.Parse(reader["member_id"].ToString()),
                         Date = reader["date"].ToDateTime(),
                         Item = reader["item"].ToString(),
                         Count = reader["count"].ToInt32() ?? 0,
@@ -62,8 +64,8 @@ namespace Leo.Web.Data.Services
             var members = new List<MemberDetail>();
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member_detail WHERE id = @id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = memberId });
+            cmd.CommandText = "SELECT * FROM member_detail WHERE member_id = @member_id";
+            cmd.Parameters.Add(new SQLiteParameter("@member_id") { DbType = DbType.String, Value = memberId });
             using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
             {
                 while (reader.Read())
@@ -71,6 +73,7 @@ namespace Leo.Web.Data.Services
                     members.Add(new MemberDetail
                     {
                         Id = Guid.Parse(reader["id"].ToString()),
+                        MemberId = Guid.Parse(reader["member_id"].ToString()),
                         Date = reader["date"].ToDateTime(),
                         Item = reader["item"].ToString(),
                         Count = reader["count"].ToInt32() ?? 0,

@@ -138,14 +138,15 @@ namespace Leo.App
             colWeight.Name = "colWeight";
             colWeight.ReadOnly = true;
             // 
-            // _bdsMemberDetails
+            // bdsMemberDetails
             // 
             bdsMemberDetails.DataMember = "Details";
             bdsMemberDetails.DataSource = bdsMembers;
             // 
-            // _bdsMembers
+            // bdsMembers
             // 
             bdsMembers.DataSource = typeof(MemberViewModel);
+            bdsMembers.CurrentChanged += bdsMembers_CurrentChanged;
             // 
             // splitContainer1
             // 

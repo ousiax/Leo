@@ -25,7 +25,6 @@ namespace Leo.App
             _logger = logger;
 
             InitializeComponent();
-
             InitializeContextMenu();
             LoadMembersAsync();
         }
@@ -43,7 +42,7 @@ namespace Leo.App
                     var menu = new ContextMenuStrip();
                     menu.Items.AddRange(new ToolStripMenuItem[]
                      {
-                        new ToolStripMenuItem("新增", null, (s, a) => {
+                        new ToolStripMenuItem("新增", null, async (s, a) => {
                             var newMemberDetailViewModel = new MemberDetailViewModel
                             {
                                 Id = CurrentMember.Id,
@@ -56,10 +55,12 @@ namespace Leo.App
                             if(result == DialogResult.OK)
                             {
                                 var newMemberDetailDto = _mapper.Map<MemberDetailDto>(newMemberDetailViewModel);
-                                _memberDetailService.CreateAsync(newMemberDetailDto).ContinueWith(t => {
+                                newMemberDetailDto.MemberId = CurrentMember.Id;
+                                await _memberDetailService.CreateAsync(newMemberDetailDto).ContinueWith(async t => {
                                     if(t.IsCompletedSuccessfully){
-                                        // TODO load object from backend service
-                                        CurrentMember.Details.Add(newMemberDetailViewModel);
+                                        var detailDto = await _memberDetailService.GetAsync(Guid.Parse(t.Result!));
+                                        var detailViewModel = _mapper.Map<MemberDetailViewModel>(detailDto);
+                                        CurrentMember.Details.Add(detailViewModel);
                                         this.Invoke(() => bdsMemberDetails.ResetBindings(false));
                                     }
                                 });
@@ -156,6 +157,31 @@ namespace Leo.App
                     bdsMembers.Position = Members.IndexOf(frm.Index);
                 }
             };
+        }
+
+        private bool _isLodingDetails = false;
+
+        private async void bdsMembers_CurrentChanged(object sender, EventArgs e)
+        {
+            if (_isLodingDetails) return;
+
+            var member = bdsMembers.Current as MemberViewModel;
+            if (member != null)
+            {
+                _isLodingDetails = true;
+
+                var detailDtos = await _memberDetailService.GetByMemberIdAsync(member.Id).ConfigureAwait(false);
+                var detailViewModels = _mapper.Map<IEnumerable<MemberDetailViewModel>>(detailDtos);
+                member.Details.Clear();
+                member.Details.AddRange(detailViewModels);
+                this.Invoke(() =>
+                {
+                    bdsMemberDetails.DataSource = null;
+                    bdsMemberDetails.DataSource = member.Details;
+                });
+
+                _isLodingDetails = false;
+            }
         }
     }
 }

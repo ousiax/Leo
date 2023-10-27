@@ -3,7 +3,7 @@
     internal class DatabaseService : IDatabaseService
     {
         private const string CREATE_MEMBER_SQL = "CREATE TABLE IF NOT EXISTS member (id text PRIMARY KEY, name text NOT NULL, phone text NOT NULL, gender text, birthday text, cardno text);";
-        private const string CREATE_MEMBER_DETAIL_SQL = "CREATE TABLE IF NOT EXISTS member_detail (id text NOT NULL, date text NOT NULL, item text NOT NULL, count integer, height number, weight number);";
+        private const string CREATE_MEMBER_DETAIL_SQL = "CREATE TABLE IF NOT EXISTS member_detail (id text NOT NULL, member_id text NOT NULL, date text NOT NULL, item text NOT NULL, count integer, height number, weight number);";
 
         private readonly IDbConnectionManager _dbConnectionManager;
 
