@@ -56,14 +56,11 @@ namespace Leo.App
                             {
                                 var newMemberDetailDto = _mapper.Map<MemberDetailDto>(newMemberDetailViewModel);
                                 newMemberDetailDto.MemberId = CurrentMember.Id;
-                                await _memberDetailService.CreateAsync(newMemberDetailDto).ContinueWith(async t => {
-                                    if(t.IsCompletedSuccessfully){
-                                        var detailDto = await _memberDetailService.GetAsync(Guid.Parse(t.Result!));
-                                        var detailViewModel = _mapper.Map<MemberDetailViewModel>(detailDto);
-                                        CurrentMember.Details.Add(detailViewModel);
-                                        this.Invoke(() => bdsMemberDetails.ResetBindings(false));
-                                    }
-                                });
+                                var id = await _memberDetailService.CreateAsync(newMemberDetailDto).ConfigureAwait(false);
+                                var detailDto = await _memberDetailService.GetAsync(Guid.Parse(id!)).ConfigureAwait(false);
+                                var detailViewModel = _mapper.Map<MemberDetailViewModel>(detailDto);
+                                CurrentMember.Details.Add(detailViewModel);
+                                this.Invoke(() => bdsMemberDetails.ResetBindings(false));
                             }
                         }),
                      });
