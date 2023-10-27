@@ -108,7 +108,7 @@ namespace Leo.App
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            menuNew.Click += (s, a) =>
+            menuNew.Click += async (s, a) =>
             {
                 var newMemberViewModel = new MemberViewModel { Birthday = DateTime.Now };
                 using var frm = new NewForm(newMemberViewModel);
@@ -117,18 +117,18 @@ namespace Leo.App
                 if (result == DialogResult.OK)
                 {
                     var newMemberDto = _mapper.Map<MemberDto>(newMemberViewModel);
-                    _memberService.CreateAsync(newMemberDto).ContinueWith(t =>
+                    var id = await _memberService.CreateAsync(newMemberDto).ConfigureAwait(false);
+                    if (id != null)
                     {
-                        if (t.IsCompletedSuccessfully)
+                        var memberDto = await _memberService.GetAsync(Guid.Parse(id));
+                        var memeberViewMode = _mapper.Map<MemberViewModel>(memberDto);
+                        Members.Add(memeberViewMode);
+                        this.Invoke(() =>
                         {
-                            Members.Add(newMemberViewModel);
-                            this.Invoke(() =>
-                            {
-                                bdsMembers.ResetBindings(false);
-                                bdsMembers.Position = Members.IndexOf(newMemberViewModel);
-                            });
-                        }
-                    });
+                            bdsMembers.ResetBindings(false);
+                            bdsMembers.Position = Members.IndexOf(memeberViewMode);
+                        });
+                    }
                 }
             };
 
@@ -159,16 +159,15 @@ namespace Leo.App
             };
         }
 
-        private bool _isLodingDetails = false;
+        // Fix multiple current changed event triggers problem when the form first loads.
+        private MemberViewModel _previousMemberViewModel;
 
         private async void bdsMembers_CurrentChanged(object sender, EventArgs e)
         {
-            if (_isLodingDetails) return;
-
             var member = bdsMembers.Current as MemberViewModel;
-            if (member != null)
+            if (member != null && _previousMemberViewModel != member)
             {
-                _isLodingDetails = true;
+                _previousMemberViewModel = member;
 
                 var detailDtos = await _memberDetailService.GetByMemberIdAsync(member.Id).ConfigureAwait(false);
                 var detailViewModels = _mapper.Map<IEnumerable<MemberDetailViewModel>>(detailDtos);
@@ -179,8 +178,6 @@ namespace Leo.App
                     bdsMemberDetails.DataSource = null;
                     bdsMemberDetails.DataSource = member.Details;
                 });
-
-                _isLodingDetails = false;
             }
         }
     }
