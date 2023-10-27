@@ -7,12 +7,10 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ImplicitUsings>true</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>wx.ico</ApplicationIcon>
+    <ApplicationIcon>leon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wx.ico" />
+    <Content Include="leon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Leo.UI.Services\Leo.UI.Services.csproj" />
