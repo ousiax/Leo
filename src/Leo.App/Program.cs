@@ -33,7 +33,7 @@ namespace Leo.App
                 {
                     var logger = new StreamWriter(
                         new FileStream(
-                            Path.Combine(ctx.HostingEnvironment.ContentRootPath, "log.txt"),
+                            Path.Combine(ctx.HostingEnvironment.ContentRootPath, "app.log"),
                             FileMode.OpenOrCreate))
                     {
                         AutoFlush = true
