@@ -25,6 +25,7 @@ namespace Leo.App
                 .ConfigureServices(services =>
                 {
                     services.AddLeoDomain();
+                    services.AddLeoViewModels();
                     services.AddAppServices().AddOptions<WebOptions>();
                     services.AddSingleton<MainForm>();
                     services.AddHttpClient();

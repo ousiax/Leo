@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Leo.App.ViewModels;
 using Leo.Data.Domain.Dtos;
-using Leo.Data.Domain.ViewModels;
 using Leo.UI;
 using Microsoft.Extensions.Logging;
 

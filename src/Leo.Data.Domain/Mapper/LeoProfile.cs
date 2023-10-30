@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Leo.Data.Domain.Dtos;
 using Leo.Data.Domain.Models;
-using Leo.Data.Domain.ViewModels;
 
 namespace Leo.Data.Domain.Mapper
 {
@@ -11,8 +10,6 @@ namespace Leo.Data.Domain.Mapper
         {
             CreateMap<Member, MemberDto>().ReverseMap();
             CreateMap<MemberDetail, MemberDetailDto>().ReverseMap();
-            CreateMap<MemberViewModel, MemberDto>().ReverseMap();
-            CreateMap<MemberDetailViewModel, MemberDetailDto>().ReverseMap();
         }
     }
 }

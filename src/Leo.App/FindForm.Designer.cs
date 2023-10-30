@@ -1,4 +1,4 @@
-﻿using Leo.Data.Domain.ViewModels;
+﻿using Leo.App.ViewModels;
 using System.Windows.Forms;
 
 namespace Leo.App

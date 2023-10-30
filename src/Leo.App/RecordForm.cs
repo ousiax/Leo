@@ -1,4 +1,4 @@
-﻿using Leo.Data.Domain.ViewModels;
+using Leo.App.ViewModels;
 
 namespace Leo.App
 {

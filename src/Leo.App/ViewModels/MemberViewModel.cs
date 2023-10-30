@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Leo.Data.Domain.ViewModels
+namespace Leo.App.ViewModels
 {
     public class MemberViewModel : INotifyPropertyChanged
     {
@@ -53,7 +53,7 @@ namespace Leo.Data.Domain.ViewModels
             }
         }
 
-        public DateTime Birthday
+        public DateTime? Birthday
         {
             get { return _birthday == null ? DateTime.MinValue : _birthday.Value; }
             set
@@ -73,7 +73,7 @@ namespace Leo.Data.Domain.ViewModels
                 }
                 else
                 {
-                    var num = Math.Round(DateTime.Now.Subtract(Birthday).TotalDays / 365, 1);
+                    var num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
                     return string.Format("{0} 岁", num);
                 }
             }
