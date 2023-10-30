@@ -11,6 +11,7 @@ namespace Leo.Web.Data
             services.AddTransient<IDatabaseService, DatabaseService>();
             services.AddSingleton<IMemberService, MemberService>();
             services.AddSingleton<IMemberDetailService, MemberDetailService>();
+            services.AddCQRS();
             return services;
         }
     }

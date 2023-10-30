@@ -1,8 +1,8 @@
 using Alyio.AspNetCore.ApiMessages;
-using AutoMapper;
 using Leo.Data.Domain.Dtos;
-using Leo.Data.Domain.Models;
-using Leo.Web.Data;
+using Leo.Web.Data.Commands;
+using Leo.Web.Data.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leo.Web.Controllers
@@ -12,28 +12,24 @@ namespace Leo.Web.Controllers
     public class MemberDetailsController : ControllerBase
     {
         private readonly ILogger<MembersController> _logger;
-        private readonly IMemberDetailService _memberDetailService;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public MemberDetailsController(IMemberDetailService memberDetailService, IMapper mapper, ILogger<MembersController> logger)
+        public MemberDetailsController(IMediator mediator, ILogger<MembersController> logger)
         {
-            _memberDetailService = memberDetailService;
-            _mapper = mapper;
+            _mediator = mediator;
             _logger = logger;
         }
 
         [HttpGet("{id}")]
         public async Task<MemberDetailDto?> GetByIdAsync(Guid id)
         {
-            var memberDetail = await _memberDetailService.GetByIdAsync(id) ?? throw new NotFoundMessage();
-            return _mapper.Map<MemberDetailDto?>(memberDetail);
+            return await _mediator.Send(new GetMemberDetailByIdRequest { Id = id }, HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }
 
         [HttpPost]
         public async Task<CreatedMessage> CreateAsync([FromBody] MemberDetailDto detailDto)
         {
-            var detail = _mapper.Map<MemberDetail>(detailDto);
-            var id = await _memberDetailService.CreateAsync(detail);
+            var id = await _mediator.Send(new CreateMemberDetailRequest { MemberDetailDto = detailDto }, HttpContext.RequestAborted).ConfigureAwait(false);
             return this.CreatedMessageAtAction(nameof(GetByIdAsync), new { id }, id.ToString());
         }
     }

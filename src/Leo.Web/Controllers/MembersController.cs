@@ -1,8 +1,8 @@
 using Alyio.AspNetCore.ApiMessages;
-using AutoMapper;
 using Leo.Data.Domain.Dtos;
-using Leo.Data.Domain.Models;
-using Leo.Web.Data;
+using Leo.Web.Data.Commands;
+using Leo.Web.Data.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leo.Web.Controllers
@@ -12,56 +12,45 @@ namespace Leo.Web.Controllers
     public class MembersController : ControllerBase
     {
         private readonly ILogger<MembersController> _logger;
-        private readonly IMemberService _memberService;
-        private readonly IMemberDetailService _memberDetailService;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public MembersController(
-            IMemberService memberService,
-            IMemberDetailService memberDetailService,
-            IMapper mapper,
+            IMediator mediator,
             ILogger<MembersController> logger)
         {
-            _memberService = memberService;
-            _memberDetailService = memberDetailService;
-            _mapper = mapper;
+            _mediator = mediator;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<List<MemberDto>> GetAsync()
+        public Task<List<MemberDto>> GetAsync()
         {
-            var members = await _memberService.GetAsync();
-            return _mapper.Map<List<MemberDto>>(members);
+            return _mediator.Send(new GetMembersRequest(), this.HttpContext.RequestAborted);
         }
 
         [HttpGet("{id}")]
         public async Task<MemberDto?> GetAsync(Guid id)
         {
-            var member = await _memberService.GetAsync(id) ?? throw new NotFoundMessage();
-            return _mapper.Map<MemberDto?>(member);
+            return await _mediator.Send(new GetMemberByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }
 
         [HttpPost]
         public async Task<CreatedMessage> CreateAsync([FromBody] MemberDto memberDto)
         {
-            var member = _mapper.Map<Member>(memberDto);
-            var id = await _memberService.CreateAsync(member);
+            var id = await _mediator.Send(new CreateMemberRequest { MemberDto = memberDto }, this.HttpContext.RequestAborted).ConfigureAwait(false);
             return this.CreatedMessageAtAction(nameof(GetAsync), new { id }, id.ToString());
         }
 
         [HttpPut]
-        public Task UpdateAsync([FromBody] MemberDto memberDto)
+        public async Task UpdateAsync([FromBody] MemberDto memberDto)
         {
-            var member = _mapper.Map<Member>(memberDto);
-            return _memberService.UpdateAsync(member);
+            await _mediator.Send(new UpdateMemberRequest { MemberDto = memberDto }, this.HttpContext.RequestAborted).ConfigureAwait(false);
         }
 
         [HttpGet("{id}/details")]
-        public async Task<List<MemberDetailDto>> GetByMemberIdAsync(Guid id)
+        public Task<List<MemberDetailDto>> GetByMemberIdAsync(Guid id)
         {
-            var details = await _memberDetailService.GetByMemberIdAsync(id);
-            return _mapper.Map<List<MemberDetailDto>>(details);
+            return _mediator.Send(new GetMemberDetailsByMemberIdRequest { MemberId = id }, this.HttpContext.RequestAborted);
         }
     }
 }
