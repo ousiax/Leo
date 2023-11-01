@@ -39,14 +39,16 @@ namespace Leo.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseApiMessageHandler();
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromMinutes(2) });
 
             app.UseEndpoints(endpoints =>
             {
