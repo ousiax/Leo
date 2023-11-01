@@ -1,6 +1,6 @@
 using Leo.App.ViewModels;
 
-namespace Leo.App
+namespace Leo.App.Forms
 {
     public partial class NewForm : Form
     {

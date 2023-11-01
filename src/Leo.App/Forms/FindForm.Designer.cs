@@ -1,7 +1,7 @@
 ﻿using Leo.App.ViewModels;
 using System.Windows.Forms;
 
-namespace Leo.App
+namespace Leo.App.Forms
 {
     partial class FindForm
     {

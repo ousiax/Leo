@@ -1,7 +1,7 @@
 using Leo.App.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Leo.App
+namespace Leo.App.Forms
 {
     public partial class FindForm : Form
     {

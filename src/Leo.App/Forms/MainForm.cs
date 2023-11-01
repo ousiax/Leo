@@ -4,7 +4,7 @@ using Leo.Data.Domain.Dtos;
 using Leo.UI;
 using Microsoft.Extensions.Logging;
 
-namespace Leo.App
+namespace Leo.App.Forms
 {
     public partial class MainForm : Form
     {

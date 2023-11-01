@@ -1,4 +1,4 @@
-﻿namespace Leo.App
+﻿namespace Leo.App.Forms
 {
     partial class RecordForm
     {
