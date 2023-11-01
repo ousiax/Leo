@@ -1,4 +1,4 @@
-﻿namespace Leo.App.Forms
+﻿namespace Leo.Windows.Forms
 {
     partial class NewForm
     {

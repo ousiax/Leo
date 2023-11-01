@@ -1,6 +1,6 @@
-﻿using Leo.App.Forms;
-using Leo.UI.Options;
+﻿using Leo.UI.Options;
 using Leo.UI.Services;
+using Leo.Windows.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace Leo.App
+namespace Leo.Windows
 {
     static class Program
     {

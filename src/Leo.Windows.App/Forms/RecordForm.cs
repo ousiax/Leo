@@ -1,6 +1,6 @@
-using Leo.App.ViewModels;
+using Leo.Windows.ViewModels;
 
-namespace Leo.App.Forms
+namespace Leo.Windows.Forms
 {
     public partial class RecordForm : Form
     {

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Leo.App.ViewModels;
 using Leo.Data.Domain.Dtos;
 using Leo.UI;
+using Leo.Windows.ViewModels;
 using Microsoft.Extensions.Logging;
 
-namespace Leo.App.Forms
+namespace Leo.Windows.Forms
 {
     public partial class MainForm : Form
     {

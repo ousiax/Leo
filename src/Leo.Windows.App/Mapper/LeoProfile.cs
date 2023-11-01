@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Leo.App.ViewModels;
 using Leo.Data.Domain.Dtos;
+using Leo.Windows.ViewModels;
 
-namespace Leo.App.Mapper
+namespace Leo.Windows.Mapper
 {
     internal sealed class LeoProfile : Profile
     {

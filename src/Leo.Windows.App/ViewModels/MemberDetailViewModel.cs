@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Leo.App.ViewModels
+namespace Leo.Windows.ViewModels
 {
     public class MemberDetailViewModel : INotifyPropertyChanged
     {
