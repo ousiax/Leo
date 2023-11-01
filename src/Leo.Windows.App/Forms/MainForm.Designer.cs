@@ -31,10 +31,10 @@ namespace Leo.Windows.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             dgvMemberDetails = new DataGridView();
             colDate = new DataGridViewTextBoxColumn();
@@ -61,6 +61,7 @@ namespace Leo.Windows.Forms
             menuNew = new ToolStripMenuItem();
             menuModify = new ToolStripMenuItem();
             menuFind = new ToolStripMenuItem();
+            menuEcho = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdsMembers).BeginInit();
@@ -75,9 +76,9 @@ namespace Leo.Windows.Forms
             // 
             dgvMemberDetails.AllowUserToAddRows = false;
             dgvMemberDetails.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle1.SelectionBackColor = Color.Silver;
-            dgvMemberDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle5.SelectionBackColor = Color.Silver;
+            dgvMemberDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvMemberDetails.AutoGenerateColumns = false;
             dgvMemberDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMemberDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -89,14 +90,14 @@ namespace Leo.Windows.Forms
             dgvMemberDetails.Name = "dgvMemberDetails";
             dgvMemberDetails.ReadOnly = true;
             dgvMemberDetails.RowHeadersWidth = 62;
-            dgvMemberDetails.Size = new Size(1022, 541);
+            dgvMemberDetails.Size = new Size(1022, 551);
             dgvMemberDetails.TabIndex = 0;
             // 
             // colDate
             // 
             colDate.DataPropertyName = "Date";
-            dataGridViewCellStyle2.Format = "yyyy年MM月dd日 HH时mm分ss秒";
-            colDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "yyyy年MM月dd日 HH时mm分ss秒";
+            colDate.DefaultCellStyle = dataGridViewCellStyle6;
             colDate.HeaderText = "日期";
             colDate.MinimumWidth = 8;
             colDate.Name = "colDate";
@@ -121,8 +122,8 @@ namespace Leo.Windows.Forms
             // colHeight
             // 
             colHeight.DataPropertyName = "Height";
-            dataGridViewCellStyle3.Format = "##.##";
-            colHeight.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Format = "##.##";
+            colHeight.DefaultCellStyle = dataGridViewCellStyle7;
             colHeight.HeaderText = "身高 (CM)";
             colHeight.MinimumWidth = 8;
             colHeight.Name = "colHeight";
@@ -131,8 +132,8 @@ namespace Leo.Windows.Forms
             // colWeight
             // 
             colWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle4.Format = "##.##";
-            colWeight.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Format = "##.##";
+            colWeight.DefaultCellStyle = dataGridViewCellStyle8;
             colWeight.HeaderText = "体重 (KG)";
             colWeight.MinimumWidth = 8;
             colWeight.Name = "colWeight";
@@ -152,7 +153,7 @@ namespace Leo.Windows.Forms
             // 
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.FixedPanel = FixedPanel.Panel1;
-            splitContainer1.Location = new Point(0, 35);
+            splitContainer1.Location = new Point(0, 25);
             splitContainer1.Margin = new Padding(5);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
@@ -175,7 +176,7 @@ namespace Leo.Windows.Forms
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvMemberDetails);
-            splitContainer1.Size = new Size(1022, 637);
+            splitContainer1.Size = new Size(1022, 647);
             splitContainer1.SplitterDistance = 90;
             splitContainer1.SplitterWidth = 6;
             splitContainer1.TabIndex = 1;
@@ -188,7 +189,7 @@ namespace Leo.Windows.Forms
             txtAge.Margin = new Padding(5);
             txtAge.Name = "txtAge";
             txtAge.ReadOnly = true;
-            txtAge.Size = new Size(187, 39);
+            txtAge.Size = new Size(187, 29);
             txtAge.TabIndex = 40;
             // 
             // lblAge
@@ -197,7 +198,7 @@ namespace Leo.Windows.Forms
             lblAge.Location = new Point(359, 54);
             lblAge.Margin = new Padding(5, 0, 5, 0);
             lblAge.Name = "lblAge";
-            lblAge.Size = new Size(128, 31);
+            lblAge.Size = new Size(88, 21);
             lblAge.TabIndex = 39;
             lblAge.Text = "年      龄：";
             // 
@@ -210,7 +211,7 @@ namespace Leo.Windows.Forms
             combGender.FormattingEnabled = true;
             combGender.Location = new Point(803, 14);
             combGender.Name = "combGender";
-            combGender.Size = new Size(55, 39);
+            combGender.Size = new Size(55, 29);
             combGender.TabIndex = 38;
             combGender.ValueMember = "Key";
             // 
@@ -220,7 +221,7 @@ namespace Leo.Windows.Forms
             lblGender.Location = new Point(695, 17);
             lblGender.Margin = new Padding(5, 0, 5, 0);
             lblGender.Name = "lblGender";
-            lblGender.Size = new Size(128, 31);
+            lblGender.Size = new Size(88, 21);
             lblGender.TabIndex = 37;
             lblGender.Text = "性      别：";
             // 
@@ -233,7 +234,7 @@ namespace Leo.Windows.Forms
             dtpBirthday.Location = new Point(114, 51);
             dtpBirthday.Margin = new Padding(5);
             dtpBirthday.Name = "dtpBirthday";
-            dtpBirthday.Size = new Size(196, 39);
+            dtpBirthday.Size = new Size(196, 29);
             dtpBirthday.TabIndex = 19;
             // 
             // txtPhone
@@ -244,7 +245,7 @@ namespace Leo.Windows.Forms
             txtPhone.Margin = new Padding(5);
             txtPhone.Name = "txtPhone";
             txtPhone.ReadOnly = true;
-            txtPhone.Size = new Size(187, 39);
+            txtPhone.Size = new Size(187, 29);
             txtPhone.TabIndex = 18;
             // 
             // lblPhone
@@ -253,7 +254,7 @@ namespace Leo.Windows.Forms
             lblPhone.Location = new Point(359, 17);
             lblPhone.Margin = new Padding(5, 0, 5, 0);
             lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(142, 31);
+            lblPhone.Size = new Size(98, 21);
             lblPhone.TabIndex = 17;
             lblPhone.Text = "手        机：";
             // 
@@ -265,7 +266,7 @@ namespace Leo.Windows.Forms
             txtCardNo.Margin = new Padding(5);
             txtCardNo.Name = "txtCardNo";
             txtCardNo.ReadOnly = true;
-            txtCardNo.Size = new Size(196, 39);
+            txtCardNo.Size = new Size(196, 29);
             txtCardNo.TabIndex = 16;
             // 
             // lblCardNo
@@ -274,7 +275,7 @@ namespace Leo.Windows.Forms
             lblCardNo.Location = new Point(703, 54);
             lblCardNo.Margin = new Padding(5, 0, 5, 0);
             lblCardNo.Name = "lblCardNo";
-            lblCardNo.Size = new Size(134, 31);
+            lblCardNo.Size = new Size(90, 21);
             lblCardNo.TabIndex = 15;
             lblCardNo.Text = "会员卡号：";
             // 
@@ -284,7 +285,7 @@ namespace Leo.Windows.Forms
             lblBirthday.Location = new Point(14, 57);
             lblBirthday.Margin = new Padding(5, 0, 5, 0);
             lblBirthday.Name = "lblBirthday";
-            lblBirthday.Size = new Size(134, 31);
+            lblBirthday.Size = new Size(90, 21);
             lblBirthday.TabIndex = 13;
             lblBirthday.Text = "出生日期：";
             // 
@@ -296,7 +297,7 @@ namespace Leo.Windows.Forms
             txtName.Margin = new Padding(5);
             txtName.Name = "txtName";
             txtName.ReadOnly = true;
-            txtName.Size = new Size(196, 39);
+            txtName.Size = new Size(196, 29);
             txtName.TabIndex = 12;
             // 
             // lblName
@@ -305,42 +306,48 @@ namespace Leo.Windows.Forms
             lblName.Location = new Point(14, 14);
             lblName.Margin = new Padding(5, 0, 5, 0);
             lblName.Name = "lblName";
-            lblName.Size = new Size(134, 31);
+            lblName.Size = new Size(90, 21);
             lblName.TabIndex = 11;
             lblName.Text = "宝宝姓名：";
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(24, 24);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuNew, menuModify, menuFind });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { menuNew, menuModify, menuFind, menuEcho });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(10, 3, 0, 3);
-            menuStrip1.Size = new Size(1022, 35);
+            menuStrip1.Size = new Size(1022, 25);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
             // menuNew
             // 
             menuNew.Name = "menuNew";
-            menuNew.Size = new Size(64, 29);
+            menuNew.Size = new Size(43, 19);
             menuNew.Text = "新增";
             // 
             // menuModify
             // 
             menuModify.Name = "menuModify";
-            menuModify.Size = new Size(64, 29);
+            menuModify.Size = new Size(43, 19);
             menuModify.Text = "修改";
             // 
             // menuFind
             // 
             menuFind.Name = "menuFind";
-            menuFind.Size = new Size(65, 29);
+            menuFind.Size = new Size(44, 19);
             menuFind.Text = "查找";
+            // 
+            // menuEcho
+            // 
+            menuEcho.Name = "menuEcho";
+            menuEcho.Size = new Size(43, 19);
+            menuEcho.Text = "回音";
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1022, 672);
             Controls.Add(splitContainer1);
@@ -393,6 +400,7 @@ namespace Leo.Windows.Forms
         private DataGridViewTextBoxColumn colWeight;
         private BindingSource bdsMembers;
         private BindingSource bdsMemberDetails;
+        private ToolStripMenuItem menuEcho;
     }
 }
 

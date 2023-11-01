@@ -29,6 +29,7 @@ namespace Leo.Windows
                     services.AddLeoViewModels();
                     services.AddAppServices().AddOptions<WebOptions>();
                     services.AddSingleton<MainForm>();
+                    services.AddTransient<EchoForm>();
                     services.AddHttpClient();
                 })
                 .ConfigureLogging((ctx, logging) =>

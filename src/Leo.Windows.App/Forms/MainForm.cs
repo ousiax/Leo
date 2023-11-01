@@ -2,6 +2,7 @@
 using Leo.Data.Domain.Dtos;
 using Leo.UI;
 using Leo.Windows.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Leo.Windows.Forms
@@ -11,17 +12,20 @@ namespace Leo.Windows.Forms
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
         private readonly IMapper _mapper;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<MainForm> _logger;
 
         public MainForm(
             IMemberService memberService,
             IMemberDetailService memberDetailService,
             IMapper mapper,
+            IServiceProvider serviceProvider,
             ILogger<MainForm> logger)
         {
             _memberService = memberService;
             _memberDetailService = memberDetailService;
             _mapper = mapper;
+            _serviceProvider = serviceProvider;
             _logger = logger;
 
             InitializeComponent();
@@ -153,6 +157,12 @@ namespace Leo.Windows.Forms
                 {
                     bdsMembers.Position = Members.IndexOf(frm.Index);
                 }
+            };
+
+            menuEcho.Click += (s, a) =>
+            {
+                using var scope = _serviceProvider.CreateScope();
+                scope.ServiceProvider.GetRequiredService<EchoForm>().ShowDialog();
             };
         }
 
