@@ -14,11 +14,13 @@ namespace Leo.Windows.Forms
         public EchoForm(IOptions<WebOptions> webOptions)
         {
             InitializeComponent();
+
             this.txtAddress.Text = new UriBuilder(webOptions.Value.BaseAddress!)
             {
                 Scheme = Uri.UriSchemeWs,
                 Path = DEFAULT_WS_PATH
             }.Uri.ToString();
+
             this.FormClosed += async (s, a) =>
             {
                 await DisconnectAsync();
@@ -50,7 +52,6 @@ namespace Leo.Windows.Forms
                 var direction = "->";
                 AppendListView(direction, message);
             }
-
         }
 
         private async void btnSend_Click(object sender, EventArgs e)
@@ -60,14 +61,21 @@ namespace Leo.Windows.Forms
             await _ws!.SendAsync(
                 new ArraySegment<byte>(Encoding.UTF8.GetBytes(txtMessage.Text)),
                 WebSocketMessageType.Text,
-                WebSocketMessageFlags.None,
+                WebSocketMessageFlags.EndOfMessage,
                 cancellationToken);
             AppendListView("->", txtMessage.Text);
 
             var BUFFER_SIZE = 1024 * 4;
             var buffer = new byte[BUFFER_SIZE];
+            var msg = new List<byte>(BUFFER_SIZE);
             var recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
-            AppendListView("<-", Encoding.UTF8.GetString(buffer, 0, recv.Count)); // read once only
+            msg.AddRange(new ArraySegment<byte>(buffer, 0, recv.Count));
+            while (!recv.EndOfMessage)
+            {
+                recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
+                msg.AddRange(new ArraySegment<byte>(buffer, 0, recv.Count));
+            }
+            AppendListView("<-", Encoding.UTF8.GetString(msg.ToArray()));
         }
 
         private void AppendListView(string direction, string message)
