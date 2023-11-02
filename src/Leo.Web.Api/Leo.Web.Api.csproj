@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Alyio.AspNetCore.ApiMessages" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Leo.Web.Data.SQLite\Leo.Web.Data.SQLite.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Using Include="System.Net.Http.Json"/>
+    <Using Include="Microsoft.AspNetCore.Builder"/>
+    <Using Include="Microsoft.AspNetCore.Hosting"/>
+    <Using Include="Microsoft.AspNetCore.Http"/>
+    <Using Include="Microsoft.AspNetCore.Routing"/>
+    <Using Include="Microsoft.Extensions.Configuration"/>
+    <Using Include="Microsoft.Extensions.DependencyInjection"/>
+    <Using Include="Microsoft.Extensions.Hosting"/>
+    <Using Include="Microsoft.Extensions.Logging"/>
+  </ItemGroup>
+
+</Project>
