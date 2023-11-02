@@ -8,27 +8,30 @@ namespace Leo.Windows.Forms
 {
     public partial class EchoForm : Form
     {
+        private const string DEFAULT_WS_PATH = "/ws/echo";
         private ClientWebSocket? _ws;
-        private readonly Uri _baseAddress;
 
         public EchoForm(IOptions<WebOptions> webOptions)
         {
-            _baseAddress = new UriBuilder(webOptions.Value.BaseAddress!) { Scheme = Uri.UriSchemeWs }.Uri;
             InitializeComponent();
+            this.txtAddress.Text = new UriBuilder(webOptions.Value.BaseAddress!)
+            {
+                Scheme = Uri.UriSchemeWs,
+                Path = DEFAULT_WS_PATH
+            }.Uri.ToString();
             this.FormClosed += async (s, a) =>
             {
-                if (_ws?.State == WebSocketState.Open)
-                {
-                    await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
-                }
+                await DisconnectAsync();
             };
         }
+
+        private Uri WsUri => new(this.txtAddress.Text);
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
             if (_ws?.State == WebSocketState.Open)
             {
-                await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+                await DisconnectAsync();
                 btnConnect.Text = "Connect";
                 var direction = "<-";
                 var message = $"Disconnected from {WsUri}";
@@ -38,6 +41,7 @@ namespace Leo.Windows.Forms
             else
             {
                 _ws = new ClientWebSocket();
+                _ws.Options.KeepAliveInterval = TimeSpan.FromMinutes(5);
                 await _ws.ConnectAsync(WsUri, CancellationToken.None);
                 btnConnect.Text = "Disconnect";
                 btnSend.Enabled = true;
@@ -51,23 +55,34 @@ namespace Leo.Windows.Forms
 
         private async void btnSend_Click(object sender, EventArgs e)
         {
+            var cancellationToken = CancellationToken.None;
+
             await _ws!.SendAsync(
                 new ArraySegment<byte>(Encoding.UTF8.GetBytes(txtMessage.Text)),
                 WebSocketMessageType.Text,
                 WebSocketMessageFlags.None,
-                CancellationToken.None);
+                cancellationToken);
             AppendListView("->", txtMessage.Text);
 
-            var buffer = new byte[1024 * 4];
-            var recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            AppendListView("<-", Encoding.UTF8.GetString(buffer, 0, recv.Count)); // read only once
+            var BUFFER_SIZE = 1024 * 4;
+            var buffer = new byte[BUFFER_SIZE];
+            var recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
+            AppendListView("<-", Encoding.UTF8.GetString(buffer, 0, recv.Count)); // read once only
         }
-
-        private Uri WsUri => new UriBuilder(_baseAddress) { Path = txtAddress.Text }.Uri;
 
         private void AppendListView(string direction, string message)
         {
             lstvResponse.Items.Insert(0, new ListViewItem(new string[] { string.Empty, direction, message, DateTime.Now.ToString("HH:mm:ss", CultureInfo.CurrentUICulture) }));
+        }
+
+        private async Task DisconnectAsync()
+        {
+            if (_ws?.State == WebSocketState.Open)
+            {
+                await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "NormalClosure", CancellationToken.None);
+                _ws.Dispose();
+                _ws = null;
+            }
         }
     }
 }

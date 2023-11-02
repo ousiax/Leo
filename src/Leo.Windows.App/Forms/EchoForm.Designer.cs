@@ -74,7 +74,6 @@
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(600, 23);
             txtAddress.TabIndex = 8;
-            txtAddress.Text = "/ws/echo";
             // 
             // splitContainer1
             // 
