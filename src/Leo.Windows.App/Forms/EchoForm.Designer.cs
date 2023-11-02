@@ -153,7 +153,8 @@
             txtMessage.Name = "txtMessage";
             txtMessage.Size = new Size(713, 112);
             txtMessage.TabIndex = 0;
-            txtMessage.Text = "Hello, 世界";
+            txtMessage.Text = "Hello, 世界"; 
+            txtMessage.ScrollBars = ScrollBars.Both;
             // 
             // tabParams
             // 
