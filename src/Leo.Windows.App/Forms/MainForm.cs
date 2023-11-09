@@ -60,11 +60,11 @@ namespace Leo.Windows.Forms
                             {
                                 var newMemberDetailDto = _mapper.Map<MemberDetailDto>(newMemberDetailViewModel);
                                 newMemberDetailDto.MemberId = CurrentMember.Id;
-                                var id = await _memberDetailService.CreateAsync(newMemberDetailDto).ConfigureAwait(false);
-                                var detailDto = await _memberDetailService.GetAsync(Guid.Parse(id!)).ConfigureAwait(false);
+                                var id = await _memberDetailService.CreateAsync(newMemberDetailDto);
+                                var detailDto = await _memberDetailService.GetAsync(Guid.Parse(id !));
                                 var detailViewModel = _mapper.Map<MemberDetailViewModel>(detailDto);
                                 CurrentMember.Details.Add(detailViewModel);
-                                this.Invoke(() => bdsMemberDetails.ResetBindings(false));
+                                bdsMemberDetails.ResetBindings(false);
                             }
                         }),
                      });
@@ -81,30 +81,13 @@ namespace Leo.Windows.Forms
             };
         }
 
-        private Task LoadMembersAsync()
+        private async Task LoadMembersAsync()
         {
-            return _memberService.GetAsync().ContinueWith(t =>
-            {
-                if (t.IsCompletedSuccessfully)
-                {
-                    //var restore = _bdsMembers.RaiseListChangedEvents;
-                    //_bdsMembers.RaiseListChangedEvents = false;
-                    //foreach (var member in t.Result)
-                    //{
-                    //    _bdsMembers.Add(member);
-                    //}
-                    //if (restore)
-                    //{
-                    //    _bdsMembers.ResetBindings(true);
-                    //}
-                    //_bdsMembers.RaiseListChangedEvents = restore;
-
-                    var members = new List<MemberViewModel>();
-                    members.AddRange(_mapper.Map<List<MemberViewModel>>(t.Result));
-                    this.Invoke(() => bdsMembers.DataSource = members);
-                    //_bdsMembers.ResetBindings(false);
-                }
-            });
+            var memeberDtos = await _memberService.GetAsync();
+            var members = new List<MemberViewModel>();
+            members.AddRange(_mapper.Map<List<MemberViewModel>>(memeberDtos));
+            bdsMembers.DataSource = members;
+            //_bdsMembers.ResetBindings(false);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -118,34 +101,29 @@ namespace Leo.Windows.Forms
                 if (result == DialogResult.OK)
                 {
                     var newMemberDto = _mapper.Map<MemberDto>(newMemberViewModel);
-                    var id = await _memberService.CreateAsync(newMemberDto).ConfigureAwait(false);
+                    var id = await _memberService.CreateAsync(newMemberDto);
                     if (id != null)
                     {
                         var memberDto = await _memberService.GetAsync(Guid.Parse(id));
                         var memeberViewMode = _mapper.Map<MemberViewModel>(memberDto);
                         Members.Add(memeberViewMode);
-                        this.Invoke(() =>
-                        {
-                            bdsMembers.ResetBindings(false);
-                            bdsMembers.Position = Members.IndexOf(memeberViewMode);
-                        });
+                        bdsMembers.ResetBindings(false);
+                        bdsMembers.Position = Members.IndexOf(memeberViewMode);
                     }
                 }
             };
 
-            menuModify.Click += (s, a) =>
+            menuModify.Click += async (s, a) =>
             {
                 using var frm = new NewForm(CurrentMember);
-                frm.Text = "修改会议信息";
+                frm.Text = "修改会员信息";
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     var memberDto = _mapper.Map<MemberDto>(CurrentMember);
-                    _memberService.UpdateAsync(memberDto).ContinueWith(t =>
-                    {
-                        bdsMembers.ResetBindings(false);
-                        //bdsMembers.Position = Members.IndexOf(CurrentMember);
-                    });
+                    await _memberService.UpdateAsync(memberDto);
+                    bdsMembers.ResetBindings(false);
+                    //bdsMembers.Position = Members.IndexOf(CurrentMember);
                 }
             };
 
@@ -176,15 +154,12 @@ namespace Leo.Windows.Forms
             {
                 _previousMemberViewModel = member;
 
-                var detailDtos = await _memberDetailService.GetByMemberIdAsync(member.Id).ConfigureAwait(false);
+                var detailDtos = await _memberDetailService.GetByMemberIdAsync(member.Id);
                 var detailViewModels = _mapper.Map<IEnumerable<MemberDetailViewModel>>(detailDtos);
                 member.Details.Clear();
                 member.Details.AddRange(detailViewModels);
-                this.Invoke(() =>
-                {
-                    bdsMemberDetails.DataSource = null;
-                    bdsMemberDetails.DataSource = member.Details;
-                });
+                bdsMemberDetails.DataSource = null;
+                bdsMemberDetails.DataSource = member.Details;
             }
         }
     }
