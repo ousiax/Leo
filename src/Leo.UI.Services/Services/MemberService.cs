@@ -1,5 +1,6 @@
 ﻿using Leo.Data.Domain.Dtos;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
@@ -8,12 +9,18 @@ namespace Leo.UI.Services
     internal sealed class MemberService : IMemberService
     {
         private readonly HttpClient _http;
+        private readonly IAuthenticationService _auth;
         private readonly ILogger<MemberService> _logger;
 
-        public MemberService(IHttpClientFactory httpClientFactory, ILogger<MemberService> logger)
+        public MemberService(IHttpClientFactory httpClientFactory, IAuthenticationService authenticationService, ILogger<MemberService> logger)
         {
             _http = httpClientFactory.CreateClient("Leo");
+            _auth = authenticationService;
             _logger = logger;
+
+            // TODO
+            var auth = _auth.ExecuteAsync().Result;
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
         public async Task<MemberDto?> GetAsync(Guid id)
