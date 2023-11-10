@@ -1,4 +1,5 @@
 ﻿using Leo.UI.Options;
+using Leo.UI.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -8,7 +9,7 @@ namespace Leo.UI.Services
     {
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
-
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IMemberService, MemberService>();
             services.AddSingleton<IMemberDetailService, MemberDetailService>();
 

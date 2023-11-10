@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Leo.Data.Domain.Dtos;
 using Leo.UI;
+using Leo.UI.Services;
 using Leo.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Runtime.Versioning;
 
 namespace Leo.Windows.Forms
 {
@@ -11,19 +13,23 @@ namespace Leo.Windows.Forms
     {
         private readonly IMemberService _memberService;
         private readonly IMemberDetailService _memberDetailService;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IMapper _mapper;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<MainForm> _logger;
 
+        [SupportedOSPlatform("windows10.0.18362")]
         public MainForm(
             IMemberService memberService,
             IMemberDetailService memberDetailService,
+            IAuthenticationService authenticationService,
             IMapper mapper,
             IServiceProvider serviceProvider,
             ILogger<MainForm> logger)
         {
             _memberService = memberService;
             _memberDetailService = memberDetailService;
+            _authenticationService = authenticationService;
             _mapper = mapper;
             _serviceProvider = serviceProvider;
             _logger = logger;
@@ -31,6 +37,11 @@ namespace Leo.Windows.Forms
             InitializeComponent();
             InitializeContextMenu();
             this.Load += async (s, e) => await LoadMembersAsync();
+            this.Load += async (s, a) =>
+            {
+                var result = await _authenticationService.ExecuteAsync();
+                this.Text = $"{this.Text} ({result.Account.Username})";
+            };
         }
 
         private List<MemberViewModel> Members { get { return (List<MemberViewModel>)bdsMembers.List; } }

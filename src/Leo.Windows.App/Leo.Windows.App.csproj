@@ -14,9 +14,11 @@
     <Content Include="leon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.57.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Leo.UI.Services\Leo.UI.Services.csproj" />
     <ProjectReference Include="..\Leo.Web.Api\Leo.Web.Api.csproj" />
-    <ProjectReference Include="..\Leo.Web\Leo.Web.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

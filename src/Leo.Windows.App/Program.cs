@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 
 namespace Leo.Windows
 {
@@ -23,11 +24,12 @@ namespace Leo.Windows
                 {
                     builder.UseStartup<Leo.Web.Startup>();
                 })
-                .ConfigureServices(services =>
+                .ConfigureServices((ctx, services) =>
                 {
                     services.AddLeoDomain();
                     services.AddLeoViewModels();
-                    services.AddAppServices().AddOptions<WebOptions>();
+                    services.Configure<PublicClientApplicationOptions>(ctx.Configuration.GetSection(nameof(PublicClientApplicationOptions)));
+                    services.AddAppServices();
                     services.AddSingleton<MainForm>();
                     services.AddTransient<EchoForm>();
                     services.AddHttpClient();
@@ -51,6 +53,9 @@ namespace Leo.Windows
 
             using (var scope = host.Services.CreateScope())
             {
+                var auth = scope.ServiceProvider.GetRequiredService<IAuthenticationService>();
+                await auth.ExecuteAsync();
+
                 await scope.ServiceProvider.GetRequiredService<Leo.Web.Data.IDatabaseService>().InitializeAsync();
 
                 var address = scope.ServiceProvider.GetRequiredService<IServer>().Features.Get<IServerAddressesFeature>()!.Addresses.First();
@@ -59,6 +64,7 @@ namespace Leo.Windows
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             var mainFrm = host.Services.GetRequiredService<MainForm>();
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host
             // When a host starts, it calls IHostedService.StartAsync on each implementation of IHostedService registered
