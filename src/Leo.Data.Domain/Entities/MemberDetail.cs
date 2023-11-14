@@ -2,9 +2,9 @@
 {
     public class MemberDetail : IAuditableEntity
     {
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
 
-        public Guid MemberId { get; set; }
+        public string? MemberId { get; set; }
 
         public DateTime? Date { get; set; }
 

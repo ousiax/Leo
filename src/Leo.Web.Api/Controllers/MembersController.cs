@@ -29,7 +29,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<MemberDto?> GetAsync(Guid id)
+        public async Task<MemberDto?> GetAsync(string id)
         {
             return await _mediator.Send(new GetMemberByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }

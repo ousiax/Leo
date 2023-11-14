@@ -17,6 +17,11 @@ namespace Leo.Web.Data.Queries.Handlers
 
         public async Task<MemberDto> Handle(GetMemberByIdRequest request, CancellationToken cancellationToken)
         {
+            if (request.Id == null)
+            {
+                throw new ArgumentNullException(nameof(request.Id));
+            }
+
             var member = await _memberService.GetAsync(request.Id).ConfigureAwait(false);
             return _mapper.Map<MemberDto>(member);
         }

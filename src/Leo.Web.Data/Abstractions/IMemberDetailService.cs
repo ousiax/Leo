@@ -8,6 +8,6 @@ namespace Leo.Web.Data
 
         Task<MemberDetail?> GetByIdAsync(Guid id);
 
-        Task<Guid> CreateAsync(MemberDetail detail);
+        Task<string> CreateAsync(MemberDetail detail);
     }
 }

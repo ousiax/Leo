@@ -14,7 +14,7 @@ namespace Leo.Web.Data.Services
             _dbConnectionManager = dbConnectionManager;
         }
 
-        public async Task<Member?> GetAsync(Guid id)
+        public async Task<Member?> GetAsync(string id)
         {
             var member = null as Member;
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
@@ -27,7 +27,7 @@ namespace Leo.Web.Data.Services
             {
                 member = new Member
                 {
-                    Id = Guid.Parse(reader["id"].ToString()),
+                    Id = reader["id"].ToString(),
                     Name = reader["name"].ToString(),
                     Birthday = reader["birthday"].ToDateTime(),
                     CardNo = reader["cardno"].ToString(),
@@ -50,7 +50,7 @@ namespace Leo.Web.Data.Services
                 {
                     members.Add(new Member
                     {
-                        Id = Guid.Parse(reader["id"].ToString()),
+                        Id = reader["id"].ToString(),
                         Name = reader["name"].ToString(),
                         Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
                         CardNo = reader["cardno"].ToString(),
@@ -63,12 +63,9 @@ namespace Leo.Web.Data.Services
             return members;
         }
 
-        public async Task<Guid> CreateAsync(Member member)
+        public async Task<string> CreateAsync(Member member)
         {
-            if (member.Id == Guid.Empty)
-            {
-                member.Id = Guid.NewGuid();
-            }
+            member.Id = Guid.NewGuid().ToString();
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
