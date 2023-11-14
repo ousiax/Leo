@@ -5,7 +5,7 @@ namespace Leo.UI.Services.Services
 {
     sealed class AuthenticationService : IAuthenticationService
     {
-        private readonly string[] _scopes = new string[] { "user.read" };
+        private readonly string[] _scopes = new string[] { "openid", "profile", "offline_access" };
         private readonly IPublicClientApplication _app;
 
         public AuthenticationService(IOptions<PublicClientApplicationOptions> applicationOptions)
@@ -14,26 +14,22 @@ namespace Leo.UI.Services.Services
                 .Build();
         }
 
-        private AuthenticationResult? _result;
-
         public async Task<AuthenticationResult> ExecuteAsync()
         {
-            if (_result == null)
+            AuthenticationResult result;
+            var accounts = await _app.GetAccountsAsync();
+            try
             {
-                var accounts = await _app.GetAccountsAsync();
-                try
-                {
-                    _result = await _app.AcquireTokenSilent(_scopes, accounts.FirstOrDefault())
-                                .ExecuteAsync();
-                }
-                catch (MsalUiRequiredException)
-                {
-                    _result = await _app.AcquireTokenInteractive(_scopes)
-                                .ExecuteAsync();
-                }
+                result = await _app.AcquireTokenSilent(_scopes, accounts.FirstOrDefault())
+                            .ExecuteAsync();
+            }
+            catch (MsalUiRequiredException)
+            {
+                result = await _app.AcquireTokenInteractive(_scopes)
+                            .ExecuteAsync();
             }
 
-            return _result;
+            return result;
         }
     }
 }
