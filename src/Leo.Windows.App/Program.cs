@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
+using System.Runtime.Versioning;
 
 namespace Leo.Windows
 {
@@ -16,6 +17,7 @@ namespace Leo.Windows
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        [SupportedOSPlatform("windows10.0.18362")]
         [STAThread]
         static async Task Main(string[] args)
         {
