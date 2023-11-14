@@ -6,7 +6,7 @@ namespace Leo.Web.Data
     {
         Task<Member?> GetAsync(string id);
 
-        Task<List<Member>> GetAsync();
+        Task<IEnumerable<Member>> GetAsync();
 
         Task<string> CreateAsync(Member member);
 

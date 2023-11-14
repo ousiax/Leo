@@ -60,7 +60,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}/details")]
-        public Task<List<MemberDetailDto>> GetByMemberIdAsync(Guid id)
+        public Task<List<MemberDetailDto>> GetByMemberIdAsync(string id)
         {
             return _mediator.Send(new GetMemberDetailsByMemberIdRequest { MemberId = id }, this.HttpContext.RequestAborted);
         }

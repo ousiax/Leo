@@ -4,9 +4,9 @@ namespace Leo.Web.Data
 {
     public interface IMemberDetailService
     {
-        Task<List<MemberDetail>> GetByMemberIdAsync(Guid memberId);
+        Task<IEnumerable<MemberDetail>> GetByMemberIdAsync(string memberId);
 
-        Task<MemberDetail?> GetByIdAsync(Guid id);
+        Task<MemberDetail?> GetByIdAsync(string id);
 
         Task<string> CreateAsync(MemberDetail detail);
     }

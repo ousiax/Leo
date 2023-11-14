@@ -5,6 +5,6 @@ namespace Leo.Web.Data.Queries
 {
     public sealed class GetMemberDetailByIdRequest : IRequest<MemberDetailDto>
     {
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
     }
 }

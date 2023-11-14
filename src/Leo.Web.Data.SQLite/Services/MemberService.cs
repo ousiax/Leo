@@ -1,7 +1,6 @@
-﻿using Alyio.Extensions;
+﻿using Dapper;
 using Leo.Data.Domain.Entities;
 using System.Data;
-using System.Data.SQLite;
 
 namespace Leo.Web.Data.Services
 {
@@ -16,51 +15,22 @@ namespace Leo.Web.Data.Services
 
         public async Task<Member?> GetAsync(string id)
         {
-            var member = null as Member;
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member "
+            var commandText = "SELECT * FROM member "
                 + "WHERE id = @id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = id });
-            using var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false);
-            if (reader.Read())
-            {
-                member = new Member
-                {
-                    Id = reader["id"].ToString(),
-                    Name = reader["name"].ToString(),
-                    Birthday = reader["birthday"].ToDateTime(),
-                    CardNo = reader["cardno"].ToString(),
-                    Gender = reader["gender"].ToEnum<Gender>(),
-                    Phone = reader["phone"].ToString()
-                };
-            }
-            return member;
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id, dbType: DbType.String);
+            var cmdDef = new CommandDefinition(commandText, parameters);
+            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
+            return await conn.QueryFirstAsync(cmdDef).ConfigureAwait(false);
         }
 
-        public async Task<List<Member>> GetAsync()
+        public async Task<IEnumerable<Member>> GetAsync()
         {
-            var members = new List<Member>();
+            var commandText = "SELECT * FROM member";
+            var cmdDef = new CommandDefinition(commandText: commandText);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member";
-            using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-            {
-                while (reader.Read())
-                {
-                    members.Add(new Member
-                    {
-                        Id = reader["id"].ToString(),
-                        Name = reader["name"].ToString(),
-                        Birthday = reader["birthday"].ToDateTime() ?? DateTime.Now,
-                        CardNo = reader["cardno"].ToString(),
-                        Gender = reader["gender"].ToEnum<Gender>(),
-                        Phone = reader["phone"].ToString()
-                    });
-                }
-            }
 
-            return members;
+            return await conn.QueryAsync<Member>(cmdDef).ConfigureAwait(false);
         }
 
         public async Task<string> CreateAsync(Member member)
@@ -68,40 +38,42 @@ namespace Leo.Web.Data.Services
             member.Id = Guid.NewGuid().ToString();
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member (id, name, phone, gender, birthday, cardno,"
+            var commandText = "INSERT INTO member (id, name, phone, gender, birthday, cardno,"
                 + "created_at, created_by) "
                 + "VALUES (@id, @name, @phone, @gender, @birthday, @cardno, "
                 + "@created_at, @created_by)";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
-            cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
-            cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
-            cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            cmd.Parameters.Add(new SQLiteParameter("@created_at") { DbType = DbType.DateTime, Value = member.CreatedAt });
-            cmd.Parameters.Add(new SQLiteParameter("@created_by") { DbType = DbType.String, Value = member.CreatedBy });
-            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var parameters = new DynamicParameters();
+            parameters.Add("id", member.Id, dbType: DbType.String);
+            parameters.Add("name", member.Name);
+            parameters.Add("phone", member.Phone);
+            parameters.Add("gender", member.Gender);
+            parameters.Add("birthday", member.Birthday);
+            parameters.Add("cardno", member.CardNo);
+            parameters.Add("created_at", member.CreatedAt);
+            parameters.Add("created_by", member.CreatedBy); ;
+            var cmdDef = new CommandDefinition(commandText, parameters);
+            await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
             return member.Id;
         }
 
         public async Task UpdateAsync(Member member)
         {
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "UPDATE member "
+            var commandText = "UPDATE member "
                 + "SET name=@name, phone=@phone, gender=@gender, birthday=@birthday, cardno=@cardno, "
                 + "updated_at = @updated_at, updated_by = @updated_by "
                 + "WHERE id=@id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
-            cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
-            cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
-            cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
-            cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
-            cmd.Parameters.Add(new SQLiteParameter("@updated_at") { DbType = DbType.DateTime, Value = member.CreatedAt });
-            cmd.Parameters.Add(new SQLiteParameter("@updated_by") { DbType = DbType.String, Value = member.CreatedBy });
-            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var parameters = new DynamicParameters();
+            parameters.Add("id", member.Id, dbType: DbType.String);
+            parameters.Add("name", member.Name);
+            parameters.Add("phone", member.Phone);
+            parameters.Add("gender", member.Gender);
+            parameters.Add("birthday", member.Birthday);
+            parameters.Add("cardno", member.CardNo);
+            parameters.Add("updated_at", member.CreatedAt);
+            parameters.Add("updated_by", member.CreatedBy);
+            var cmdDef = new CommandDefinition(commandText, parameters);
+            await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
         }
     }
 }

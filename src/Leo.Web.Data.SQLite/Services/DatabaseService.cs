@@ -1,4 +1,6 @@
-﻿namespace Leo.Web.Data.Services
+﻿using Dapper;
+
+namespace Leo.Web.Data.Services
 {
     // https://sqlite.org/datatype3.html
     internal class DatabaseService : IDatabaseService
@@ -16,13 +18,8 @@
         public async Task InitializeAsync()
         {
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-
-            cmd.CommandText = CREATE_MEMBER_SQL;
-            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
-
-            cmd.CommandText = CREATE_MEMBER_DETAIL_SQL;
-            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var cmdDef = new CommandDefinition(commandText: $"{CREATE_MEMBER_SQL}{CREATE_MEMBER_DETAIL_SQL}");
+            await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Alyio.Extensions;
+﻿using Dapper;
 using Leo.Data.Domain.Entities;
 using System.Data;
-using System.Data.SQLite;
 
 namespace Leo.Web.Data.Services
 {
@@ -19,74 +18,43 @@ namespace Leo.Web.Data.Services
             detail.Id = Guid.NewGuid().ToString();
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member_detail (id, member_id, date, item, count, height, weight,"
+            var parameters = new DynamicParameters();
+            parameters.Add("id", detail.Id, dbType: DbType.String);
+            parameters.Add("member_id", detail.MemberId);
+            parameters.Add("date", detail.Date);
+            parameters.Add("item", detail.Item);
+            parameters.Add("count", detail.Count);
+            parameters.Add("height", detail.Height);
+            parameters.Add("weight", detail.Weight);
+            parameters.Add("created_at", detail.CreatedAt);
+            parameters.Add("created_by", detail.CreatedBy);
+            var commandText = "INSERT INTO member_detail (id, member_id, date, item, count, height, weight,"
                 + "created_at, created_by) "
                 + "VALUES (@id, @member_id, @date, @item, @count, @height, @weight, "
                 + "@created_at, @created_by)";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = detail.Id });
-            cmd.Parameters.Add(new SQLiteParameter("@member_id") { DbType = DbType.String, Value = detail.MemberId });
-            cmd.Parameters.Add(new SQLiteParameter("@date") { DbType = DbType.DateTime, Value = detail.Date });
-            cmd.Parameters.Add(new SQLiteParameter("@item") { DbType = DbType.String, Value = detail.Item });
-            cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.Int32, Value = detail.Count });
-            cmd.Parameters.Add(new SQLiteParameter("@height") { DbType = DbType.Double, Value = detail.Height });
-            cmd.Parameters.Add(new SQLiteParameter("@weight") { DbType = DbType.Double, Value = detail.Weight });
-            cmd.Parameters.Add(new SQLiteParameter("@created_at") { DbType = DbType.DateTime, Value = detail.CreatedAt });
-            cmd.Parameters.Add(new SQLiteParameter("@created_by") { DbType = DbType.String, Value = detail.CreatedBy });
-            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var cmdDef = new CommandDefinition(commandText, parameters);
+            await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
             return detail.Id;
         }
 
-        public async Task<MemberDetail?> GetByIdAsync(Guid id)
+        public async Task<MemberDetail?> GetByIdAsync(string id)
         {
-            var detail = null as MemberDetail;
+            var commandText = "SELECT * FROM member_detail WHERE id = @id";
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id);
+            var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member_detail WHERE id = @id";
-            cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = id });
-            using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-            {
-                if (reader.Read())
-                {
-                    detail = new MemberDetail
-                    {
-                        Id = reader["id"].ToString(),
-                        MemberId = reader["member_id"].ToString(),
-                        Date = reader["date"].ToDateTime(),
-                        Item = reader["item"].ToString(),
-                        Count = reader["count"].ToInt32() ?? 0,
-                        Height = reader["height"].ToDouble() ?? 0.0d,
-                        Weight = reader["weight"].ToDouble() ?? 0.0d
-                    };
-                }
-            }
-            return detail;
+            return await conn.QueryFirstAsync<MemberDetail>(cmdDef).ConfigureAwait(false);
         }
 
-        public async Task<List<MemberDetail>> GetByMemberIdAsync(Guid memberId)
+        public async Task<IEnumerable<MemberDetail>> GetByMemberIdAsync(string memberId)
         {
-            var members = new List<MemberDetail>();
+            var commandText = "SELECT * FROM member_detail WHERE member_id = @member_id";
+            var parameters = new DynamicParameters();
+            parameters.Add("member_id", memberId);
+            var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM member_detail WHERE member_id = @member_id";
-            cmd.Parameters.Add(new SQLiteParameter("@member_id") { DbType = DbType.String, Value = memberId });
-            using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
-            {
-                while (reader.Read())
-                {
-                    members.Add(new MemberDetail
-                    {
-                        Id = reader["id"].ToString(),
-                        MemberId = reader["member_id"].ToString(),
-                        Date = reader["date"].ToDateTime(),
-                        Item = reader["item"].ToString(),
-                        Count = reader["count"].ToInt32() ?? 0,
-                        Height = reader["height"].ToDouble() ?? 0.0d,
-                        Weight = reader["weight"].ToDouble() ?? 0.0d
-                    });
-                }
-            }
-            return members;
+            return await conn.QueryAsync<MemberDetail>(cmdDef).ConfigureAwait(false);
         }
     }
 }
