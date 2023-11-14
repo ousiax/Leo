@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Leo.Data.Domain;
 using Leo.Data.Domain.Entities;
 using MediatR;
 
@@ -18,6 +19,10 @@ namespace Leo.Web.Data.Commands.Handlers
         public Task<Guid> Handle(CreateMemberRequest request, CancellationToken cancellationToken)
         {
             var member = _mapper.Map<Member>(request.MemberDto);
+            if (request.User != null)
+            {
+                member.Create(request.User);
+            }
             return _memberService.CreateAsync(member);
         }
     }

@@ -37,14 +37,26 @@ namespace Leo.Web.Controllers
         [HttpPost]
         public async Task<CreatedMessage> CreateAsync([FromBody] MemberDto memberDto)
         {
-            var id = await _mediator.Send(new CreateMemberRequest { MemberDto = memberDto }, this.HttpContext.RequestAborted).ConfigureAwait(false);
+            var id = await _mediator.Send(
+                new CreateMemberRequest
+                {
+                    MemberDto = memberDto,
+                    User = this.HttpContext.User,
+                },
+                this.HttpContext.RequestAborted).ConfigureAwait(false);
             return this.CreatedMessageAtAction(nameof(GetAsync), new { id }, id.ToString());
         }
 
         [HttpPut]
         public async Task UpdateAsync([FromBody] MemberDto memberDto)
         {
-            await _mediator.Send(new UpdateMemberRequest { MemberDto = memberDto }, this.HttpContext.RequestAborted).ConfigureAwait(false);
+            await _mediator.Send(
+                new UpdateMemberRequest
+                {
+                    MemberDto = memberDto,
+                    User = this.HttpContext.User,
+                },
+            this.HttpContext.RequestAborted).ConfigureAwait(false);
         }
 
         [HttpGet("{id}/details")]

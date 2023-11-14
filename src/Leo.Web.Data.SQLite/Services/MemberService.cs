@@ -72,14 +72,18 @@ namespace Leo.Web.Data.Services
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member (id, name , phone , gender , birthday , cardno) "
-                + "VALUES (@id, @name , @phone , @gender , @birthday , @cardno)";
+            cmd.CommandText = "INSERT INTO member (id, name, phone, gender, birthday, cardno,"
+                + "created_at, created_by) "
+                + "VALUES (@id, @name, @phone, @gender, @birthday, @cardno, "
+                + "@created_at, @created_by)";
             cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
             cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
             cmd.Parameters.Add(new SQLiteParameter("@phone") { DbType = DbType.String, Value = member.Phone });
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
             cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
+            cmd.Parameters.Add(new SQLiteParameter("@created_at") { DbType = DbType.DateTime, Value = member.CreatedAt });
+            cmd.Parameters.Add(new SQLiteParameter("@created_by") { DbType = DbType.String, Value = member.CreatedBy });
             await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
             return member.Id;
         }
@@ -89,7 +93,8 @@ namespace Leo.Web.Data.Services
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "UPDATE member "
-                + "SET name=@name , phone=@phone , gender=@gender , birthday=@birthday , cardno=@cardno "
+                + "SET name=@name, phone=@phone, gender=@gender, birthday=@birthday, cardno=@cardno, "
+                + "updated_at = @updated_at, updated_by = @updated_by "
                 + "WHERE id=@id";
             cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = member.Id });
             cmd.Parameters.Add(new SQLiteParameter("@name") { DbType = DbType.String, Value = member.Name });
@@ -97,6 +102,8 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@gender") { DbType = DbType.String, Value = member.Gender });
             cmd.Parameters.Add(new SQLiteParameter("@birthday") { DbType = DbType.DateTime, Value = member.Birthday });
             cmd.Parameters.Add(new SQLiteParameter("@cardno") { DbType = DbType.String, Value = member.CardNo });
+            cmd.Parameters.Add(new SQLiteParameter("@updated_at") { DbType = DbType.DateTime, Value = member.CreatedAt });
+            cmd.Parameters.Add(new SQLiteParameter("@updated_by") { DbType = DbType.String, Value = member.CreatedBy });
             await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
     }

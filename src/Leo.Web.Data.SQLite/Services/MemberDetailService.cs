@@ -20,8 +20,10 @@ namespace Leo.Web.Data.Services
 
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO member_detail (id, member_id, date , item , count , height , weight) "
-                + "VALUES (@id, @member_id, @date , @item , @count , @height , @weight)";
+            cmd.CommandText = "INSERT INTO member_detail (id, member_id, date, item, count, height, weight,"
+                + "created_at, created_by) "
+                + "VALUES (@id, @member_id, @date, @item, @count, @height, @weight, "
+                + "@created_at, @created_by)";
             cmd.Parameters.Add(new SQLiteParameter("@id") { DbType = DbType.String, Value = detail.Id });
             cmd.Parameters.Add(new SQLiteParameter("@member_id") { DbType = DbType.String, Value = detail.MemberId });
             cmd.Parameters.Add(new SQLiteParameter("@date") { DbType = DbType.DateTime, Value = detail.Date });
@@ -29,6 +31,8 @@ namespace Leo.Web.Data.Services
             cmd.Parameters.Add(new SQLiteParameter("@count") { DbType = DbType.Int32, Value = detail.Count });
             cmd.Parameters.Add(new SQLiteParameter("@height") { DbType = DbType.Double, Value = detail.Height });
             cmd.Parameters.Add(new SQLiteParameter("@weight") { DbType = DbType.Double, Value = detail.Weight });
+            cmd.Parameters.Add(new SQLiteParameter("@created_at") { DbType = DbType.DateTime, Value = detail.CreatedAt });
+            cmd.Parameters.Add(new SQLiteParameter("@created_by") { DbType = DbType.String, Value = detail.CreatedBy });
             await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
             return detail.Id;
         }
