@@ -1,4 +1,4 @@
-﻿namespace Leo.Data.Domain.Models
+﻿namespace Leo.Data.Domain.Entities
 {
     public class MemberDetail
     {

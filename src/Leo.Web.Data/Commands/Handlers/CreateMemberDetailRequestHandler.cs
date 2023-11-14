@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Leo.Data.Domain.Models;
+using Leo.Data.Domain.Entities;
 using MediatR;
 
 namespace Leo.Web.Data.Commands.Handlers

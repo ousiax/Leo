@@ -1,4 +1,4 @@
-﻿using Leo.Data.Domain.Models;
+﻿using Leo.Data.Domain.Entities;
 
 namespace Leo.Web.Data
 {

@@ -1,4 +1,4 @@
-﻿using Leo.Data.Domain.Models;
+﻿using Leo.Data.Domain.Entities;
 using System.Text.Json.Serialization;
 
 namespace Leo.Data.Domain.Dtos
