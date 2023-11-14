@@ -103,6 +103,8 @@ namespace Leo.Windows.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //this.combGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
+            //this.combGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
             menuNew.Click += async (s, a) =>
             {
                 var newMemberViewModel = new MemberViewModel { Birthday = DateTime.Now };

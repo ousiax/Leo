@@ -53,6 +53,19 @@ namespace Leo.Windows.ViewModels
             }
         }
 
+        public string? GenderText
+        {
+            get
+            {
+                return new Dictionary<string, string> {
+                    {"Unkonw", "未知" },
+                    {"Male","男" },
+                    {"Female","女" },
+                }
+                .FirstOrDefault(d => d.Key == Gender).Value;
+            }
+        }
+
         public DateTime? Birthday
         {
             get { return _birthday == null ? DateTime.MinValue : _birthday.Value; }
