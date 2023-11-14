@@ -70,8 +70,8 @@ namespace Leo.Web.Data.Services
             parameters.Add("gender", member.Gender);
             parameters.Add("birthday", member.Birthday);
             parameters.Add("cardno", member.CardNo);
-            parameters.Add("updated_at", member.CreatedAt);
-            parameters.Add("updated_by", member.CreatedBy);
+            parameters.Add("updated_at", member.UpdatedAt);
+            parameters.Add("updated_by", member.UpdatedBy);
             var cmdDef = new CommandDefinition(commandText, parameters);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
         }
