@@ -9,10 +9,10 @@ namespace Leo.Web.Data
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
-            services.AddTransient<IDatabaseService, DatabaseService>();
-            services.AddSingleton<IMemberRepository, MemberRepository>();
-            services.AddSingleton<IMemberDetailRepository, MemberDetailRepository>();
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDatabaseService, DatabaseService>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
+            services.AddScoped<IMemberDetailRepository, MemberDetailRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCQRS();
             return services;
         }
