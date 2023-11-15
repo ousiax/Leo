@@ -36,6 +36,8 @@ namespace Leo.Web
                     Configuration.Bind("AzureAdJwt", options);
                     options.TokenValidationParameters.IssuerValidator = AadIssuerValidator.GetAadIssuerValidator(options.Authority).Validate;
                 });
+
+            services.AddHealthChecks();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +60,8 @@ namespace Leo.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseHealthChecks("/healthz");
 
             app.UseAuthentication();
             app.UseAuthorization();
