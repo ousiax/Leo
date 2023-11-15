@@ -1,18 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Leo.Web.Data.Services
+﻿namespace Leo.Web.Data.Services
 {
     internal sealed class UnitOfWork : IUnitOfWork
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public UnitOfWork(IServiceProvider serviceProvider)
+        public UnitOfWork(
+            IMemberRepository memberRepository,
+            IMemberDetailRepository memberDetailRepository)
         {
-            _serviceProvider = serviceProvider;
+            MemberRepository = memberRepository;
+            MemberDetailRepository = memberDetailRepository;
         }
 
-        public IMemberRepository MemberRepository => _serviceProvider.GetRequiredService<IMemberRepository>();
+        public IMemberRepository MemberRepository { get; }
 
-        public IMemberDetailRepository MemberDetailRepository => _serviceProvider.GetRequiredService<IMemberDetailRepository>();
+        public IMemberDetailRepository MemberDetailRepository { get; }
     }
 }
