@@ -29,7 +29,6 @@ namespace Leo.Web.Data.SQLite.Repositories
             var commandText = "SELECT * FROM member";
             var cmdDef = new CommandDefinition(commandText: commandText);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-
             return await conn.QueryAsync<Member>(cmdDef).ConfigureAwait(false);
         }
 
@@ -37,7 +36,6 @@ namespace Leo.Web.Data.SQLite.Repositories
         {
             member.Id = Guid.NewGuid().ToString();
 
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             var commandText = "INSERT INTO member (id, name, phone, gender, birthday, cardno,"
                 + "created_at, created_by) "
                 + "VALUES (@id, @name, @phone, @gender, @birthday, @cardno, "
@@ -52,13 +50,13 @@ namespace Leo.Web.Data.SQLite.Repositories
             parameters.Add("created_at", member.CreatedAt);
             parameters.Add("created_by", member.CreatedBy); ;
             var cmdDef = new CommandDefinition(commandText, parameters);
+            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
             return member.Id;
         }
 
         public async Task UpdateAsync(Member member)
         {
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             var commandText = "UPDATE member "
                 + "SET name=@name, phone=@phone, gender=@gender, birthday=@birthday, cardno=@cardno, "
                 + "updated_at = @updated_at, updated_by = @updated_by "
@@ -73,6 +71,7 @@ namespace Leo.Web.Data.SQLite.Repositories
             parameters.Add("updated_at", member.UpdatedAt);
             parameters.Add("updated_by", member.UpdatedBy);
             var cmdDef = new CommandDefinition(commandText, parameters);
+            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
         }
     }

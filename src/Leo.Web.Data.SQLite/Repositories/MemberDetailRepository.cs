@@ -17,7 +17,6 @@ namespace Leo.Web.Data.SQLite.Repositories
         {
             detail.Id = Guid.NewGuid().ToString();
 
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             var parameters = new DynamicParameters();
             parameters.Add("id", detail.Id, dbType: DbType.String);
             parameters.Add("member_id", detail.MemberId);
@@ -33,6 +32,7 @@ namespace Leo.Web.Data.SQLite.Repositories
                 + "VALUES (@id, @member_id, @date, @item, @count, @height, @weight, "
                 + "@created_at, @created_by)";
             var cmdDef = new CommandDefinition(commandText, parameters);
+            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
             return detail.Id;
         }
