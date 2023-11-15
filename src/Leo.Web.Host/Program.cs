@@ -2,7 +2,7 @@
 
 namespace Leo.Web
 {
-    static class Program
+    public class Program
     {
         static async Task Main(string[] args)
         {
