@@ -6,9 +6,9 @@ namespace Leo.Web.Data.Services
 {
     internal sealed class MemberService : IMemberService
     {
-        private readonly IDbConnectionManager _dbConnectionManager;
+        private readonly IDbConnectionFactory _dbConnectionManager;
 
-        public MemberService(IDbConnectionManager dbConnectionManager)
+        public MemberService(IDbConnectionFactory dbConnectionManager)
         {
             _dbConnectionManager = dbConnectionManager;
         }

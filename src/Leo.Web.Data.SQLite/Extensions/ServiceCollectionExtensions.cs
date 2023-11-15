@@ -7,7 +7,7 @@ namespace Leo.Web.Data
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            services.AddSingleton<IDbConnectionManager, DbConnectionManager>();
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddTransient<IDatabaseService, DatabaseService>();
             services.AddSingleton<IMemberService, MemberService>();
             services.AddSingleton<IMemberDetailService, MemberDetailService>();

@@ -2,7 +2,7 @@
 
 namespace Leo.Web.Data
 {
-    public interface IDbConnectionManager
+    public interface IDbConnectionFactory
     {
         Task<DbConnection> OpenAsync();
 

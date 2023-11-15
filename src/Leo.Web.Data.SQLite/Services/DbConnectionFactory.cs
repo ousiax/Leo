@@ -4,11 +4,11 @@ using System.Data.SQLite;
 
 namespace Leo.Web.Data.Services
 {
-    internal class DbConnectionManager : IDbConnectionManager
+    internal class DbConnectionFactory : IDbConnectionFactory
     {
         private readonly IConfiguration _configuration;
 
-        public DbConnectionManager(IConfiguration configuration)
+        public DbConnectionFactory(IConfiguration configuration)
         {
             _configuration = configuration;
         }
