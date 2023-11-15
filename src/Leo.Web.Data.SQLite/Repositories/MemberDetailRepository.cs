@@ -44,7 +44,7 @@ namespace Leo.Web.Data.SQLite.Repositories
             parameters.Add("id", id);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
-            return await conn.QueryFirstAsync<MemberDetail>(cmdDef).ConfigureAwait(false);
+            return await conn.QueryFirstOrDefaultAsync<MemberDetail>(cmdDef).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<MemberDetail>> GetByMemberIdAsync(string memberId)
