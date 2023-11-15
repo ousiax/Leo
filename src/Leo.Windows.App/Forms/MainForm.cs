@@ -162,8 +162,7 @@ namespace Leo.Windows.Forms
 
         private async void bdsMembers_CurrentChanged(object sender, EventArgs e)
         {
-            var member = bdsMembers.Current as MemberViewModel;
-            if (member != null && _previousMemberViewModel != member)
+            if (bdsMembers.Current is MemberViewModel member && _previousMemberViewModel != member)
             {
                 _previousMemberViewModel = member;
 
