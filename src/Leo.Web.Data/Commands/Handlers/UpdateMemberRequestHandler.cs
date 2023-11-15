@@ -7,10 +7,10 @@ namespace Leo.Web.Data.Commands.Handlers
 {
     internal sealed class UpdateMemberRequestHandler : IRequestHandler<UpdateMemberRequest, Unit>
     {
-        private readonly IMemberService _memberService;
+        private readonly IMemberRepository _memberService;
         private readonly IMapper _mapper;
 
-        public UpdateMemberRequestHandler(IMemberService memberService, IMapper mapper)
+        public UpdateMemberRequestHandler(IMemberRepository memberService, IMapper mapper)
         {
             _memberService = memberService;
             _mapper = mapper;

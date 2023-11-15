@@ -7,10 +7,10 @@ namespace Leo.Web.Data.Commands.Handlers
 {
     internal sealed class CreateMemberRequestHandler : IRequestHandler<CreateMemberRequest, string>
     {
-        private readonly IMemberService _memberService;
+        private readonly IMemberRepository _memberService;
         private readonly IMapper _mapper;
 
-        public CreateMemberRequestHandler(IMemberService memberService, IMapper mapper)
+        public CreateMemberRequestHandler(IMemberRepository memberService, IMapper mapper)
         {
             _memberService = memberService;
             _mapper = mapper;

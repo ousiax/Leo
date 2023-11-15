@@ -1,4 +1,5 @@
 ﻿using Leo.Web.Data.Services;
+using Leo.Web.Data.SQLite.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Leo.Web.Data
@@ -9,8 +10,8 @@ namespace Leo.Web.Data
         {
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddTransient<IDatabaseService, DatabaseService>();
-            services.AddSingleton<IMemberService, MemberService>();
-            services.AddSingleton<IMemberDetailService, MemberDetailService>();
+            services.AddSingleton<IMemberRepository, MemberRepository>();
+            services.AddSingleton<IMemberDetailRepository, MemberDetailRepository>();
             services.AddCQRS();
             return services;
         }

@@ -2,9 +2,9 @@
 using Leo.Data.Domain.Entities;
 using System.Data;
 
-namespace Leo.Web.Data.Services
+namespace Leo.Web.Data.SQLite.Repositories
 {
-    internal sealed class MemberService : IMemberService
+    internal sealed class MemberService : IMemberRepository
     {
         private readonly IDbConnectionFactory _dbConnectionManager;
 

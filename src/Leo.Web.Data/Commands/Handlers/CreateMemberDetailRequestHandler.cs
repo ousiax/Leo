@@ -7,10 +7,10 @@ namespace Leo.Web.Data.Commands.Handlers
 {
     internal class CreateMemberDetailRequestHandler : IRequestHandler<CreateMemberDetailRequest, string>
     {
-        private readonly IMemberDetailService _memberDetailService;
+        private readonly IMemberDetailRepository _memberDetailService;
         private readonly IMapper _mapper;
 
-        public CreateMemberDetailRequestHandler(IMemberDetailService memberDetailService, IMapper mapper)
+        public CreateMemberDetailRequestHandler(IMemberDetailRepository memberDetailService, IMapper mapper)
         {
             _memberDetailService = memberDetailService;
             _mapper = mapper;

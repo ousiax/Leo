@@ -6,10 +6,10 @@ namespace Leo.Web.Data.Queries.Handlers
 {
     internal class GetMemberDetailByIdRequestHandler : IRequestHandler<GetMemberDetailByIdRequest, MemberDetailDto>
     {
-        private readonly IMemberDetailService _memberDetailService;
+        private readonly IMemberDetailRepository _memberDetailService;
         private readonly IMapper _mapper;
 
-        public GetMemberDetailByIdRequestHandler(IMemberDetailService memberDetailService, IMapper mapper)
+        public GetMemberDetailByIdRequestHandler(IMemberDetailRepository memberDetailService, IMapper mapper)
         {
             _memberDetailService = memberDetailService;
             _mapper = mapper;
