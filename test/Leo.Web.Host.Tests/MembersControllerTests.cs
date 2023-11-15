@@ -55,5 +55,24 @@ namespace Leo.Web.Host.Tests
 
             Assert.NotEmpty(id);
         }
+
+        [Fact]
+        public async Task Get_MemberById_ReturnOK()
+        {
+            var member = new MemberDto
+            {
+                Name = "Test",
+                Gender = Leo.Data.Domain.Entities.Gender.Male,
+                CardNo = "test",
+                Phone = "test",
+            };
+            var res = await _client.PostAsJsonAsync("/members", member);
+            var result = await res.Content.ReadFromJsonAsync<JsonObject>();
+            var id = result!["id"]!.ToString();
+
+            res = await _client.GetAsync($"/members/{id}");
+
+            Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+        }
     }
 }
