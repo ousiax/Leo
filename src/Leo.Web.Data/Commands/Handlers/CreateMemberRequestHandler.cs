@@ -7,12 +7,12 @@ namespace Leo.Web.Data.Commands.Handlers
 {
     internal sealed class CreateMemberRequestHandler : IRequestHandler<CreateMemberRequest, string>
     {
-        private readonly IMemberRepository _memberService;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public CreateMemberRequestHandler(IMemberRepository memberService, IMapper mapper)
+        public CreateMemberRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _memberService = memberService;
+            _uow = unitOfWork;
             _mapper = mapper;
         }
 
@@ -23,7 +23,7 @@ namespace Leo.Web.Data.Commands.Handlers
             {
                 member.Create(request.User);
             }
-            return _memberService.CreateAsync(member);
+            return _uow.MemberRepository.CreateAsync(member);
         }
     }
 }

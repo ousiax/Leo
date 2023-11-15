@@ -2,7 +2,7 @@
 
 namespace Leo.Web.Data
 {
-    public interface IMemberService
+    public interface IMemberRepository
     {
         Task<Member?> GetAsync(string id);
 

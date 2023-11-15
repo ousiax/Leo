@@ -7,12 +7,12 @@ namespace Leo.Web.Data.Commands.Handlers
 {
     internal sealed class UpdateMemberRequestHandler : IRequestHandler<UpdateMemberRequest, Unit>
     {
-        private readonly IMemberRepository _memberService;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public UpdateMemberRequestHandler(IMemberRepository memberService, IMapper mapper)
+        public UpdateMemberRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _memberService = memberService;
+            _uow = unitOfWork;
             _mapper = mapper;
         }
 
@@ -23,7 +23,7 @@ namespace Leo.Web.Data.Commands.Handlers
             {
                 member.Update(request.User);
             }
-            await _memberService.UpdateAsync(member).ConfigureAwait(false);
+            await _uow.MemberRepository.UpdateAsync(member).ConfigureAwait(false);
             return Unit.Value;
         }
     }

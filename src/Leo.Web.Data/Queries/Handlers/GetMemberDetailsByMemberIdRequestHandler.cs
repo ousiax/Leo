@@ -6,12 +6,12 @@ namespace Leo.Web.Data.Queries.Handlers
 {
     internal class GetMemberDetailsByMemberIdRequestHandler : IRequestHandler<GetMemberDetailsByMemberIdRequest, List<MemberDetailDto>>
     {
-        private readonly IMemberDetailRepository _memberDetailService;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public GetMemberDetailsByMemberIdRequestHandler(IMemberDetailRepository memberDetailService, IMapper mapper)
+        public GetMemberDetailsByMemberIdRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _memberDetailService = memberDetailService;
+            _uow = unitOfWork;
             _mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace Leo.Web.Data.Queries.Handlers
                 throw new ArgumentNullException(nameof(request.MemberId));
             }
 
-            var detail = await _memberDetailService.GetByMemberIdAsync(request.MemberId).ConfigureAwait(false);
+            var detail = await _uow.MemberDetailRepository.GetByMemberIdAsync(request.MemberId).ConfigureAwait(false);
             return _mapper.Map<List<MemberDetailDto>>(detail);
         }
     }

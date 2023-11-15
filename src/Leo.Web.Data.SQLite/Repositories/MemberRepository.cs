@@ -4,11 +4,11 @@ using System.Data;
 
 namespace Leo.Web.Data.SQLite.Repositories
 {
-    internal sealed class MemberService : IMemberRepository
+    internal sealed class MemberRepository : IMemberRepository
     {
         private readonly IDbConnectionFactory _dbConnectionManager;
 
-        public MemberService(IDbConnectionFactory dbConnectionManager)
+        public MemberRepository(IDbConnectionFactory dbConnectionManager)
         {
             _dbConnectionManager = dbConnectionManager;
         }
