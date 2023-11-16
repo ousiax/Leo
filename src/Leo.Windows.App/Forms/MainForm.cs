@@ -147,6 +147,8 @@ namespace Leo.Windows.Forms
 
             menuFind.Click += (s, a) =>
             {
+                if (Members.Count == 0) { return; }
+
                 using var frm = new FindForm(Members);
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK && frm.Index != null)
