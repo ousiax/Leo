@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
-namespace Leo.Web.Host.Tests
+namespace Leo.Web.Api.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {

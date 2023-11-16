@@ -1,4 +1,4 @@
-namespace Leo.Web.Host.Tests
+namespace Leo.Web.Api.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {

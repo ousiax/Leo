@@ -5,7 +5,7 @@ using Microsoft.Identity.Web;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 
-namespace Leo.Web.Host.Tests
+namespace Leo.Web.Api.Tests
 {
     internal sealed class LeoAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {

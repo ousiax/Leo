@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Leo.Web.Host.Tests
+namespace Leo.Web.Api.Tests
 {
     public sealed class LeoWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint> where TEntryPoint : class
     {
