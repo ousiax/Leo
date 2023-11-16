@@ -6,26 +6,8 @@ using System.Text.Json.Nodes;
 
 namespace Leo.Web.Host.Tests
 {
-    public class MembersControllerTests : IClassFixture<LeoWebApplicationFactory<Program>>
+    public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {
-        private readonly LeoWebApplicationFactory<Program> _factory;
-        private readonly HttpClient _client;
-
-        public MembersControllerTests(LeoWebApplicationFactory<Program> factory)
-        {
-            _factory = factory;
-            _client = _factory.CreateDefaultClient();
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Leo", "Leo");
-        }
-
-        [Fact]
-        public async Task Get_HealthCheck_ReturnOK()
-        {
-            var resp = await _client.GetAsync("/healthz");
-
-            Assert.Equal(HttpStatusCode.OK, resp.StatusCode);
-        }
-
         [Fact]
         public async Task Get_Members_ReturnOK()
         {
