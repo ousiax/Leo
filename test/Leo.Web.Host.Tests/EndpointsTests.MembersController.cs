@@ -8,10 +8,12 @@ namespace Leo.Web.Host.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {
+        const string _membersPathSegment = "/members";
+
         [Fact]
         public async Task Get_Members_ReturnOK()
         {
-            var resp = await _client.GetAsync("/members");
+            var resp = await _client.GetAsync(_membersPathSegment);
 
             var members = await resp.Content.ReadFromJsonAsync<IEnumerable<MemberDto>>();
 
@@ -28,7 +30,7 @@ namespace Leo.Web.Host.Tests
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync("/members", member);
+            var res = await _client.PostAsJsonAsync(_membersPathSegment, member);
 
             Assert.Equal(HttpStatusCode.Created, res.StatusCode);
 
@@ -48,11 +50,11 @@ namespace Leo.Web.Host.Tests
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync("/members", member);
+            var res = await _client.PostAsJsonAsync(_membersPathSegment, member);
             var result = await res.Content.ReadFromJsonAsync<JsonObject>();
             var id = result!["id"]!.ToString();
 
-            res = await _client.GetAsync($"/members/{id}");
+            res = await _client.GetAsync($"{_membersPathSegment}/{id}");
 
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
