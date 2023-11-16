@@ -1,5 +1,7 @@
 ﻿using Leo.UI.Options;
+using Leo.UI.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using System.Globalization;
 using System.Net.WebSockets;
 using System.Text;
@@ -9,10 +11,13 @@ namespace Leo.Windows.Forms
     public partial class EchoForm : Form
     {
         private const string DEFAULT_WS_PATH = "/ws/echo";
+        private readonly IAuthenticationService _authenticationService;
         private ClientWebSocket? _ws;
 
-        public EchoForm(IOptions<WebOptions> webOptions)
+        public EchoForm(IOptions<WebOptions> webOptions, IAuthenticationService authenticationService)
         {
+            _authenticationService = authenticationService;
+
             InitializeComponent();
 
             this.txtAddress.Text = new UriBuilder(webOptions.Value.BaseAddress!)
@@ -43,7 +48,10 @@ namespace Leo.Windows.Forms
             else
             {
                 _ws = new ClientWebSocket();
+                var result = await _authenticationService.ExecuteAsync();
+                _ws.Options.SetRequestHeader(HeaderNames.Authorization, $"Bearer {result.IdToken}");
                 _ws.Options.KeepAliveInterval = TimeSpan.FromMinutes(5);
+
                 await _ws.ConnectAsync(WsUri, CancellationToken.None);
                 btnConnect.Text = "Disconnect";
                 btnSend.Enabled = true;
