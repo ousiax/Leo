@@ -128,6 +128,11 @@ namespace Leo.Windows.Forms
 
             menuModify.Click += async (s, a) =>
             {
+                if (CurrentMember == null)
+                {
+                    return;
+                }
+
                 using var frm = new NewForm(CurrentMember);
                 frm.Text = "修改会员信息";
                 var result = frm.ShowDialog();
