@@ -9,38 +9,38 @@ namespace Leo.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MembersController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private readonly ILogger<MembersController> _logger;
+        private readonly ILogger<CustomersController> _logger;
         private readonly IMediator _mediator;
 
-        public MembersController(
+        public CustomersController(
             IMediator mediator,
-            ILogger<MembersController> logger)
+            ILogger<CustomersController> logger)
         {
             _mediator = mediator;
             _logger = logger;
         }
 
         [HttpGet]
-        public Task<List<MemberDto>> GetAsync()
+        public Task<List<CustomerDto>> GetAsync()
         {
-            return _mediator.Send(new GetMembersRequest(), this.HttpContext.RequestAborted);
+            return _mediator.Send(new GetCustomersRequest(), this.HttpContext.RequestAborted);
         }
 
         [HttpGet("{id}")]
-        public async Task<MemberDto?> GetAsync(string id)
+        public async Task<CustomerDto?> GetAsync(string id)
         {
-            return await _mediator.Send(new GetMemberByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
+            return await _mediator.Send(new GetCustomerByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }
 
         [HttpPost]
-        public async Task<CreatedMessage> CreateAsync([FromBody] MemberDto memberDto)
+        public async Task<CreatedMessage> CreateAsync([FromBody] CustomerDto customerDto)
         {
             var id = await _mediator.Send(
-                new CreateMemberRequest
+                new CreateCustomerRequest
                 {
-                    MemberDto = memberDto,
+                    CustomerDto = customerDto,
                     User = this.HttpContext.User,
                 },
                 this.HttpContext.RequestAborted).ConfigureAwait(false);
@@ -48,21 +48,21 @@ namespace Leo.Web.Controllers
         }
 
         [HttpPut]
-        public async Task UpdateAsync([FromBody] MemberDto memberDto)
+        public async Task UpdateAsync([FromBody] CustomerDto customerDto)
         {
             await _mediator.Send(
-                new UpdateMemberRequest
+                new UpdateCustomerRequest
                 {
-                    MemberDto = memberDto,
+                    CustomerDto = customerDto,
                     User = this.HttpContext.User,
                 },
             this.HttpContext.RequestAborted).ConfigureAwait(false);
         }
 
         [HttpGet("{id}/details")]
-        public Task<List<MemberDetailDto>> GetByMemberIdAsync(string id)
+        public Task<List<CustomerDetailDto>> GetByCustomerIdAsync(string id)
         {
-            return _mediator.Send(new GetMemberDetailsByMemberIdRequest { MemberId = id }, this.HttpContext.RequestAborted);
+            return _mediator.Send(new GetCustomerDetailsByCustomerIdRequest { CustomerId = id }, this.HttpContext.RequestAborted);
         }
     }
 }

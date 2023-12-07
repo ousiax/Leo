@@ -10,8 +10,8 @@ namespace Leo.UI.Services
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IMemberService, MemberService>();
-            services.AddSingleton<IMemberDetailService, MemberDetailService>();
+            services.AddSingleton<ICustomerService, CustomerService>();
+            services.AddSingleton<ICustomerDetailService, CustomerDetailService>();
 
             services.AddHttpClient("Leo", (s, c) =>
             {

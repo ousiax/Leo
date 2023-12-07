@@ -149,13 +149,13 @@
             // 
             // combGender
             // 
-            this.combGender.DisplayMember = "Value";
+            this.combGender.DisplayCustomer = "Value";
             this.combGender.FormattingEnabled = true;
             this.combGender.Location = new System.Drawing.Point(112, 92);
             this.combGender.Name = "combGender";
             this.combGender.Size = new System.Drawing.Size(56, 29);
             this.combGender.TabIndex = 30;
-            this.combGender.ValueMember = "Key";
+            this.combGender.ValueCustomer = "Key";
             // 
             // NewForm
             // 

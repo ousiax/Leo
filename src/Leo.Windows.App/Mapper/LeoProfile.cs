@@ -8,8 +8,8 @@ namespace Leo.Windows.Mapper
     {
         public LeoProfile()
         {
-            CreateMap<MemberViewModel, MemberDto>().ReverseMap();
-            CreateMap<MemberDetailViewModel, MemberDetailDto>().ReverseMap();
+            CreateMap<CustomerViewModel, CustomerDto>().ReverseMap();
+            CreateMap<CustomerDetailViewModel, CustomerDetailDto>().ReverseMap();
         }
     }
 }

@@ -1,20 +1,18 @@
 ﻿namespace Leo.Data.Domain.Entities
 {
-    public class MemberDetail : IAuditableEntity
+    public class Customer : IAuditableEntity
     {
         public string? Id { get; set; }
 
-        public string? MemberId { get; set; }
+        public string? Name { get; set; }
 
-        public DateTime? Date { get; set; }
+        public string? Phone { get; set; }
 
-        public string? Item { get; set; }
+        public Gender? Gender { get; set; }
 
-        public int? Count { get; set; }
+        public DateTime? Birthday { get; set; }
 
-        public double? Height { get; set; }
-
-        public double? Weight { get; set; }
+        public string? CardNo { get; set; }
 
         // IAuditableEntity
 

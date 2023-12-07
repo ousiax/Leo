@@ -10,8 +10,8 @@ namespace Leo.Web.Data
         {
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddScoped<IDatabaseService, DatabaseService>();
-            services.AddScoped<IMemberRepository, MemberRepository>();
-            services.AddScoped<IMemberDetailRepository, MemberDetailRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerDetailRepository, CustomerDetailRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCQRS();
             return services;

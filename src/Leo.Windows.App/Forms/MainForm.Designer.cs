@@ -36,14 +36,14 @@ namespace Leo.Windows.Forms
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            dgvMemberDetails = new DataGridView();
+            dgvCustomerDetails = new DataGridView();
             colDate = new DataGridViewTextBoxColumn();
             colItem = new DataGridViewTextBoxColumn();
             colCount = new DataGridViewTextBoxColumn();
             colHeight = new DataGridViewTextBoxColumn();
             colWeight = new DataGridViewTextBoxColumn();
-            bdsMemberDetails = new BindingSource(components);
-            bdsMembers = new BindingSource(components);
+            bdsCustomerDetails = new BindingSource(components);
+            bdsCustomers = new BindingSource(components);
             splitContainer1 = new SplitContainer();
             txtAge = new TextBox();
             lblAge = new Label();
@@ -62,9 +62,9 @@ namespace Leo.Windows.Forms
             menuModify = new ToolStripMenuItem();
             menuFind = new ToolStripMenuItem();
             menuEcho = new ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMembers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomerDetails).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomerDetails).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -72,26 +72,26 @@ namespace Leo.Windows.Forms
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // dgvMemberDetails
+            // dgvCustomerDetails
             // 
-            dgvMemberDetails.AllowUserToAddRows = false;
-            dgvMemberDetails.AllowUserToDeleteRows = false;
+            dgvCustomerDetails.AllowUserToAddRows = false;
+            dgvCustomerDetails.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle1.SelectionBackColor = Color.Silver;
-            dgvMemberDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvMemberDetails.AutoGenerateColumns = false;
-            dgvMemberDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvMemberDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMemberDetails.Columns.AddRange(new DataGridViewColumn[] { colDate, colItem, colCount, colHeight, colWeight });
-            dgvMemberDetails.DataSource = bdsMemberDetails;
-            dgvMemberDetails.Dock = DockStyle.Fill;
-            dgvMemberDetails.Location = new Point(0, 0);
-            dgvMemberDetails.Margin = new Padding(5);
-            dgvMemberDetails.Name = "dgvMemberDetails";
-            dgvMemberDetails.ReadOnly = true;
-            dgvMemberDetails.RowHeadersWidth = 62;
-            dgvMemberDetails.Size = new Size(1022, 541);
-            dgvMemberDetails.TabIndex = 0;
+            dgvCustomerDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvCustomerDetails.AutoGenerateColumns = false;
+            dgvCustomerDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomerDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomerDetails.Columns.AddRange(new DataGridViewColumn[] { colDate, colItem, colCount, colHeight, colWeight });
+            dgvCustomerDetails.DataSource = bdsCustomerDetails;
+            dgvCustomerDetails.Dock = DockStyle.Fill;
+            dgvCustomerDetails.Location = new Point(0, 0);
+            dgvCustomerDetails.Margin = new Padding(5);
+            dgvCustomerDetails.Name = "dgvCustomerDetails";
+            dgvCustomerDetails.ReadOnly = true;
+            dgvCustomerDetails.RowHeadersWidth = 62;
+            dgvCustomerDetails.Size = new Size(1022, 541);
+            dgvCustomerDetails.TabIndex = 0;
             // 
             // colDate
             // 
@@ -139,15 +139,15 @@ namespace Leo.Windows.Forms
             colWeight.Name = "colWeight";
             colWeight.ReadOnly = true;
             // 
-            // bdsMemberDetails
+            // bdsCustomerDetails
             // 
-            bdsMemberDetails.DataMember = "Details";
-            bdsMemberDetails.DataSource = bdsMembers;
+            bdsCustomerDetails.DataCustomer = "Details";
+            bdsCustomerDetails.DataSource = bdsCustomers;
             // 
-            // bdsMembers
+            // bdsCustomers
             // 
-            bdsMembers.DataSource = typeof(MemberViewModel);
-            bdsMembers.CurrentChanged += bdsMembers_CurrentChanged;
+            bdsCustomers.DataSource = typeof(CustomerViewModel);
+            bdsCustomers.CurrentChanged += bdsCustomers_CurrentChanged;
             // 
             // splitContainer1
             // 
@@ -175,7 +175,7 @@ namespace Leo.Windows.Forms
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(dgvMemberDetails);
+            splitContainer1.Panel2.Controls.Add(dgvCustomerDetails);
             splitContainer1.Size = new Size(1022, 637);
             splitContainer1.SplitterDistance = 90;
             splitContainer1.SplitterWidth = 6;
@@ -183,7 +183,7 @@ namespace Leo.Windows.Forms
             // 
             // txtAge
             // 
-            txtAge.DataBindings.Add(new Binding("Text", bdsMembers, "Age", true));
+            txtAge.DataBindings.Add(new Binding("Text", bdsCustomers, "Age", true));
             txtAge.Enabled = false;
             txtAge.Location = new Point(467, 51);
             txtAge.Margin = new Padding(5);
@@ -204,8 +204,8 @@ namespace Leo.Windows.Forms
             // 
             // combGender
             // 
-            combGender.DataSource = bdsMembers;
-            combGender.DisplayMember = "GenderText";
+            combGender.DataSource = bdsCustomers;
+            combGender.DisplayCustomer = "GenderText";
             combGender.DropDownStyle = ComboBoxStyle.DropDownList;
             combGender.Enabled = false;
             combGender.FormattingEnabled = true;
@@ -213,7 +213,7 @@ namespace Leo.Windows.Forms
             combGender.Name = "combGender";
             combGender.Size = new Size(75, 39);
             combGender.TabIndex = 38;
-            combGender.ValueMember = "Gender";
+            combGender.ValueCustomer = "Gender";
             // 
             // lblGender
             // 
@@ -228,7 +228,7 @@ namespace Leo.Windows.Forms
             // dtpBirthday
             // 
             dtpBirthday.CustomFormat = "yyyy 年 MM 月 dd 日";
-            dtpBirthday.DataBindings.Add(new Binding("Value", bdsMembers, "Birthday", true));
+            dtpBirthday.DataBindings.Add(new Binding("Value", bdsCustomers, "Birthday", true));
             dtpBirthday.Enabled = false;
             dtpBirthday.Format = DateTimePickerFormat.Custom;
             dtpBirthday.Location = new Point(114, 51);
@@ -239,7 +239,7 @@ namespace Leo.Windows.Forms
             // 
             // txtPhone
             // 
-            txtPhone.DataBindings.Add(new Binding("Text", bdsMembers, "Phone", true));
+            txtPhone.DataBindings.Add(new Binding("Text", bdsCustomers, "Phone", true));
             txtPhone.Enabled = false;
             txtPhone.Location = new Point(467, 14);
             txtPhone.Margin = new Padding(5);
@@ -260,7 +260,7 @@ namespace Leo.Windows.Forms
             // 
             // txtCardNo
             // 
-            txtCardNo.DataBindings.Add(new Binding("Text", bdsMembers, "CardNo", true));
+            txtCardNo.DataBindings.Add(new Binding("Text", bdsCustomers, "CardNo", true));
             txtCardNo.Enabled = false;
             txtCardNo.Location = new Point(803, 51);
             txtCardNo.Margin = new Padding(5);
@@ -291,7 +291,7 @@ namespace Leo.Windows.Forms
             // 
             // txtName
             // 
-            txtName.DataBindings.Add(new Binding("Text", bdsMembers, "Name", true));
+            txtName.DataBindings.Add(new Binding("Text", bdsCustomers, "Name", true));
             txtName.Enabled = false;
             txtName.Location = new Point(114, 14);
             txtName.Margin = new Padding(5);
@@ -360,9 +360,9 @@ namespace Leo.Windows.Forms
             StartPosition = FormStartPosition.CenterScreen;
             Text = "会员管理系统";
             Load += MainForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvMemberDetails).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMemberDetails).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMembers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomerDetails).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomerDetails).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomers).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -392,14 +392,14 @@ namespace Leo.Windows.Forms
         private Label lblGender;
         private TextBox txtAge;
         private Label lblAge;
-        private DataGridView dgvMemberDetails;
+        private DataGridView dgvCustomerDetails;
         private DataGridViewTextBoxColumn colDate;
         private DataGridViewTextBoxColumn colItem;
         private DataGridViewTextBoxColumn colCount;
         private DataGridViewTextBoxColumn colHeight;
         private DataGridViewTextBoxColumn colWeight;
-        private BindingSource bdsMembers;
-        private BindingSource bdsMemberDetails;
+        private BindingSource bdsCustomers;
+        private BindingSource bdsCustomerDetails;
         private ToolStripMenuItem menuEcho;
     }
 }

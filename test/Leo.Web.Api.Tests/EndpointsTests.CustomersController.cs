@@ -8,29 +8,29 @@ namespace Leo.Web.Api.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {
-        const string _membersPathSegment = "/members";
+        const string _customersPathSegment = "/customers";
 
         [Fact]
-        public async Task Get_Members_ReturnOK()
+        public async Task Get_Customers_ReturnOK()
         {
-            var resp = await _client.GetAsync(_membersPathSegment);
+            var resp = await _client.GetAsync(_customersPathSegment);
 
-            var members = await resp.Content.ReadFromJsonAsync<IEnumerable<MemberDto>>();
+            var customers = await resp.Content.ReadFromJsonAsync<IEnumerable<CustomerDto>>();
 
-            Assert.NotNull(members);
+            Assert.NotNull(customers);
         }
 
         [Fact]
-        public async Task Post_Members_ReturnCreated()
+        public async Task Post_Customers_ReturnCreated()
         {
-            var member = new MemberDto
+            var customer = new CustomerDto
             {
                 Name = "Test",
                 Gender = Leo.Data.Domain.Entities.Gender.Male,
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync(_membersPathSegment, member);
+            var res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
 
             Assert.Equal(HttpStatusCode.Created, res.StatusCode);
 
@@ -41,20 +41,20 @@ namespace Leo.Web.Api.Tests
         }
 
         [Fact]
-        public async Task Get_MemberById_ReturnOK()
+        public async Task Get_CustomerById_ReturnOK()
         {
-            var member = new MemberDto
+            var customer = new CustomerDto
             {
                 Name = "Test",
                 Gender = Leo.Data.Domain.Entities.Gender.Male,
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync(_membersPathSegment, member);
+            var res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
             var result = await res.Content.ReadFromJsonAsync<JsonObject>();
             var id = result!["id"]!.ToString();
 
-            res = await _client.GetAsync($"{_membersPathSegment}/{id}");
+            res = await _client.GetAsync($"{_customersPathSegment}/{id}");
 
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }

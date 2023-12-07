@@ -38,7 +38,7 @@ namespace Leo.Windows.Forms
             btnSearch = new Button();
             txtSearchText = new TextBox();
             combSearchField = new ComboBox();
-            dgvMembers = new DataGridView();
+            dgvCustomers = new DataGridView();
             colId = new DataGridViewTextBoxColumn();
             colName = new DataGridViewTextBoxColumn();
             colPhone = new DataGridViewTextBoxColumn();
@@ -46,9 +46,9 @@ namespace Leo.Windows.Forms
             colBirthday = new DataGridViewTextBoxColumn();
             colAge = new DataGridViewTextBoxColumn();
             colCardNo = new DataGridViewTextBoxColumn();
-            bdsMembers = new BindingSource(components);
-            ((System.ComponentModel.ISupportInitialize)dgvMembers).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMembers).BeginInit();
+            bdsCustomers = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomers).BeginInit();
             SuspendLayout();
             // 
             // btnCancel
@@ -82,7 +82,7 @@ namespace Leo.Windows.Forms
             // 
             // combSearchField
             // 
-            combSearchField.DisplayMember = "Value";
+            combSearchField.DisplayCustomer = "Value";
             combSearchField.DropDownStyle = ComboBoxStyle.DropDownList;
             combSearchField.FormattingEnabled = true;
             combSearchField.Location = new Point(12, 14);
@@ -90,27 +90,27 @@ namespace Leo.Windows.Forms
             combSearchField.Name = "combSearchField";
             combSearchField.Size = new Size(97, 39);
             combSearchField.TabIndex = 5;
-            combSearchField.ValueMember = "Key";
+            combSearchField.ValueCustomer = "Key";
             // 
-            // dgvMembers
+            // dgvCustomers
             // 
-            dgvMembers.AllowUserToAddRows = false;
-            dgvMembers.AllowUserToDeleteRows = false;
+            dgvCustomers.AllowUserToAddRows = false;
+            dgvCustomers.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle1.SelectionBackColor = Color.Silver;
-            dgvMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvMembers.AutoGenerateColumns = false;
-            dgvMembers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvMembers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMembers.Columns.AddRange(new DataGridViewColumn[] { colId, colName, colPhone, colGender, colBirthday, colAge, colCardNo });
-            dgvMembers.DataSource = bdsMembers;
-            dgvMembers.Location = new Point(12, 62);
-            dgvMembers.Name = "dgvMembers";
-            dgvMembers.ReadOnly = true;
-            dgvMembers.RowHeadersWidth = 62;
-            dgvMembers.RowTemplate.Height = 33;
-            dgvMembers.Size = new Size(824, 281);
-            dgvMembers.TabIndex = 9;
+            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvCustomers.AutoGenerateColumns = false;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { colId, colName, colPhone, colGender, colBirthday, colAge, colCardNo });
+            dgvCustomers.DataSource = bdsCustomers;
+            dgvCustomers.Location = new Point(12, 62);
+            dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.ReadOnly = true;
+            dgvCustomers.RowHeadersWidth = 62;
+            dgvCustomers.RowTemplate.Height = 33;
+            dgvCustomers.Size = new Size(824, 281);
+            dgvCustomers.TabIndex = 9;
             // 
             // colId
             // 
@@ -173,9 +173,9 @@ namespace Leo.Windows.Forms
             colCardNo.Name = "colCardNo";
             colCardNo.ReadOnly = true;
             // 
-            // bdsMembers
+            // bdsCustomers
             // 
-            bdsMembers.DataSource = typeof(MemberViewModel);
+            bdsCustomers.DataSource = typeof(CustomerViewModel);
             // 
             // FindForm
             // 
@@ -184,7 +184,7 @@ namespace Leo.Windows.Forms
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new Size(848, 355);
-            Controls.Add(dgvMembers);
+            Controls.Add(dgvCustomers);
             Controls.Add(btnCancel);
             Controls.Add(btnSearch);
             Controls.Add(txtSearchText);
@@ -198,8 +198,8 @@ namespace Leo.Windows.Forms
             StartPosition = FormStartPosition.CenterParent;
             Text = "查找会员";
             Load += SearchForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvMembers).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bdsMembers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdsCustomers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -210,8 +210,8 @@ namespace Leo.Windows.Forms
         private Button btnSearch;
         private TextBox txtSearchText;
         private ComboBox combSearchField;
-        private DataGridView dgvMembers;
-        private BindingSource bdsMembers;
+        private DataGridView dgvCustomers;
+        private BindingSource bdsCustomers;
         private DataGridViewTextBoxColumn colId;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn colPhone;

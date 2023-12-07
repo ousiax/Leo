@@ -4,9 +4,9 @@ namespace Leo.Windows.Forms
 {
     public partial class RecordForm : Form
     {
-        private readonly MemberDetailViewModel _detail;
+        private readonly CustomerDetailViewModel _detail;
 
-        public RecordForm(MemberDetailViewModel detail)
+        public RecordForm(CustomerDetailViewModel detail)
         {
             _detail = detail;
             InitializeComponent();

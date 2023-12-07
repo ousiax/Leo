@@ -4,21 +4,21 @@ using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal class GetMembersRequesttHandler : IRequestHandler<GetMembersRequest, List<MemberDto>>
+    internal class GetCustomersRequesttHandler : IRequestHandler<GetCustomersRequest, List<CustomerDto>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public GetMembersRequesttHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetCustomersRequesttHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _uow = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<List<MemberDto>> Handle(GetMembersRequest request, CancellationToken cancellationToken)
+        public async Task<List<CustomerDto>> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
         {
-            var members = await _uow.MemberRepository.GetAsync().ConfigureAwait(false);
-            return _mapper.Map<List<MemberDto>>(members);
+            var customers = await _uow.CustomerRepository.GetAsync().ConfigureAwait(false);
+            return _mapper.Map<List<CustomerDto>>(customers);
         }
     }
 }

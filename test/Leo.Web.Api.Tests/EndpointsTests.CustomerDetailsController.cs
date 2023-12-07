@@ -8,19 +8,19 @@ namespace Leo.Web.Api.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
     {
-        const string _memberDetailPathSegment = "/member-details";
+        const string _customerDetailPathSegment = "/customer-details";
 
         [Fact]
-        public async Task Post_MemberDetails_ReturnCreated()
+        public async Task Post_CustomerDetails_ReturnCreated()
         {
-            var memberDetail = new MemberDetailDto
+            var customerDetail = new CustomerDetailDto
             {
                 Id = Guid.NewGuid(),
-                MemberId = Guid.NewGuid(),
+                CustomerId = Guid.NewGuid(),
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };
-            var res = await _client.PostAsJsonAsync($"{_memberDetailPathSegment}", memberDetail);
+            var res = await _client.PostAsJsonAsync($"{_customerDetailPathSegment}", customerDetail);
 
             Assert.Equal(HttpStatusCode.Created, res.StatusCode);
 
@@ -31,20 +31,20 @@ namespace Leo.Web.Api.Tests
         }
 
         [Fact]
-        public async Task Get_MemberDetailById_ReturnOK()
+        public async Task Get_CustomerDetailById_ReturnOK()
         {
-            var memberDetail = new MemberDetailDto
+            var customerDetail = new CustomerDetailDto
             {
                 Id = Guid.NewGuid(),
-                MemberId = Guid.NewGuid(),
+                CustomerId = Guid.NewGuid(),
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };
-            var res = await _client.PostAsJsonAsync(_memberDetailPathSegment, memberDetail);
+            var res = await _client.PostAsJsonAsync(_customerDetailPathSegment, customerDetail);
             var result = await res.Content.ReadFromJsonAsync<JsonObject>();
             var id = result!["id"]!.ToString();
 
-            res = await _client.GetAsync($"{_memberDetailPathSegment}/{id}");
+            res = await _client.GetAsync($"{_customerDetailPathSegment}/{id}");
 
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }

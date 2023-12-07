@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Leo.Windows.ViewModels
 {
-    public class MemberViewModel : INotifyPropertyChanged
+    public class CustomerViewModel : INotifyPropertyChanged
     {
         private Guid _id;
         private string? _name;
@@ -11,7 +11,7 @@ namespace Leo.Windows.ViewModels
         private string? _gender;
         private DateTime? _birthday;
         private string? _cardNo;
-        private readonly List<MemberDetailViewModel> _details = new();
+        private readonly List<CustomerDetailViewModel> _details = new();
 
         public Guid Id
         {
@@ -104,12 +104,12 @@ namespace Leo.Windows.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
+        private void OnPropertyChanged([CallerCustomerName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public List<MemberDetailViewModel> Details
+        public List<CustomerDetailViewModel> Details
         {
             get { return _details; }
         }

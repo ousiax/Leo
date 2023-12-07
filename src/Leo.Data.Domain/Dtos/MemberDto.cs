@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Leo.Data.Domain.Dtos
 {
-    public class MemberDto
+    public class CustomerDto
     {
         public Guid Id { get; set; }
 

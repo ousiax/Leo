@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Leo.Web.Data.Queries
 {
-    public sealed class GetMembersRequest : IRequest<List<MemberDto>>
+    public sealed class GetCustomersRequest : IRequest<List<CustomerDto>>
     {
     }
 }

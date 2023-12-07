@@ -2,8 +2,8 @@
 {
     public interface IUnitOfWork
     {
-        IMemberRepository MemberRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
 
-        IMemberDetailRepository MemberDetailRepository { get; }
+        ICustomerDetailRepository CustomerDetailRepository { get; }
     }
 }

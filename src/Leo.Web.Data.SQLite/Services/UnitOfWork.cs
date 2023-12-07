@@ -3,15 +3,15 @@
     internal sealed class UnitOfWork : IUnitOfWork
     {
         public UnitOfWork(
-            IMemberRepository memberRepository,
-            IMemberDetailRepository memberDetailRepository)
+            ICustomerRepository customerRepository,
+            ICustomerDetailRepository customerDetailRepository)
         {
-            MemberRepository = memberRepository;
-            MemberDetailRepository = memberDetailRepository;
+            CustomerRepository = customerRepository;
+            CustomerDetailRepository = customerDetailRepository;
         }
 
-        public IMemberRepository MemberRepository { get; }
+        public ICustomerRepository CustomerRepository { get; }
 
-        public IMemberDetailRepository MemberDetailRepository { get; }
+        public ICustomerDetailRepository CustomerDetailRepository { get; }
     }
 }

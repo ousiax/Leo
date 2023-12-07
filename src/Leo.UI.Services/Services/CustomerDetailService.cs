@@ -6,13 +6,13 @@ using System.Text.Json.Nodes;
 
 namespace Leo.UI.Services
 {
-    internal sealed class MemberDetailService : IMemberDetailService
+    internal sealed class CustomerDetailService : ICustomerDetailService
     {
         private readonly HttpClient _http;
         private readonly IAuthenticationService _auth;
-        private readonly ILogger<MemberDetailService> _logger;
+        private readonly ILogger<CustomerDetailService> _logger;
 
-        public MemberDetailService(IHttpClientFactory httpClientFactory, IAuthenticationService authenticationService, ILogger<MemberDetailService> logger)
+        public CustomerDetailService(IHttpClientFactory httpClientFactory, IAuthenticationService authenticationService, ILogger<CustomerDetailService> logger)
         {
             _http = httpClientFactory.CreateClient("Leo");
             _auth = authenticationService;
@@ -23,34 +23,34 @@ namespace Leo.UI.Services
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
-        public async Task<MemberDetailDto?> GetAsync(Guid id)
+        public async Task<CustomerDetailDto?> GetAsync(Guid id)
         {
-            var res = await _http.GetAsync($"/member-details/{id}");
+            var res = await _http.GetAsync($"/customer-details/{id}");
             res.EnsureSuccessStatusCode();
-            return await res.Content.ReadFromJsonAsync<MemberDetailDto?>();
+            return await res.Content.ReadFromJsonAsync<CustomerDetailDto?>();
         }
 
-        public async Task<List<MemberDetailDto>> GetByMemberIdAsync(Guid memberId)
+        public async Task<List<CustomerDetailDto>> GetByCustomerIdAsync(Guid customerId)
         {
-            List<MemberDetailDto>? details = null;
-            var res = await _http.GetAsync($"/members/{memberId}/details");
+            List<CustomerDetailDto>? details = null;
+            var res = await _http.GetAsync($"/customers/{customerId}/details");
             if (res.IsSuccessStatusCode)
             {
-                details = await res.Content.ReadFromJsonAsync<List<MemberDetailDto>>();
+                details = await res.Content.ReadFromJsonAsync<List<CustomerDetailDto>>();
             }
             else
             {
                 var error = await res.Content.ReadAsStringAsync();
-                _logger.LogError("Failed to read member details: {}", error);
+                _logger.LogError("Failed to read customer details: {}", error);
             }
             return details ?? new();
         }
 
-        public async Task<string?> CreateAsync(MemberDetailDto detail)
+        public async Task<string?> CreateAsync(CustomerDetailDto detail)
         {
             string? id = null;
 
-            var res = await _http.PostAsJsonAsync("/member-details", detail);
+            var res = await _http.PostAsJsonAsync("/customer-details", detail);
             if (res.IsSuccessStatusCode)
             {
                 var result = await res.Content.ReadFromJsonAsync<JsonObject>();
@@ -59,7 +59,7 @@ namespace Leo.UI.Services
             else
             {
                 var error = await res.Content.ReadAsStringAsync();
-                _logger.LogError("Failed to create member detail: {}", error);
+                _logger.LogError("Failed to create customer detail: {}", error);
             }
 
             return id;

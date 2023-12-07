@@ -1,10 +1,10 @@
 ﻿namespace Leo.Data.Domain.Dtos
 {
-    public class MemberDetailDto
+    public class CustomerDetailDto
     {
         public Guid Id { get; set; }
 
-        public Guid MemberId { get; set; }
+        public Guid CustomerId { get; set; }
 
         public DateTime? Date { get; set; }
 

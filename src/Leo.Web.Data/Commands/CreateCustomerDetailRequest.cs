@@ -4,9 +4,9 @@ using System.Security.Claims;
 
 namespace Leo.Web.Data.Commands
 {
-    public sealed class CreateMemberRequest : IRequest<string>
+    public sealed class CreateCustomerDetailRequest : IRequest<string>
     {
-        public MemberDto MemberDto { get; set; } = null!;
+        public CustomerDetailDto? CustomerDetailDto { get; set; }
 
         public ClaimsPrincipal? User { get; set; }
     }

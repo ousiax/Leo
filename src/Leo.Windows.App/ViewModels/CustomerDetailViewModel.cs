@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Leo.Windows.ViewModels
 {
-    public class MemberDetailViewModel : INotifyPropertyChanged
+    public class CustomerDetailViewModel : INotifyPropertyChanged
     {
         private Guid _id;
         private DateTime? _date;
@@ -74,7 +73,7 @@ namespace Leo.Windows.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
+        private void OnPropertyChanged([CallerCustomerName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

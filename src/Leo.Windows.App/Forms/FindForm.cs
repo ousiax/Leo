@@ -5,16 +5,16 @@ namespace Leo.Windows.Forms
 {
     public partial class FindForm : Form
     {
-        private readonly IReadOnlyList<MemberViewModel> _members;
+        private readonly IReadOnlyList<CustomerViewModel> _customers;
 
-        public MemberViewModel? Index { get; private set; }
+        public CustomerViewModel? Index { get; private set; }
 
-        public FindForm([DisallowNull] IReadOnlyList<MemberViewModel> members)
+        public FindForm([DisallowNull] IReadOnlyList<CustomerViewModel> customers)
         {
-            _members = members ?? throw new ArgumentNullException(nameof(members));
+            _customers = customers ?? throw new ArgumentNullException(nameof(customers));
             InitializeComponent();
             InitializeDataBindings();
-            bdsMembers.DataSource = _members;
+            bdsCustomers.DataSource = _customers;
         }
 
         private void InitializeDataBindings()
@@ -26,20 +26,20 @@ namespace Leo.Windows.Forms
 
             this.colGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
             this.colGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
-            this.colGender.ValueMember = "Key";
-            this.colGender.DisplayMember = "Value";
+            this.colGender.ValueCustomer = "Key";
+            this.colGender.DisplayCustomer = "Value";
 
-            this.dgvMembers.RowTemplate.Height += 10;
+            this.dgvCustomers.RowTemplate.Height += 10;
         }
 
 
         private void SearchForm_Load(object sender, EventArgs e)
         {
-            this.dgvMembers.MouseDoubleClick += (s, a) =>
+            this.dgvCustomers.MouseDoubleClick += (s, a) =>
             {
-                if (a.Button == MouseButtons.Left && dgvMembers.HitTest(a.X, a.Y).RowIndex >= 0)
+                if (a.Button == MouseButtons.Left && dgvCustomers.HitTest(a.X, a.Y).RowIndex >= 0)
                 {
-                    var mem = dgvMembers.CurrentRow.DataBoundItem as MemberViewModel;
+                    var mem = dgvCustomers.CurrentRow.DataBoundItem as CustomerViewModel;
                     if (mem != null)
                     {
                         this.Index = mem;
@@ -56,13 +56,13 @@ namespace Leo.Windows.Forms
                 switch (selectedValue)
                 {
                     case "name":
-                        bdsMembers.DataSource = _members.Where(m => m.Name?.Contains(txtSearchText.Text) ?? false).ToList();
+                        bdsCustomers.DataSource = _customers.Where(m => m.Name?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "card":
-                        this.bdsMembers.DataSource = _members.Where(m => m.CardNo?.Contains(txtSearchText.Text) ?? false).ToList();
+                        this.bdsCustomers.DataSource = _customers.Where(m => m.CardNo?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "phone":
-                        this.bdsMembers.DataSource = _members.Where(m => m.Phone?.Contains(txtSearchText.Text) ?? false).ToList();
+                        this.bdsCustomers.DataSource = _customers.Where(m => m.Phone?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                 }
             };

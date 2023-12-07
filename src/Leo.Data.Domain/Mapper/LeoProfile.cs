@@ -10,8 +10,8 @@ namespace Leo.Data.Domain.Mapper
     {
         public LeoProfile()
         {
-            CreateMap<Member, MemberDto>().ReverseMap();
-            CreateMap<MemberDetail, MemberDetailDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<CustomerDetail, CustomerDetailDto>().ReverseMap();
         }
     }
 }
