@@ -20,5 +20,7 @@ jobs:
           dotnet-version: 8.0.x
       - name: Display dotnet info
         run: dotnet --info
-      - name: Test
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Leo.Data.Domain.Tests
+        run: dotnet test test/Leo.Data.Domain.Tests/ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Leo.Web.Api.Tests
+        run: dotnet test test/Leo.Web.Api.Tests/ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
