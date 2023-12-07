@@ -59,8 +59,14 @@
                 <TextBox x:Name="txtCardNo" Text="12345678901" />
             </WrapPanel>
         </StackPanel>
-        <DataGrid Grid.Row="2">
-
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="colDate" Header="日期" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colItem" Header="项目" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colCount" Header="次数" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colHeight" Header="身高（CM）" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colWeight" Header="体重（KG）" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
         </DataGrid>
 
     </Grid>
