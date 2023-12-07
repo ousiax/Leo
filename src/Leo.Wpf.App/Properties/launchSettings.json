@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Leo.Wpf.App": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://127.0.0.1:5001"
+      }
+    }
+  }
+}
