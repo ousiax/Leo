@@ -26,8 +26,8 @@ namespace Leo.Windows.Forms
 
             this.colGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
             this.colGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
-            this.colGender.ValueCustomer = "Key";
-            this.colGender.DisplayCustomer = "Value";
+            this.colGender.ValueMember = "Key";
+            this.colGender.DisplayMember = "Value";
 
             this.dgvCustomers.RowTemplate.Height += 10;
         }

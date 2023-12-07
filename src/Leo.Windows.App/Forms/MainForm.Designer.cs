@@ -141,7 +141,7 @@ namespace Leo.Windows.Forms
             // 
             // bdsCustomerDetails
             // 
-            bdsCustomerDetails.DataCustomer = "Details";
+            bdsCustomerDetails.DataMember = "Details";
             bdsCustomerDetails.DataSource = bdsCustomers;
             // 
             // bdsCustomers
@@ -205,7 +205,7 @@ namespace Leo.Windows.Forms
             // combGender
             // 
             combGender.DataSource = bdsCustomers;
-            combGender.DisplayCustomer = "GenderText";
+            combGender.DisplayMember = "GenderText";
             combGender.DropDownStyle = ComboBoxStyle.DropDownList;
             combGender.Enabled = false;
             combGender.FormattingEnabled = true;
@@ -213,7 +213,7 @@ namespace Leo.Windows.Forms
             combGender.Name = "combGender";
             combGender.Size = new Size(75, 39);
             combGender.TabIndex = 38;
-            combGender.ValueCustomer = "Gender";
+            combGender.ValueMember = "Gender";
             // 
             // lblGender
             // 

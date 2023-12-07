@@ -82,7 +82,7 @@ namespace Leo.Windows.Forms
             // 
             // combSearchField
             // 
-            combSearchField.DisplayCustomer = "Value";
+            combSearchField.DisplayMember = "Value";
             combSearchField.DropDownStyle = ComboBoxStyle.DropDownList;
             combSearchField.FormattingEnabled = true;
             combSearchField.Location = new Point(12, 14);
@@ -90,7 +90,7 @@ namespace Leo.Windows.Forms
             combSearchField.Name = "combSearchField";
             combSearchField.Size = new Size(97, 39);
             combSearchField.TabIndex = 5;
-            combSearchField.ValueCustomer = "Key";
+            combSearchField.ValueMember = "Key";
             // 
             // dgvCustomers
             // 
