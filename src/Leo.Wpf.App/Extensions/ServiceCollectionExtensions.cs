@@ -23,6 +23,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<NewCustomerViewModel>();
             services.AddTransient<INewCustomerWindowService, NewCustomerWindowService>();
 
+            services.AddTransient<FindWindow>();
+            services.AddTransient<FindCustomerViewModel>();
+            services.AddTransient<IFindWindowService, FindWindowService>();
+
             return services;
         }
     }

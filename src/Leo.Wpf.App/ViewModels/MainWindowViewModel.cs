@@ -16,18 +16,26 @@ namespace Leo.Wpf.App.ViewModels
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
         private readonly INewCustomerWindowService _newCustomerWindow;
+        private readonly IFindWindowService _findWindow;
 
         public MainWindowViewModel(
             ICustomerService customerService,
             IMapper mapper,
             INewCustomerWindowService newCustomerWindowService,
+            IFindWindowService findWindowService,
             IMessenger messenger) : base(messenger)
         {
             _customerService = customerService;
             _mapper = mapper;
             _newCustomerWindow = newCustomerWindowService;
+            _findWindow = findWindowService;
 
             Messenger.Register<CustomerCreatedMessage>(this, (rcpt, msg) =>
+            {
+                Task.Run(() => ReloadCurrentCustomerAsync(msg.Id));
+            });
+
+            Messenger.Register<CustomerFoundMessage>(this, (rcpt, msg) =>
             {
                 Task.Run(() => ReloadCurrentCustomerAsync(msg.Id));
             });
@@ -37,6 +45,12 @@ namespace Leo.Wpf.App.ViewModels
         private void NewCustomer()
         {
             _newCustomerWindow.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void FindCustomer()
+        {
+            _findWindow.ShowDialog();
         }
 
         private async Task ReloadCurrentCustomerAsync(string? id)

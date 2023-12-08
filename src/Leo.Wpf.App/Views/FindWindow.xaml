@@ -1,0 +1,74 @@
+﻿<Window x:Class="Leo.Wpf.App.Views.FindWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Leo.Wpf.App"
+        xmlns:vm="clr-namespace:Leo.Wpf.App.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:FindCustomerViewModel}"
+        Title="FindWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="BaseStyle">
+            <Setter Property="Control.Margin" Value="10,5,5,10" />
+            <Setter Property="Control.MinWidth" Value="80" />
+            <Setter Property="Control.MinHeight" Value="30" />
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="MinWidth" Value="150" />
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}"></Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <ComboBox x:Name="combSearchField">
+            </ComboBox>
+            <TextBox x:Name="txtSearchText" />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    FlowDirection="RightToLeft"
+                    Orientation="Horizontal">
+            <Button x:Name="btnSearch" Content="查找"/>
+            <Button x:Name="btnCancel" Content="取消"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding AllCustomers}">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="colName"
+                           Header="姓名"
+                           Width="*"
+                           Binding="{Binding Name}" />
+                <DataGridTextColumn x:Name="colPhone"
+                           Header="手机"
+                           Width="*"
+                           Binding="{Binding Phone}" />
+                <DataGridTextColumn x:Name="colGender" 
+                           Header="性别" 
+                           Width="*" 
+                           Binding="{Binding Gender}" />
+                <DataGridTextColumn x:Name="colBirthday"
+                           Header="生日" 
+                           Width="*" Binding="{Binding Birthday, StringFormat=yyyy年MM月dd日}" />
+                <DataGridTextColumn x:Name="colAge"
+                           Header="年龄" 
+                           Width="*" 
+                           Binding="{Binding Age}" />
+                <DataGridTextColumn x:Name="colCardNo"
+                           Header="卡号" 
+                           Width="*" 
+                           Binding="{Binding CardNo}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
