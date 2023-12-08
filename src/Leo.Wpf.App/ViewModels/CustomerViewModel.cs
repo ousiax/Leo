@@ -1,80 +1,28 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Leo.Wpf.App.ViewModels
 {
-    public class CustomerViewModel : INotifyPropertyChanged
+    public partial class CustomerViewModel : ObservableObject
     {
+        [ObservableProperty]
         private Guid _id;
+
+        [ObservableProperty]
         private string? _name;
+
+        [ObservableProperty]
         private string? _phone;
+
+        [ObservableProperty]
         private string? _gender;
+
+        [ObservableProperty]
         private DateTime? _birthday;
+
+        [ObservableProperty]
         private string? _cardNo;
+
         private readonly List<CustomerDetailViewModel> _details = new();
-
-        public Guid Id
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Phone
-        {
-            get { return _phone; }
-            set
-            {
-                _phone = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Gender
-        {
-            get { return _gender; }
-            set
-            {
-                _gender = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? GenderText
-        {
-            get
-            {
-                return new Dictionary<string, string> {
-                    {"Unkonw", "未知" },
-                    {"Male","男" },
-                    {"Female","女" },
-                }
-                .FirstOrDefault(d => d.Key == Gender).Value;
-            }
-        }
-
-        public DateTime? Birthday
-        {
-            get { return _birthday == null ? DateTime.MinValue : _birthday.Value; }
-            set
-            {
-                _birthday = value;
-                OnPropertyChanged();
-            }
-        }
 
         public string? Age
         {
@@ -90,23 +38,6 @@ namespace Leo.Wpf.App.ViewModels
                     return string.Format("{0} 岁", num);
                 }
             }
-        }
-
-        public string? CardNo
-        {
-            get { return _cardNo; }
-            set
-            {
-                _cardNo = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public List<CustomerDetailViewModel> Details

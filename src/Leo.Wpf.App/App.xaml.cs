@@ -65,7 +65,7 @@ public partial class App : Application
             scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);
         }
 
-        var mainWin = _host.Services.GetRequiredService<CustomerWindow>();
+        var mainWin = _host.Services.GetRequiredService<MainWindow>();
         mainWin.Show();
 
         base.OnStartup(e);

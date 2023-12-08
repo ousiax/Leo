@@ -10,6 +10,8 @@ namespace Leo.Windows.Mapper
         {
             CreateMap<CustomerViewModel, CustomerDto>().ReverseMap();
             CreateMap<CustomerDetailViewModel, CustomerDetailDto>().ReverseMap();
+
+            CreateMap<NewCustomerViewModel, CustomerDto>();
         }
     }
 }

@@ -1,0 +1,85 @@
+﻿<Window x:Class="Leo.Wpf.App.Views.NewCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:Leo.Wpf.App.ViewModels"
+        xmlns:local="clr-namespace:Leo.Wpf.App"
+        xmlns:infra="clr-namespace:Leo.Wpf.App.Infrastructure"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModel:NewCustomerViewModel}"
+        Title="新增客户信息"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style x:Key="BaseStyle">
+            <Setter Property="Control.MinWidth" Value="150" />
+            <Setter Property="Control.Margin" Value="2,0,5,0" />
+            <Setter Property="Control.VerticalContentAlignment" Value="Center" />
+            <Setter Property="Control.Margin" Value="0,1,0,1" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Background" Value="Gainsboro"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,1,2,1" />
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle}">
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle}">
+        </Style>
+        <Style TargetType="DatePickerTextBox" BasedOn="{StaticResource BaseStyle}">
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,5,5,0" />
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="MinHeight" Value="30" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="宝宝姓名: " Target="{Binding ElementName=txtName}" />
+            <TextBox x:Name="txtName" Text="{Binding Name}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="出生日期: " />
+            <DatePickerTextBox x:Name="txtBirthday" Text="{Binding Birthday, StringFormat=yyyy-MM-dd}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="性别: " />
+            <ComboBox x:Name="txtGender"
+                      ItemsSource="{x:Static infra:Constants.Genders}"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
+                      SelectedValue="{Binding Gender}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Label Content="手机: " />
+            <TextBox x:Name="txtPhone" Text="{Binding Phone}" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Label Content="会员卡号: " />
+            <TextBox x:Name="txtCarNo" Text="{Binding CardNo}" />
+        </StackPanel>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button x:Name="btnOK"
+                    Command="{Binding SaveCommand}"
+                    Content="保存"
+                    IsDefault="True" />
+            <Button x:Name="btnCancel"
+                    Command="{Binding CloseCommand}"
+                    Content="取消"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

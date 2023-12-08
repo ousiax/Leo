@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Leo.UI.Services\Leo.UI.Services.csproj" />
     <ProjectReference Include="..\Leo.Web.Api\Leo.Web.Api.csproj" />
   </ItemGroup>

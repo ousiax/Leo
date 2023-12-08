@@ -1,4 +1,6 @@
-﻿using Leo.Wpf.App.ViewModels;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Leo.Wpf.App.Services;
+using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using System.Reflection;
 
@@ -10,8 +12,16 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddSingleton<CustomerWindow>();
-            services.AddSingleton<CustomerViewModel>();
+            services.AddSingleton<IMessenger, WeakReferenceMessenger>();
+
+            services.AddTransient<MainWindow>();
+            services.AddTransient<MainWindowViewModel>();
+
+            services.AddTransient<CustomerViewModel>();
+
+            services.AddTransient<NewCustomerWindow>();
+            services.AddTransient<NewCustomerViewModel>();
+            services.AddTransient<INewCustomerWindowService, NewCustomerWindowService>();
 
             return services;
         }
