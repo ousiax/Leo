@@ -33,7 +33,7 @@ public partial class App : Application
                 services.Configure<PublicClientApplicationOptions>(ctx.Configuration.GetSection(nameof(PublicClientApplicationOptions)));
                 services.AddAppServices();
                 services.AddHttpClient();
-                services.AddSingleton<MainWindow>();
+                services.AddLeoViewModels();
             })
             .ConfigureLogging((ctx, logging) =>
             {
@@ -65,7 +65,7 @@ public partial class App : Application
             scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);
         }
 
-        var mainWin = _host.Services.GetRequiredService<MainWindow>();
+        var mainWin = _host.Services.GetRequiredService<CustomerWindow>();
         mainWin.Show();
 
         base.OnStartup(e);

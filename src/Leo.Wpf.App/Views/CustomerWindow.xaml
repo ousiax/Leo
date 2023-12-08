@@ -1,13 +1,16 @@
-﻿<Window x:Class="Leo.Wpf.App.Views.MainWindow"
+﻿<Window x:Class="Leo.Wpf.App.Views.CustomerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Leo.Wpf.App.Views"
+        xmlns:converter="clr-namespace:Leo.Wpf.App.Converters"
+        xmlns:viewModel="clr-namespace:Leo.Wpf.App.ViewModels"
         mc:Ignorable="d"
         Icon="../leon.ico"
-        Title="客户管理系统" Height="450" Width="800">
+        Title="客户管理系统" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance viewModel:CustomerViewModel}">
     <Window.Resources>
+        <converter:BooleanInverseConverter x:Key="BooleanInverseConverter" />
         <Style TargetType="Label">
             <Setter Property="MinWidth" Value="80"></Setter>
             <Setter Property="Background" Value="Gainsboro"></Setter>
@@ -28,6 +31,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0">
             <ToolBar>
@@ -40,34 +44,48 @@
         <StackPanel Grid.Row="1">
             <WrapPanel>
                 <Label Content="宝宝姓名：" Target="{Binding ElementName=txtName}" />
-                <TextBox x:Name="txtName" Text="张三" />
+                <TextBox x:Name="txtName" Text="{Binding Name}" />
 
                 <Label Content="手机：" Target="{Binding ElementName=txtPhone}" />
-                <TextBox x:Name="txtPhone" Text="12345678901" />
+                <TextBox x:Name="txtPhone" Text="{Binding Phone}" />
 
                 <Label Content="性别：" Target="{Binding ElementName=txtGender}" />
-                <TextBox x:Name="txtGender" Text="女" />
+                <TextBox x:Name="txtGender" Text="{Binding Gender}" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="出生日期：" Target="{Binding ElementName=txtBirthday}" />
-                <TextBox x:Name="txtBirthday" Text="2003年09月33日" />
+                <TextBox x:Name="txtBirthday" Text="{Binding Birthday, StringFormat=yyyy年MM月dd日}" />
 
                 <Label Content="年龄：" Target="{Binding ElementName=txtAge}" />
-                <TextBox x:Name="txtAge" Text="13" />
+                <TextBox x:Name="txtAge" Text="{Binding Age, Mode=OneWay}" />
 
                 <Label Content="会员卡号：" Target="{Binding ElementName=txtCardNo}" />
-                <TextBox x:Name="txtCardNo" Text="12345678901" />
+                <TextBox x:Name="txtCardNo" Text="{Binding CardNo}" />
             </WrapPanel>
         </StackPanel>
-        <DataGrid Grid.Row="2" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="2" AutoGenerateColumns="True" ItemsSource="{Binding Details}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="colDate" Header="日期" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colItem" Header="项目" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colCount" Header="次数" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colHeight" Header="身高（CM）" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colWeight" Header="体重（KG）" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colDate"
+                                    Header="日期"
+                                    Width="*"
+                                    Binding="{Binding Date, StringFormat=yyyy年MM月dd日}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colItem"
+                                    Header="项目"
+                                    Width="*"
+                                    Binding="{Binding Item}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colCount" 
+                                    Header="次数" 
+                                    Width="*" 
+                                    Binding="{Binding Count}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colHeight"
+                                    Header="身高（CM）" 
+                                    Width="*" Binding="{Binding Height}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="colWeight"
+                                    Header="体重（KG）" 
+                                    Width="*" 
+                                    Binding="{Binding Weight}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-
+        <ProgressBar Grid.Row="3" IsIndeterminate="True" />
     </Grid>
 </Window>
