@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.UI;
 using Leo.Wpf.App.Messages;
-using Leo.Wpf.App.Services;
 
 namespace Leo.Wpf.App.ViewModels
 {
