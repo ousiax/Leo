@@ -12,6 +12,7 @@ namespace Leo.Wpf.App.ViewModels
     {
         [ObservableProperty]
         private CustomerViewModel? _currentCustomer;
+
         private bool disposedValue;
         private readonly ICustomerService _customerService;
         private readonly ICustomerDetailService _detailService;
@@ -77,13 +78,14 @@ namespace Leo.Wpf.App.ViewModels
             var dto = await _customerService.GetAsync(Guid.Parse(id));
             if (dto != null)
             {
-                this.CurrentCustomer = _mapper.Map<CustomerViewModel>(dto);
+                var viewModel = _mapper.Map<CustomerViewModel>(dto);
                 var detailDtos = await _detailService.GetByCustomerIdAsync(Guid.Parse(id));
                 foreach (var detailDto in detailDtos)
                 {
                     var detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
-                    this.CurrentCustomer.Details.Add(detailViewModel);
+                    viewModel.Details.Add(detailViewModel);
                 }
+                this.CurrentCustomer = viewModel;
             }
         }
 
