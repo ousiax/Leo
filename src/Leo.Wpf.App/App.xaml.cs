@@ -1,6 +1,6 @@
 ﻿using Leo.UI.Options;
 using Leo.UI.Services;
-using Leo.Wpf.App.Views;
+using Leo.Wpf.App.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -65,7 +65,7 @@ public partial class App : Application
             scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);
         }
 
-        var mainWin = _host.Services.GetRequiredService<MainWindow>();
+        var mainWin = _host.Services.GetRequiredService<IMainWindowService>();
         mainWin.Show();
 
         base.OnStartup(e);

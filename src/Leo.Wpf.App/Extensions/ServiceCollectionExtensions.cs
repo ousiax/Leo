@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
 
-            services.AddTransient<MainWindow>();
+            services.AddTransient<IMainWindowService, MainWindowService>();
             services.AddTransient<MainWindowViewModel>();
 
             services.AddTransient<CustomerViewModel>();
