@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Leo.Wpf.App"
         xmlns:vm="clr-namespace:Leo.Wpf.App.ViewModels"
+        xmlns:conv="clr-namespace:Leo.Wpf.App.Converters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:FindCustomerViewModel}"
         Title="FindWindow" Height="450" Width="800">
@@ -13,12 +14,15 @@
             <Setter Property="Control.Margin" Value="10,5,5,10" />
             <Setter Property="Control.MinWidth" Value="80" />
             <Setter Property="Control.MinHeight" Value="30" />
+            <Setter Property="Control.VerticalContentAlignment" Value="Center" />
         </Style>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle}">
+        </Style>
         <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle}">
             <Setter Property="MinWidth" Value="150" />
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}"></Style>
+        <conv:BooleanInverseConverter x:Key="BooleanInverseConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,19 +35,27 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <ComboBox x:Name="combSearchField">
+            <ComboBox x:Name="combSearchField"
+                      ItemsSource="{Binding SearchFields}"
+                      SelectedValue="{Binding SearchField}"
+                      DisplayMemberPath="Value"
+                      SelectedValuePath="Key">
             </ComboBox>
-            <TextBox x:Name="txtSearchText" />
+            <TextBox x:Name="txtSearchText" Text="{Binding SearchText}"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1"
                     FlowDirection="RightToLeft"
                     Orientation="Horizontal">
-            <Button x:Name="btnSearch" Content="查找"/>
-            <Button x:Name="btnCancel" Content="取消"/>
+            <Button x:Name="btnFind" Content="查找"
+                    Command="{Binding FindCommand}"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}" />
+            <Button x:Name="btnReset" Content="重置" />
         </StackPanel>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding AllCustomers}">
+                  IsReadOnly="True"
+                  SelectedItem="{Binding SelectedCustomer}"
+                  ItemsSource="{Binding AllCustomersView}">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="colName"
                            Header="姓名"
