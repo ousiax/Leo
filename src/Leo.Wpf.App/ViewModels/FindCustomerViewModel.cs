@@ -92,7 +92,7 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand]
         public void Confirm()
         {
-            _messenger.Send(new CustomerFoundMessage { Id = SelectedCustomer!.Id.ToString() });
+            _messenger.Send(new CustomerFoundMessage(SelectedCustomer!.Id.ToString()));
             _messenger.Send(new CloseWindowMessage());
         }
 
@@ -109,6 +109,6 @@ namespace Leo.Wpf.App.ViewModels
             IsLoading = false;
         }
 
-        public record CloseWindowMessage { }
+        public record CloseWindowMessage();
     }
 }

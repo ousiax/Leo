@@ -47,7 +47,7 @@ namespace Leo.Wpf.App.ViewModels
         {
             var dto = _mapper.Map<CustomerDto>(this);
             var id = await _customerService.CreateAsync(dto);
-            _messenger.Send(new CustomerCreatedMessage { Id = id });
+            _messenger.Send(new CustomerCreatedMessage(id));
             Close();
         }
 
