@@ -90,6 +90,12 @@ namespace Leo.Wpf.App.ViewModels
         }
 
         [RelayCommand]
+        public void Reset()
+        {
+            AllCustomersView.Filter = null;
+        }
+
+        [RelayCommand]
         public void Confirm()
         {
             _messenger.Send(new CustomerFoundMessage(SelectedCustomer!.Id.ToString()));

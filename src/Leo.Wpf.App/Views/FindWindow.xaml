@@ -50,7 +50,8 @@
             <Button x:Name="btnFind" Content="查找"
                     Command="{Binding FindCommand}"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}" />
-            <Button x:Name="btnReset" Content="重置" />
+            <Button x:Name="btnReset" Content="重置"
+                    Command="{Binding ResetCommand}"/>
         </StackPanel>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
                   AutoGenerateColumns="False"
