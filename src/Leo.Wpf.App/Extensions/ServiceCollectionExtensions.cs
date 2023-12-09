@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Leo.Wpf.App.Services;
 using Leo.Wpf.App.ViewModels;
-using Leo.Wpf.App.Views;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,11 +18,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<CustomerViewModel>();
 
-            services.AddTransient<NewCustomerWindow>();
             services.AddTransient<NewCustomerViewModel>();
             services.AddTransient<INewCustomerWindowService, NewCustomerWindowService>();
 
-            services.AddTransient<FindWindow>();
             services.AddTransient<FindCustomerViewModel>();
             services.AddTransient<IFindWindowService, FindWindowService>();
 
