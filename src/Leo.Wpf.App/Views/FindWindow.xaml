@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Leo.Wpf.App"
-        xmlns:vm="clr-namespace:Leo.Wpf.App.ViewModels"
-        xmlns:conv="clr-namespace:Leo.Wpf.App.Converters"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:Leo.Wpf.App.Behaviors"
+        xmlns:viewModels="clr-namespace:Leo.Wpf.App.ViewModels"
+        xmlns:converters="clr-namespace:Leo.Wpf.App.Converters"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:FindCustomerViewModel}"
+        d:DataContext="{d:DesignInstance viewModels:FindCustomerViewModel}"
         Title="FindWindow" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="BaseStyle">
@@ -22,7 +23,7 @@
             <Setter Property="MinWidth" Value="150" />
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}"></Style>
-        <conv:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+        <converters:BooleanInverseConverter x:Key="BooleanInverseConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -56,6 +57,9 @@
                   IsReadOnly="True"
                   SelectedItem="{Binding SelectedCustomer}"
                   ItemsSource="{Binding AllCustomersView}">
+            <i:Interaction.Behaviors>
+                <behaviors:DataGridMouseDoubleClickCommandBehavior Command="{Binding ConfirmCommand}" />
+            </i:Interaction.Behaviors>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="colName"
                            Header="姓名"

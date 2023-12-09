@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.UI;
+using Leo.Wpf.App.Messages;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -88,6 +89,13 @@ namespace Leo.Wpf.App.ViewModels
             AllCustomersView.Filter = filter;
         }
 
+        [RelayCommand]
+        public void Confirm()
+        {
+            _messenger.Send(new CustomerFoundMessage { Id = SelectedCustomer!.Id.ToString() });
+            _messenger.Send(new CloseWindowMessage());
+        }
+
         private async Task LoadAllCustomersAsync()
         {
             IsLoading = true;
@@ -100,5 +108,7 @@ namespace Leo.Wpf.App.ViewModels
 
             IsLoading = false;
         }
+
+        public record CloseWindowMessage { }
     }
 }

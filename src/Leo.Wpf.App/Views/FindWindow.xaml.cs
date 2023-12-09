@@ -1,4 +1,5 @@
-﻿using Leo.Wpf.App.ViewModels;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Leo.Wpf.App.ViewModels;
 using System.Windows;
 
 namespace Leo.Wpf.App.Views
@@ -8,10 +9,12 @@ namespace Leo.Wpf.App.Views
     /// </summary>
     public partial class FindWindow : Window
     {
-        public FindWindow(FindCustomerViewModel viewModel)
+        public FindWindow(FindCustomerViewModel viewModel, IMessenger messenger)
         {
             InitializeComponent();
+
             this.DataContext = viewModel;
+            messenger.Register<FindCustomerViewModel.CloseWindowMessage>(this, (s, e) => this.Close());
         }
     }
 }
