@@ -11,6 +11,7 @@
         d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}">
     <Window.Resources>
         <converter:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+        <converter:GenderToStringConverter x:Key="GenderToStringConverter" />
         <Style TargetType="Label">
             <Setter Property="MinWidth" Value="80"></Setter>
             <Setter Property="Background" Value="Gainsboro"></Setter>
@@ -50,14 +51,14 @@
                 <TextBox x:Name="txtPhone" Text="{Binding CurrentCustomer.Phone}" />
 
                 <Label Content="性别：" Target="{Binding ElementName=txtGender}" />
-                <TextBox x:Name="txtGender" Text="{Binding CurrentCustomer.Gender}" />
+                <TextBox x:Name="txtGender" Text="{Binding CurrentCustomer.Gender, Converter={StaticResource GenderToStringConverter}}" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="出生日期：" Target="{Binding ElementName=txtBirthday}" />
                 <TextBox x:Name="txtBirthday" Text="{Binding CurrentCustomer.Birthday, StringFormat=yyyy年MM月dd日}" />
 
                 <Label Content="年龄：" Target="{Binding ElementName=txtAge}" />
-                <TextBox x:Name="txtAge" Text="{Binding Age, Mode=OneWay}" />
+                <TextBox x:Name="txtAge" Text="{Binding CurrentCustomer.Age, Mode=OneWay}" />
 
                 <Label Content="会员卡号：" Target="{Binding ElementName=txtCardNo}" />
                 <TextBox x:Name="txtCardNo" Text="{Binding CurrentCustomer.CardNo}" />
