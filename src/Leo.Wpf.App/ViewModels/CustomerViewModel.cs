@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Leo.Wpf.App.ViewModels
 {
@@ -22,8 +23,6 @@ namespace Leo.Wpf.App.ViewModels
         [ObservableProperty]
         private string? _cardNo;
 
-        private readonly List<CustomerDetailViewModel> _details = new();
-
         public string? Age
         {
             get
@@ -40,9 +39,30 @@ namespace Leo.Wpf.App.ViewModels
             }
         }
 
-        public List<CustomerDetailViewModel> Details
+        public ObservableCollection<CustomerDetailViewModel> Details { get; } = [];
+
+        public partial class CustomerDetailViewModel : ObservableObject
         {
-            get { return _details; }
+            [ObservableProperty]
+            private Guid _id;
+
+            [ObservableProperty]
+            private string? _customerId;
+
+            [ObservableProperty]
+            private DateTime? _date = DateTime.Now;
+
+            [ObservableProperty]
+            private string? _item;
+
+            [ObservableProperty]
+            private int _count;
+
+            [ObservableProperty]
+            private double _height;
+
+            [ObservableProperty]
+            private double _weight;
         }
     }
 }

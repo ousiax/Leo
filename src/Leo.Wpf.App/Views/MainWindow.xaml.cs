@@ -8,13 +8,10 @@ namespace Leo.Wpf.App.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MainWindowViewModel viewModel;
-
         public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
-            this.viewModel = viewModel;
-            this.DataContext = this.viewModel;
+            this.DataContext = viewModel;
         }
     }
 }

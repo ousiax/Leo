@@ -4,29 +4,36 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.UI;
 using Leo.Wpf.App.Messages;
+using static Leo.Wpf.App.ViewModels.CustomerViewModel;
 
 namespace Leo.Wpf.App.ViewModels
 {
-    public partial class MainWindowViewModel : ObservableRecipient
+    public sealed partial class MainWindowViewModel : ObservableRecipient, IDisposable
     {
         [ObservableProperty]
         private CustomerViewModel? _currentCustomer;
-
+        private bool disposedValue;
         private readonly ICustomerService _customerService;
+        private readonly ICustomerDetailService _detailService;
         private readonly IMapper _mapper;
         private readonly INewCustomerWindowService _newCustomerWindow;
+        private readonly INewCustomerDetailWindowService _newCustomerDetailWindow;
         private readonly IFindWindowService _findWindow;
 
         public MainWindowViewModel(
             ICustomerService customerService,
+            ICustomerDetailService detailService,
             IMapper mapper,
             INewCustomerWindowService newCustomerWindowService,
+            INewCustomerDetailWindowService newCustomerDetailWindowService,
             IFindWindowService findWindowService,
             IMessenger messenger) : base(messenger)
         {
             _customerService = customerService;
+            _detailService = detailService;
             _mapper = mapper;
             _newCustomerWindow = newCustomerWindowService;
+            _newCustomerDetailWindow = newCustomerDetailWindowService;
             _findWindow = findWindowService;
 
             Messenger.Register<CustomerCreatedMessage>(this, (rcpt, msg) =>
@@ -38,12 +45,23 @@ namespace Leo.Wpf.App.ViewModels
             {
                 Task.Run(() => ReloadCurrentCustomerAsync(msg.Id));
             });
+
+            Messenger.Register<CustomerDetailCreatedMessage>(this, (rcpt, msg) =>
+            {
+                Task.Run(() => ReloadCurrentCustomerAsync(msg.customerId));
+            });
         }
 
         [RelayCommand]
         private void NewCustomer()
         {
             _newCustomerWindow.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void NewCustomerDetail(Guid customerId)
+        {
+            _newCustomerDetailWindow.ShowDialog(customerId.ToString());
         }
 
         [RelayCommand]
@@ -60,7 +78,33 @@ namespace Leo.Wpf.App.ViewModels
             if (dto != null)
             {
                 this.CurrentCustomer = _mapper.Map<CustomerViewModel>(dto);
+                var detailDtos = await _detailService.GetByCustomerIdAsync(Guid.Parse(id));
+                foreach (var detailDto in detailDtos)
+                {
+                    var detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
+                    this.CurrentCustomer.Details.Add(detailViewModel);
+                }
             }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Messenger.UnregisterAll(this);
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

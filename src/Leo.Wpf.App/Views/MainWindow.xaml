@@ -63,7 +63,17 @@
                 <TextBox x:Name="txtCardNo" Text="{Binding CurrentCustomer.CardNo}" />
             </WrapPanel>
         </StackPanel>
-        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding CurrentCustomer.Details}">
+        <DataGrid Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding CurrentCustomer.Details}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="新增"
+                              Command="{Binding NewCustomerDetailCommand}"
+                              CommandParameter="{Binding CurrentCustomer.Id}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="colDate"
                                     Header="日期"

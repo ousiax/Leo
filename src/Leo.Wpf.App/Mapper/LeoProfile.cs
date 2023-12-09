@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Leo.Data.Domain.Dtos;
 using Leo.Wpf.App.ViewModels;
+using static Leo.Wpf.App.ViewModels.CustomerViewModel;
 
 namespace Leo.Windows.Mapper
 {
@@ -11,7 +12,8 @@ namespace Leo.Windows.Mapper
             CreateMap<CustomerViewModel, CustomerDto>().ReverseMap();
             CreateMap<CustomerDetailViewModel, CustomerDetailDto>().ReverseMap();
 
-            CreateMap<NewCustomerViewModel, CustomerDto>();
+            CreateMap<NewCustomerViewModel, CustomerDto>().ReverseMap();
+            CreateMap<NewCustomerDetailViewModel, CustomerDetailDto>().ReverseMap();
         }
     }
 }
