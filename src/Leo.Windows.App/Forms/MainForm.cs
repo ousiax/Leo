@@ -173,7 +173,7 @@ namespace Leo.Windows.Forms
             {
                 _previousCustomerViewModel = customer;
 
-                var detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id.ToString());
+                var detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id!);
                 var detailViewModels = _mapper.Map<IEnumerable<CustomerDetailViewModel>>(detailDtos);
                 customer.Details.Clear();
                 customer.Details.AddRange(detailViewModels);

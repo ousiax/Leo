@@ -5,14 +5,14 @@ namespace Leo.Windows.ViewModels
 {
     public class CustomerDetailViewModel : INotifyPropertyChanged
     {
-        private Guid _id;
+        private string? _id;
         private DateTime? _date;
         private string? _item;
         private int _count;
         private double _height;
         private double _weight;
 
-        public Guid Id
+        public string? Id
         {
             get { return _id; }
             set

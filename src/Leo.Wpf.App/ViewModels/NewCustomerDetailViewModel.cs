@@ -14,7 +14,7 @@ namespace Leo.Wpf.App.ViewModels
         IMessenger _messenger) : ObservableObject
     {
         [ObservableProperty]
-        private Guid _id;
+        private string? _id;
 
         [ObservableProperty]
         private string? _customerId;

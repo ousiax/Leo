@@ -67,14 +67,14 @@ namespace Leo.Wpf.App.ViewModels
         {
             if (CurrentCustomer != null)
             {
-                _customerEditorWindow.ShowDialog(CurrentCustomer.Id.ToString());
+                _customerEditorWindow.ShowDialog(CurrentCustomer.Id!);
             }
         }
 
         [RelayCommand]
-        private void NewCustomerDetail(Guid customerId)
+        private void NewCustomerDetail(string customerId)
         {
-            _newCustomerDetailWindow.ShowDialog(customerId.ToString());
+            _newCustomerDetailWindow.ShowDialog(customerId);
         }
 
         [RelayCommand]

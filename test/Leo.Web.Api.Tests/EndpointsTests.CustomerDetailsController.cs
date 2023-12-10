@@ -15,8 +15,8 @@ namespace Leo.Web.Api.Tests
         {
             var customerDetail = new CustomerDetailDto
             {
-                Id = Guid.NewGuid(),
-                CustomerId = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
+                CustomerId = Guid.NewGuid().ToString(),
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };
@@ -35,8 +35,8 @@ namespace Leo.Web.Api.Tests
         {
             var customerDetail = new CustomerDetailDto
             {
-                Id = Guid.NewGuid(),
-                CustomerId = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
+                CustomerId = Guid.NewGuid().ToString(),
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };

@@ -5,7 +5,7 @@ namespace Leo.Windows.ViewModels
 {
     public class CustomerViewModel : INotifyPropertyChanged
     {
-        private Guid _id;
+        private string? _id;
         private string? _name;
         private string? _phone;
         private string? _gender;
@@ -13,7 +13,7 @@ namespace Leo.Windows.ViewModels
         private string? _cardNo;
         private readonly List<CustomerDetailViewModel> _details = new();
 
-        public Guid Id
+        public string? Id
         {
             get { return _id; }
             set

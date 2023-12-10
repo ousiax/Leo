@@ -6,7 +6,7 @@ namespace Leo.Wpf.App.ViewModels
     public partial class CustomerViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Guid _id;
+        private string? _id;
 
         [ObservableProperty]
         private string? _name;
@@ -44,7 +44,7 @@ namespace Leo.Wpf.App.ViewModels
         public partial class CustomerDetailViewModel : ObservableObject
         {
             [ObservableProperty]
-            private Guid _id;
+            private string? _id;
 
             [ObservableProperty]
             private string? _customerId;

@@ -98,7 +98,7 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand]
         public void Confirm()
         {
-            _messenger.Send(new CustomerFoundMessage(SelectedCustomer!.Id.ToString()));
+            _messenger.Send(new CustomerFoundMessage(SelectedCustomer!.Id));
             _messenger.Send(new CloseWindowMessage());
         }
 
