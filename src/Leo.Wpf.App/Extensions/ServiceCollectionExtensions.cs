@@ -28,6 +28,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<NewCustomerDetailViewModel>();
             services.AddTransient<INewCustomerDetailWindowService, NewCustomerDetailWindowService>();
 
+            services.AddTransient<CustomerEditorViewModel>();
+            services.AddTransient<ICustomerEditorWindowService, CustomerEditorWindowService>();
+
             return services;
         }
     }

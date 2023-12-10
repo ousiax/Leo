@@ -37,7 +37,7 @@
         <ToolBarTray Grid.Row="0">
             <ToolBar>
                 <Button Content="新增" Command="{Binding NewCustomerCommand}"/>
-                <Button Content="修改" />
+                <Button Content="修改" Command="{Binding UpdateCustomerCommand}" />
                 <Button Content="查找" Command="{Binding FindCustomerCommand}" />
                 <Button Content="回音" />
             </ToolBar>

@@ -18,6 +18,7 @@ namespace Leo.Wpf.App.ViewModels
         private readonly ICustomerDetailService _detailService;
         private readonly IMapper _mapper;
         private readonly INewCustomerWindowService _newCustomerWindow;
+        private readonly ICustomerEditorWindowService _customerEditorWindow;
         private readonly INewCustomerDetailWindowService _newCustomerDetailWindow;
         private readonly IFindWindowService _findWindow;
 
@@ -26,6 +27,7 @@ namespace Leo.Wpf.App.ViewModels
             ICustomerDetailService detailService,
             IMapper mapper,
             INewCustomerWindowService newCustomerWindowService,
+            ICustomerEditorWindowService customerEditorWindow,
             INewCustomerDetailWindowService newCustomerDetailWindowService,
             IFindWindowService findWindowService,
             IMessenger messenger) : base(messenger)
@@ -34,6 +36,7 @@ namespace Leo.Wpf.App.ViewModels
             _detailService = detailService;
             _mapper = mapper;
             _newCustomerWindow = newCustomerWindowService;
+            _customerEditorWindow = customerEditorWindow;
             _newCustomerDetailWindow = newCustomerDetailWindowService;
             _findWindow = findWindowService;
 
@@ -57,6 +60,15 @@ namespace Leo.Wpf.App.ViewModels
         private void NewCustomer()
         {
             _newCustomerWindow.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void UpdateCustomer()
+        {
+            if (CurrentCustomer != null)
+            {
+                _customerEditorWindow.ShowDialog(CurrentCustomer.Id.ToString());
+            }
         }
 
         [RelayCommand]
