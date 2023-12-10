@@ -48,7 +48,7 @@ namespace Leo.Wpf.App.ViewModels
         {
             ArgumentException.ThrowIfNullOrEmpty(customerId, nameof(customerId));
 
-            var dto = await _customerService.GetAsync(Guid.Parse(customerId));
+            var dto = await _customerService.GetAsync(customerId);
             var customerViewModel = _mapper.Map<CustomerViewModel>(dto);
             if (customerViewModel != null)
             {

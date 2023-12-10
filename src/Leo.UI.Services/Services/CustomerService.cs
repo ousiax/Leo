@@ -23,7 +23,7 @@ namespace Leo.UI.Services
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
-        public async Task<CustomerDto?> GetAsync(Guid id)
+        public async Task<CustomerDto?> GetAsync(string id)
         {
             var res = await _http.GetAsync($"/customers/{id}");
             res.EnsureSuccessStatusCode();

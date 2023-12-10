@@ -72,7 +72,7 @@ namespace Leo.Windows.Forms
                                 var newCustomerDetailDto = _mapper.Map<CustomerDetailDto>(newCustomerDetailViewModel);
                                 newCustomerDetailDto.CustomerId = CurrentCustomer.Id;
                                 var id = await _customerDetailService.CreateAsync(newCustomerDetailDto);
-                                var detailDto = await _customerDetailService.GetAsync(Guid.Parse(id !));
+                                var detailDto = await _customerDetailService.GetAsync(id!);
                                 var detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
                                 CurrentCustomer.Details.Add(detailViewModel);
                                 bdsCustomerDetails.ResetBindings(false);
@@ -117,7 +117,7 @@ namespace Leo.Windows.Forms
                     var id = await _customerService.CreateAsync(newCustomerDto);
                     if (id != null)
                     {
-                        var customerDto = await _customerService.GetAsync(Guid.Parse(id));
+                        var customerDto = await _customerService.GetAsync(id);
                         var memeberViewMode = _mapper.Map<CustomerViewModel>(customerDto);
                         Customers.Add(memeberViewMode);
                         bdsCustomers.ResetBindings(false);
@@ -173,7 +173,7 @@ namespace Leo.Windows.Forms
             {
                 _previousCustomerViewModel = customer;
 
-                var detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id);
+                var detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id.ToString());
                 var detailViewModels = _mapper.Map<IEnumerable<CustomerDetailViewModel>>(detailDtos);
                 customer.Details.Clear();
                 customer.Details.AddRange(detailViewModels);

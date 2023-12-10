@@ -23,14 +23,14 @@ namespace Leo.UI.Services
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
-        public async Task<CustomerDetailDto?> GetAsync(Guid id)
+        public async Task<CustomerDetailDto?> GetAsync(string id)
         {
             var res = await _http.GetAsync($"/customer-details/{id}");
             res.EnsureSuccessStatusCode();
             return await res.Content.ReadFromJsonAsync<CustomerDetailDto?>();
         }
 
-        public async Task<List<CustomerDetailDto>> GetByCustomerIdAsync(Guid customerId)
+        public async Task<List<CustomerDetailDto>> GetByCustomerIdAsync(string customerId)
         {
             List<CustomerDetailDto>? details = null;
             var res = await _http.GetAsync($"/customers/{customerId}/details");

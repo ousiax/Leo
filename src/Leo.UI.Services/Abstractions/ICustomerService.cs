@@ -4,7 +4,7 @@ namespace Leo.UI
 {
     public interface ICustomerService
     {
-        Task<CustomerDto?> GetAsync(Guid id);
+        Task<CustomerDto?> GetAsync(string id);
 
         Task<List<CustomerDto>> GetAsync();
 
