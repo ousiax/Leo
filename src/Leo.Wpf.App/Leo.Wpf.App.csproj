@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\MainWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
   </ItemGroup>
@@ -23,6 +27,7 @@
     <Resource Include="leon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\MainWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>

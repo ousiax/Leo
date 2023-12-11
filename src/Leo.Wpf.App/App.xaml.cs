@@ -64,10 +64,21 @@ public partial class App : Application
             scope.ServiceProvider.GetRequiredService<IOptions<WebOptions>>().Value.BaseAddress = new Uri(address);
         }
 
+        LoadApplicationResources();
+
         var mainWin = _host.Services.GetRequiredService<IMainWindowService>();
         mainWin.Show();
 
         base.OnStartup(e);
+    }
+
+    private static void LoadApplicationResources()
+    {
+        Application.Current.Resources.MergedDictionaries.Clear();
+        Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("Resources/Localization.xaml", UriKind.RelativeOrAbsolute)
+        });
     }
 
     protected override async void OnExit(ExitEventArgs e)
