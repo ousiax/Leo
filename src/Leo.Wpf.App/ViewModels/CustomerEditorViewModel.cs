@@ -60,7 +60,7 @@ namespace Leo.Wpf.App.ViewModels
         {
             if (SeletedCustomer != null)
             {
-                var dto = _mapper.Map<CustomerDto>(this);
+                var dto = _mapper.Map<CustomerDto>(this.SeletedCustomer);
                 await _customerService.UpdateAsync(dto);
                 _messenger.Send(new CustomerCreatedMessage(SeletedCustomer.Id));
             }
