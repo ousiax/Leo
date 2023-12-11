@@ -1,29 +1,29 @@
-# Leo: A toy project for learning programming.
+ï»¿# Leo: A toy project for learning programming.
 ![](mainwindow.png)
 ![](mainwindow.zh-CN.png)
 
-```txt
+```console
 $ tree  -L 2
 .
-©À©¤©¤ global.json
-©À©¤©¤ leo.sln
-©À©¤©¤ LICENSE
-©À©¤©¤ mainwindow.png
-©À©¤©¤ mainwindow.zh-CN.png
-©À©¤©¤ README.md
-©À©¤©¤ src
-©¦?? ©À©¤©¤ Leo.Data.Domain
-©¦?? ©À©¤©¤ Leo.UI.Services
-©¦?? ©À©¤©¤ Leo.Web
-©¦?? ©À©¤©¤ Leo.Web.Api
-©¦?? ©À©¤©¤ Leo.Web.Data
-©¦?? ©À©¤©¤ Leo.Web.Data.SQLite
-©¦?? ©À©¤©¤ Leo.Web.Host
-©¦?? ©À©¤©¤ Leo.Windows.App
-©¦?? ©¸©¤©¤ Leo.Wpf.App
-©¸©¤©¤ test
-    ©À©¤©¤ Leo.Data.Domain.Tests
-    ©¸©¤©¤ Leo.Web.Api.Tests
+â”œâ”€â”€ global.json
+â”œâ”€â”€ leo.sln
+â”œâ”€â”€ LICENSE
+â”œâ”€â”€ mainwindow.png
+â”œâ”€â”€ mainwindow.zh-CN.png
+â”œâ”€â”€ README.md
+â”œâ”€â”€ src
+â”‚Â Â  â”œâ”€â”€ Leo.Data.Domain
+â”‚Â Â  â”œâ”€â”€ Leo.UI.Services
+â”‚Â Â  â”œâ”€â”€ Leo.Web
+â”‚Â Â  â”œâ”€â”€ Leo.Web.Api
+â”‚Â Â  â”œâ”€â”€ Leo.Web.Data
+â”‚Â Â  â”œâ”€â”€ Leo.Web.Data.SQLite
+â”‚Â Â  â”œâ”€â”€ Leo.Web.Host
+â”‚Â Â  â”œâ”€â”€ Leo.Windows.App
+â”‚Â Â  â””â”€â”€ Leo.Wpf.App
+â””â”€â”€ test
+    â”œâ”€â”€ Leo.Data.Domain.Tests
+    â””â”€â”€ Leo.Web.Api.Tests
 
 14 directories, 6 files
 ```
