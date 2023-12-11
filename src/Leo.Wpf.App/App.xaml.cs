@@ -83,6 +83,7 @@ public partial class App : Application
             try
             {
                 localization.Source = new Uri(uri, UriKind.RelativeOrAbsolute);
+                break;
             }
             catch
             {
