@@ -9,7 +9,7 @@
         xmlns:converters="clr-namespace:Leo.Wpf.App.Converters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:FindCustomerViewModel}"
-        Title="FindWindow" Height="450" Width="800">
+        Title="{StaticResource FindWindow.Title}" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="BaseStyle">
             <Setter Property="Control.Margin" Value="10,5,5,10" />
@@ -47,10 +47,10 @@
         <StackPanel Grid.Row="0" Grid.Column="1"
                     FlowDirection="RightToLeft"
                     Orientation="Horizontal">
-            <Button x:Name="btnFind" Content="查找"
+            <Button x:Name="btnFind" Content="{StaticResource FindWindow.Button.Find.Content}"
                     Command="{Binding FindCommand}"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}" />
-            <Button x:Name="btnReset" Content="重置"
+            <Button x:Name="btnReset" Content="{StaticResource FindWindow.Button.Reset.Content}"
                     Command="{Binding ResetCommand}"/>
         </StackPanel>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
@@ -63,26 +63,26 @@
             </i:Interaction.Behaviors>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="colName"
-                           Header="姓名"
+                           Header="{StaticResource FindWindow.DataGrid.Columns.Name.Header}"
                            Width="*"
                            Binding="{Binding Name}" />
                 <DataGridTextColumn x:Name="colPhone"
-                           Header="手机"
+                           Header="{StaticResource FindWindow.DataGrid.Columns.Phone.Header}"
                            Width="*"
                            Binding="{Binding Phone}" />
                 <DataGridTextColumn x:Name="colGender" 
-                           Header="性别" 
+                           Header="{StaticResource FindWindow.DataGrid.Columns.Gender.Header}" 
                            Width="*" 
                            Binding="{Binding Gender}" />
                 <DataGridTextColumn x:Name="colBirthday"
-                           Header="生日" 
-                           Width="*" Binding="{Binding Birthday, StringFormat=yyyy年MM月dd日}" />
+                           Header="{StaticResource FindWindow.DataGrid.Columns.Birthday.Header}" 
+                           Width="*" Binding="{Binding Birthday, StringFormat={StaticResource FindWindow.DataGrid.Columns.Birthday.StringFormat}}" />
                 <DataGridTextColumn x:Name="colAge"
-                           Header="年龄" 
+                           Header="{StaticResource FindWindow.DataGrid.Columns.Age.Header}" 
                            Width="*" 
                            Binding="{Binding Age}" />
                 <DataGridTextColumn x:Name="colCardNo"
-                           Header="卡号" 
+                           Header="{StaticResource FindWindow.DataGrid.Columns.CardNo.Header}" 
                            Width="*" 
                            Binding="{Binding CardNo}" />
             </DataGrid.Columns>
