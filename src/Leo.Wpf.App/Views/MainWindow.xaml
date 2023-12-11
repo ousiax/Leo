@@ -36,34 +36,34 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0">
             <ToolBar>
-                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.New.Content}"
+                <Button Content="{StaticResource MainWindow.ToolBar.Button.New.Content}"
                         Command="{Binding NewCustomerCommand}"/>
-                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Edit.Content}"
+                <Button Content="{StaticResource MainWindow.ToolBar.Button.Edit.Content}"
                         Command="{Binding UpdateCustomerCommand}" />
-                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Find.Content}"
+                <Button Content="{StaticResource MainWindow.ToolBar.Button.Find.Content}"
                         Command="{Binding FindCustomerCommand}" />
-                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Echo.Content}" />
+                <Button Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}" />
             </ToolBar>
         </ToolBarTray>
         <StackPanel Grid.Row="1">
             <WrapPanel>
-                <Label Content="宝宝姓名：" Target="{Binding ElementName=txtName}" />
+                <Label Content="{StaticResource MainWindow.Label.Name.Content}" Target="{Binding ElementName=txtName}" />
                 <TextBox x:Name="txtName" Text="{Binding CurrentCustomer.Name}" />
 
-                <Label Content="手机：" Target="{Binding ElementName=txtPhone}" />
+                <Label Content="{StaticResource MainWindow.Label.Phone.Content}" Target="{Binding ElementName=txtPhone}" />
                 <TextBox x:Name="txtPhone" Text="{Binding CurrentCustomer.Phone}" />
 
-                <Label Content="性别：" Target="{Binding ElementName=txtGender}" />
+                <Label Content="{StaticResource MainWindow.Label.Gender.Content}" Target="{Binding ElementName=txtGender}" />
                 <TextBox x:Name="txtGender" Text="{Binding CurrentCustomer.Gender, Converter={StaticResource GenderToStringConverter}}" />
             </WrapPanel>
             <WrapPanel>
-                <Label Content="出生日期：" Target="{Binding ElementName=txtBirthday}" />
+                <Label Content="{StaticResource MainWindow.Label.Birthday.Content}" Target="{Binding ElementName=txtBirthday}" />
                 <TextBox x:Name="txtBirthday" Text="{Binding CurrentCustomer.Birthday, StringFormat=yyyy年MM月dd日}" />
 
-                <Label Content="年龄：" Target="{Binding ElementName=txtAge}" />
+                <Label Content="{StaticResource MainWindow.Label.Age.Content}" Target="{Binding ElementName=txtAge}" />
                 <TextBox x:Name="txtAge" Text="{Binding CurrentCustomer.Age, Mode=OneWay}" />
 
-                <Label Content="会员卡号：" Target="{Binding ElementName=txtCardNo}" />
+                <Label Content="{StaticResource MainWindow.Label.CardNo.Content}" Target="{Binding ElementName=txtCardNo}" />
                 <TextBox x:Name="txtCardNo" Text="{Binding CurrentCustomer.CardNo}" />
             </WrapPanel>
         </StackPanel>
@@ -73,29 +73,29 @@
                   ItemsSource="{Binding CurrentCustomer.Details}">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="新增"
+                    <MenuItem Header="{StaticResource MainWindow.DataGrid.ContextMenu.MenuItem.New}"
                               Command="{Binding NewCustomerDetailCommand}"
                               CommandParameter="{Binding CurrentCustomer.Id}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="colDate"
-                                    Header="日期"
+                                    Header="{StaticResource MainWindow.DataGrid.Columns.Date.Header}"
                                     Width="*"
                                     Binding="{Binding Date, StringFormat=yyyy年MM月dd日}"></DataGridTextColumn>
                 <DataGridTextColumn x:Name="colItem"
-                                    Header="项目"
+                                    Header="{StaticResource MainWindow.DataGrid.Columns.Item.Header}"
                                     Width="*"
                                     Binding="{Binding Item}"></DataGridTextColumn>
                 <DataGridTextColumn x:Name="colCount" 
-                                    Header="次数" 
+                                    Header="{StaticResource MainWindow.DataGrid.Columns.Count.Header}" 
                                     Width="*" 
                                     Binding="{Binding Count}"></DataGridTextColumn>
                 <DataGridTextColumn x:Name="colHeight"
-                                    Header="身高（CM）" 
+                                    Header="{StaticResource MainWindow.DataGrid.Columns.Height.Header}" 
                                     Width="*" Binding="{Binding Height}"></DataGridTextColumn>
                 <DataGridTextColumn x:Name="colWeight"
-                                    Header="体重（KG）" 
+                                    Header="{StaticResource MainWindow.DataGrid.Columns.Weight.Header}" 
                                     Width="*" 
                                     Binding="{Binding Weight}"></DataGridTextColumn>
             </DataGrid.Columns>

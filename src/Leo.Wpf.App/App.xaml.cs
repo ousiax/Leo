@@ -77,6 +77,9 @@ public partial class App : Application
     {
         var localization = new ResourceDictionary();
         var cultureInfo = CultureInfo.CurrentUICulture;
+#if DEBUG
+        cultureInfo = CultureInfo.GetCultureInfo("en-US");
+#endif
         while (!string.IsNullOrEmpty(cultureInfo.Name))
         {
             var uri = $"Resources/{cultureInfo.Name}/Localization.xaml";
