@@ -44,7 +44,9 @@ namespace Leo.Wpf.App.ViewModels
         }
 
         [RelayCommand]
-        private void Close() { }
+        private void Close() { CloseAction?.Invoke(); }
+
+        public event Action? CloseAction;
 
         public record CloseWindowMessage();
     }

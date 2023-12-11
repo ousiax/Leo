@@ -14,7 +14,7 @@ namespace Leo.Wpf.App.Views
         public NewCustomerDetailWindow(NewCustomerDetailViewModel viewModel, IMessenger messenger)
         {
             InitializeComponent();
-
+            viewModel.CloseAction += () => Close();
             this.DataContext = viewModel;
             _messenger = messenger;
 
