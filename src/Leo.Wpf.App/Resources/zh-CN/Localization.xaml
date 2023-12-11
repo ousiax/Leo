@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="MainWindow.xaml" />
         <ResourceDictionary Source="FindWindow.xaml" />
+        <ResourceDictionary Source="NewCustomerWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

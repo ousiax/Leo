@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="NewCustomerWindow.Title">新增客户信息</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Name.Content">客户姓名：</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Phone.Content">手机：</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Gender.Content">性别：</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Birthday.Content">出生日期：</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Birthday.StringFormat">yyyy年MM月dd日</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.Age.Content">年龄：</system:String>
+    <system:String x:Key="NewCustomerWindow.Label.CardNo.Content">会员卡号：</system:String>
+    <system:String x:Key="NewCustomerWindow.Button.OK.Content">保存</system:String>
+    <system:String x:Key="NewCustomerWindow.Button.Cancel.Content">取消</system:String>
+</ResourceDictionary>

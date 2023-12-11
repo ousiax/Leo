@@ -8,7 +8,7 @@
         xmlns:infra="clr-namespace:Leo.Wpf.App.Infrastructure"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:NewCustomerViewModel}"
-        Title="新增客户信息"
+        Title="{StaticResource NewCustomerWindow.Title}"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
@@ -48,15 +48,17 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="宝宝姓名: " Target="{Binding ElementName=txtName}" />
+            <Label Content="{StaticResource NewCustomerWindow.Label.Name.Content}" Target="{Binding ElementName=txtName}" />
             <TextBox x:Name="txtName" Text="{Binding Name}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Label Content="出生日期: " />
-            <DatePickerTextBox x:Name="txtBirthday" Text="{Binding Birthday, StringFormat=yyyy-MM-dd}"/>
+            <Label Content="{StaticResource NewCustomerWindow.Label.Birthday.Content}" />
+            <DatePickerTextBox
+                x:Name="txtBirthday"
+                Text="{Binding Birthday, StringFormat={StaticResource NewCustomerWindow.Label.Birthday.StringFormat}}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Label Content="性别: " />
+            <Label Content="{StaticResource NewCustomerWindow.Label.Gender.Content}" />
             <ComboBox x:Name="txtGender"
                       ItemsSource="{x:Static infra:Constants.Genders}"
                       SelectedValuePath="Key"
@@ -64,21 +66,21 @@
                       SelectedValue="{Binding Gender}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <Label Content="手机: " />
+            <Label Content="{StaticResource NewCustomerWindow.Label.Phone.Content}" />
             <TextBox x:Name="txtPhone" Text="{Binding Phone}" />
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Label Content="会员卡号: " />
+            <Label Content="{StaticResource NewCustomerWindow.Label.CardNo.Content}" />
             <TextBox x:Name="txtCarNo" Text="{Binding CardNo}" />
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button x:Name="btnOK"
                     Command="{Binding SaveCommand}"
-                    Content="保存"
+                    Content="{StaticResource NewCustomerWindow.Button.OK.Content}"
                     IsDefault="True" />
             <Button x:Name="btnCancel"
                     Command="{Binding CloseCommand}"
-                    Content="取消"
+                    Content="{StaticResource NewCustomerWindow.Button.Cancel.Content}"
                     IsCancel="True" />
         </StackPanel>
     </Grid>
