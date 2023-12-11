@@ -36,10 +36,13 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0">
             <ToolBar>
-                <Button Content="新增" Command="{Binding NewCustomerCommand}"/>
-                <Button Content="修改" Command="{Binding UpdateCustomerCommand}" />
-                <Button Content="查找" Command="{Binding FindCustomerCommand}" />
-                <Button Content="回音" />
+                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.New.Content}"
+                        Command="{Binding NewCustomerCommand}"/>
+                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Edit.Content}"
+                        Command="{Binding UpdateCustomerCommand}" />
+                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Find.Content}"
+                        Command="{Binding FindCustomerCommand}" />
+                <Button Content="{StaticResource MainWindow.ToolBarTray.ToolBar.Button.Echo.Content}" />
             </ToolBar>
         </ToolBarTray>
         <StackPanel Grid.Row="1">

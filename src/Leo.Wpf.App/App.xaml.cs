@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 
@@ -72,13 +73,29 @@ public partial class App : Application
         base.OnStartup(e);
     }
 
-    private static void LoadApplicationResources()
+    private void LoadApplicationResources()
     {
-        Application.Current.Resources.MergedDictionaries.Clear();
-        Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+        var localization = new ResourceDictionary();
+        var cultureInfo = CultureInfo.CurrentUICulture;
+        while (!string.IsNullOrEmpty(cultureInfo.Name))
         {
-            Source = new Uri("Resources/Localization.xaml", UriKind.RelativeOrAbsolute)
-        });
+            var uri = $"Resources/{cultureInfo.Name}/Localization.xaml";
+            try
+            {
+                localization.Source = new Uri(uri, UriKind.RelativeOrAbsolute);
+            }
+            catch
+            {
+                cultureInfo = cultureInfo.Parent;
+            }
+        }
+        if (string.IsNullOrEmpty(cultureInfo.Name))
+        {
+            localization.Source = new Uri("Resources/Localization.xaml", UriKind.RelativeOrAbsolute);
+        }
+
+        this.Resources.MergedDictionaries.Clear();
+        this.Resources.MergedDictionaries.Add(localization);
     }
 
     protected override async void OnExit(ExitEventArgs e)

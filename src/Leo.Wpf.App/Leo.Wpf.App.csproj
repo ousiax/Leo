@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <Page Remove="Resources\MainWindow.xaml" />
+    <Page Remove="Resources\MainWindow.zh-CN.xaml" />
+    <Page Remove="Resources\zh-CN\MainWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\MainWindow.xaml" />
+    <Resource Include="Resources\zh-CN\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
