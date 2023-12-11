@@ -32,7 +32,9 @@ $ tree  -L 2
 * `Leo.Wpf.App` is a WPF-based application.
 * `Leo.Web.Host` is a ASP.NET Core application.
 
-NOTE: For simplify, the desktop application also launchs the Web API application. You can see more information at `Leo.Windows.Program.Main` and `Leo.Wpf.App.App`.
+NOTE: For simplify, the desktop application also launchs the Web API application in the same one process.
+
+NOTE: You can see more information about how to launch both the Desktop application and a backend Web API service application in one process at `Leo.Windows.Program.Main` and `Leo.Wpf.App.App`.
 
 When the application starts, it requires to login with a Microsoft account (an organization or personal account).
 
