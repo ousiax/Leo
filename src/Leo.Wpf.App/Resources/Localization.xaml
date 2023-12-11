@@ -4,5 +4,6 @@
         <ResourceDictionary Source="MainWindow.xaml" />
         <ResourceDictionary Source="FindWindow.xaml" />
         <ResourceDictionary Source="NewCustomerWindow.xaml" />
+        <ResourceDictionary Source="CustomerEditorWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

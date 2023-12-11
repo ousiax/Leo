@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="CustomerEditorWindow.Title">Edit</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Name.Content">Name</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Phone.Content">Phone</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Gender.Content">Gender</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Birthday.Content">Birthday</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Birthday.StringFormat">MMM dd, yyyy</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.Age.Content">Age</system:String>
+    <system:String x:Key="CustomerEditorWindow.Label.CardNo.Content">CardNo</system:String>
+    <system:String x:Key="CustomerEditorWindow.Button.OK.Content">OK</system:String>
+    <system:String x:Key="CustomerEditorWindow.Button.Cancel.Content">Cancel</system:String>
+</ResourceDictionary>
