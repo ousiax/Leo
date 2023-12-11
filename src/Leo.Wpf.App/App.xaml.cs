@@ -75,7 +75,6 @@ public partial class App : Application
 
     private void LoadApplicationResources()
     {
-        var localization = new ResourceDictionary();
         var cultureInfo = CultureInfo.CurrentUICulture;
 #if DEBUG
         cultureInfo = CultureInfo.GetCultureInfo("en-US");
@@ -85,7 +84,12 @@ public partial class App : Application
             var uri = $"Resources/{cultureInfo.Name}/Localization.xaml";
             try
             {
-                localization.Source = new Uri(uri, UriKind.RelativeOrAbsolute);
+                var localization = new ResourceDictionary
+                {
+                    Source = new Uri(uri, UriKind.RelativeOrAbsolute)
+                };
+                this.Resources.MergedDictionaries.Clear();
+                this.Resources.MergedDictionaries.Add(localization);
                 break;
             }
             catch
@@ -93,13 +97,6 @@ public partial class App : Application
                 cultureInfo = cultureInfo.Parent;
             }
         }
-        if (string.IsNullOrEmpty(cultureInfo.Name))
-        {
-            localization.Source = new Uri("Resources/Localization.xaml", UriKind.RelativeOrAbsolute);
-        }
-
-        this.Resources.MergedDictionaries.Clear();
-        this.Resources.MergedDictionaries.Add(localization);
     }
 
     protected override async void OnExit(ExitEventArgs e)
