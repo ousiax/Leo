@@ -10,11 +10,13 @@
     <system:String x:Key="MainWindow.Label.Phone.Content">Phone:</system:String>
     <system:String x:Key="MainWindow.Label.Gender.Content">Gender:</system:String>
     <system:String x:Key="MainWindow.Label.Birthday.Content">Birthday:</system:String>
+    <system:String x:Key="MainWindow.Label.Birthday.StringFormat">MMM dd, yyyy</system:String>
     <system:String x:Key="MainWindow.Label.Age.Content">Age:</system:String>
     <system:String x:Key="MainWindow.Label.CardNo.Content">CardNo:</system:String>
 
     <system:String x:Key="MainWindow.DataGrid.ContextMenu.MenuItem.New">New</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Date.Header">Date</system:String>
+    <system:String x:Key="MainWindow.DataGrid.Columns.Date.StringFormat">MMM dd, yyyy</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Item.Header">Item</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Count.Header">Count</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Height.Header">Height (CM)</system:String>

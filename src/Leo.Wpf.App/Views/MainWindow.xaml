@@ -58,7 +58,7 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="{StaticResource MainWindow.Label.Birthday.Content}" Target="{Binding ElementName=txtBirthday}" />
-                <TextBox x:Name="txtBirthday" Text="{Binding CurrentCustomer.Birthday, StringFormat=yyyy年MM月dd日}" />
+                <TextBox x:Name="txtBirthday" Text="{Binding CurrentCustomer.Birthday, StringFormat={StaticResource MainWindow.Label.Birthday.StringFormat}}" />
 
                 <Label Content="{StaticResource MainWindow.Label.Age.Content}" Target="{Binding ElementName=txtAge}" />
                 <TextBox x:Name="txtAge" Text="{Binding CurrentCustomer.Age, Mode=OneWay}" />
@@ -82,7 +82,7 @@
                 <DataGridTextColumn x:Name="colDate"
                                     Header="{StaticResource MainWindow.DataGrid.Columns.Date.Header}"
                                     Width="*"
-                                    Binding="{Binding Date, StringFormat=yyyy年MM月dd日}"></DataGridTextColumn>
+                                    Binding="{Binding Date, StringFormat={StaticResource MainWindow.DataGrid.Columns.Date.StringFormat}}"></DataGridTextColumn>
                 <DataGridTextColumn x:Name="colItem"
                                     Header="{StaticResource MainWindow.DataGrid.Columns.Item.Header}"
                                     Width="*"

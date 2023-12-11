@@ -10,11 +10,13 @@
     <system:String x:Key="MainWindow.Label.Phone.Content">手机：</system:String>
     <system:String x:Key="MainWindow.Label.Gender.Content">性别：</system:String>
     <system:String x:Key="MainWindow.Label.Birthday.Content">出生日期：</system:String>
+    <system:String x:Key="MainWindow.Label.Birthday.StringFormat">yyyy年MM月dd日</system:String>
     <system:String x:Key="MainWindow.Label.Age.Content">年龄：</system:String>
     <system:String x:Key="MainWindow.Label.CardNo.Content">会员卡号：</system:String>
 
     <system:String x:Key="MainWindow.DataGrid.ContextMenu.MenuItem.New">新增</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Date.Header">日期</system:String>
+    <system:String x:Key="MainWindow.DataGrid.Columns.Date.StringFormat">yyyy年MM月dd日</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Item.Header">项目</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Count.Header">次数</system:String>
     <system:String x:Key="MainWindow.DataGrid.Columns.Height.Header">身高（CM）</system:String>
