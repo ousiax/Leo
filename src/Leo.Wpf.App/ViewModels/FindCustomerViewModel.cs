@@ -6,6 +6,7 @@ using Leo.UI;
 using Leo.Wpf.App.Messages;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Data;
 
 namespace Leo.Wpf.App.ViewModels
@@ -40,6 +41,24 @@ namespace Leo.Wpf.App.ViewModels
             AllCustomersView = CollectionViewSource.GetDefaultView(AllCustomers);
 
             _ = LoadAllCustomersAsync();
+
+            // TODO i18n
+            if (CultureInfo.CurrentUICulture.Name.Contains("zh"))
+            {
+                SearchFields = new() {
+                    { "name", "姓名" },
+                    { "phone", "手机" },
+                    { "card", "卡号" },
+                };
+            }
+            else
+            {
+                SearchFields = new() {
+                    { "name", "Name" },
+                    { "phone", "Phone" },
+                    { "card", "CardNo" },
+                };
+            }
         }
 
         public ObservableCollection<CustomerViewModel> AllCustomers { get; set; } = [];

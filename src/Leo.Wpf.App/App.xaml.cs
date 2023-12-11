@@ -20,6 +20,13 @@ public partial class App : Application
 {
     private readonly IHost _host;
 
+#if DEBUG
+    static App()
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+    }
+#endif
+
     public App()
     {
         _host = Host.CreateDefaultBuilder()
@@ -76,9 +83,6 @@ public partial class App : Application
     private void LoadApplicationResources()
     {
         var cultureInfo = CultureInfo.CurrentUICulture;
-#if DEBUG
-        cultureInfo = CultureInfo.GetCultureInfo("en-US");
-#endif
         while (!string.IsNullOrEmpty(cultureInfo.Name))
         {
             var uri = $"Resources/{cultureInfo.Name}/Localization.xaml";
