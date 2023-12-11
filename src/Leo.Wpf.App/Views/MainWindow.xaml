@@ -39,7 +39,8 @@
                 <Button Content="{StaticResource MainWindow.ToolBar.Button.New.Content}"
                         Command="{Binding NewCustomerCommand}"/>
                 <Button Content="{StaticResource MainWindow.ToolBar.Button.Edit.Content}"
-                        Command="{Binding UpdateCustomerCommand}" />
+                        Command="{Binding EditCustomerCommand}"
+                        CommandParameter="{Binding CurrentCustomer}"/>
                 <Button Content="{StaticResource MainWindow.ToolBar.Button.Find.Content}"
                         Command="{Binding FindCustomerCommand}" />
                 <Button Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}" />

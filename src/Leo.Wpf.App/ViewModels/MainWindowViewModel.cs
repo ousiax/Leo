@@ -10,7 +10,6 @@ namespace Leo.Wpf.App.ViewModels
 {
     public sealed partial class MainWindowViewModel : ObservableRecipient, IDisposable
     {
-        [ObservableProperty]
         private CustomerViewModel? _currentCustomer;
 
         private bool disposedValue;
@@ -21,6 +20,21 @@ namespace Leo.Wpf.App.ViewModels
         private readonly ICustomerEditorWindowService _customerEditorWindow;
         private readonly INewCustomerDetailWindowService _newCustomerDetailWindow;
         private readonly IFindWindowService _findWindow;
+
+        public CustomerViewModel? CurrentCustomer
+        {
+            get { return _currentCustomer; }
+            set
+            {
+                SetProperty(ref _currentCustomer, value);
+                NewCustomerDetailCommand.NotifyCanExecuteChanged();
+                EditCustomerCommand.NotifyCanExecuteChanged();
+            }
+        }
+
+        public IRelayCommand EditCustomerCommand { get; }
+
+        public IRelayCommand NewCustomerDetailCommand { get; }
 
         public MainWindowViewModel(
             ICustomerService customerService,
@@ -39,6 +53,12 @@ namespace Leo.Wpf.App.ViewModels
             _customerEditorWindow = customerEditorWindow;
             _newCustomerDetailWindow = newCustomerDetailWindowService;
             _findWindow = findWindowService;
+
+            EditCustomerCommand = new RelayCommand<CustomerViewModel>(EditCustomer, c => c != null);
+            NewCustomerDetailCommand = new RelayCommand<string>(NewCustomerDetail, _ =>
+            {
+                return CurrentCustomer != null;
+            });
 
             Messenger.Register<CustomerCreatedMessage>(this, (rcpt, msg) =>
             {
@@ -62,19 +82,20 @@ namespace Leo.Wpf.App.ViewModels
             _newCustomerWindow.ShowDialog();
         }
 
-        [RelayCommand]
-        private void UpdateCustomer()
+        private void EditCustomer(CustomerViewModel? customer)
         {
-            if (CurrentCustomer != null)
+            if (customer != null)
             {
-                _customerEditorWindow.ShowDialog(CurrentCustomer.Id!);
+                _customerEditorWindow.ShowDialog(customer.Id!);
             }
         }
 
-        [RelayCommand]
-        private void NewCustomerDetail(string customerId)
+        private void NewCustomerDetail(string? customerId)
         {
-            _newCustomerDetailWindow.ShowDialog(customerId);
+            if (customerId != null)
+            {
+                _newCustomerDetailWindow.ShowDialog(customerId);
+            }
         }
 
         [RelayCommand]
