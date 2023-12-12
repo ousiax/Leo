@@ -24,6 +24,7 @@
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}"></Style>
         <converters:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+        <converters:GenderToStringConverter x:Key="GenderToStringConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -73,7 +74,7 @@
                 <DataGridTextColumn x:Name="colGender" 
                            Header="{StaticResource FindWindow.DataGrid.Columns.Gender.Header}" 
                            Width="*" 
-                           Binding="{Binding Gender}" />
+                           Binding="{Binding Gender, Converter={StaticResource GenderToStringConverter}}" />
                 <DataGridTextColumn x:Name="colBirthday"
                            Header="{StaticResource FindWindow.DataGrid.Columns.Birthday.Header}" 
                            Width="*" Binding="{Binding Birthday, StringFormat={StaticResource FindWindow.DataGrid.Columns.Birthday.StringFormat}}" />
