@@ -3,46 +3,52 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.Entities;
 using Leo.UI;
 using Leo.Wpf.App.Messages;
+using System.ComponentModel.DataAnnotations;
 
 namespace Leo.Wpf.App.ViewModels
 {
-    public partial class NewCustomerViewModel : ObservableObject
+    public partial class NewCustomerViewModel(
+        ICustomerService _customerService,
+        IMapper _mapper,
+        IMessenger _messenger) : ObservableValidator
     {
+        [Required(AllowEmptyStrings = false)]
+        [NotifyDataErrorInfo]
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _name;
 
+        [Phone]
+        [NotifyDataErrorInfo]
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _phone;
 
+        [EnumDataType(typeof(Gender))]
+        [NotifyDataErrorInfo]
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _gender;
 
+        [DataType(DataType.Date)]
+        [NotifyDataErrorInfo]
         [ObservableProperty]
-        private DateTime? _birthday;
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+        private DateOnly? _birthday;
 
+        [Required(AllowEmptyStrings = false)]
+        [NotifyDataErrorInfo]
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _cardNo;
-
-        private readonly ICustomerService _customerService;
-        private readonly IMapper _mapper;
-        private readonly IMessenger _messenger;
-
-        public NewCustomerViewModel(
-            ICustomerService customerService,
-            IMapper mapper,
-            IMessenger messenger)
-        {
-            _customerService = customerService;
-            _mapper = mapper;
-            _messenger = messenger;
-        }
 
         [RelayCommand]
         private void Close() => CloseAction?.Invoke();
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanSave))]
         private async Task SaveAsync()
         {
             var dto = _mapper.Map<CustomerDto>(this);
@@ -52,5 +58,17 @@ namespace Leo.Wpf.App.ViewModels
         }
 
         public event Action? CloseAction;
+
+        private bool CanSave()
+        {
+            return !HasErrors && Validate();
+        }
+
+        private bool Validate()
+        {
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(this);
+            var results = new List<ValidationResult>();
+            return Validator.TryValidateObject(this, context, results, true);
+        }
     }
 }

@@ -19,6 +19,22 @@
             <Setter Property="Control.Margin" Value="2,0,5,0" />
             <Setter Property="Control.VerticalContentAlignment" Value="Center" />
             <Setter Property="Control.Margin" Value="0,1,0,1" />
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border BorderBrush="Red" BorderThickness="1">
+                            <AdornedElementPlaceholder/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Control.ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="Label">
             <Setter Property="MinWidth" Value="80"/>
@@ -37,6 +53,7 @@
             <Setter Property="MinWidth" Value="80" />
             <Setter Property="MinHeight" Value="30" />
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
@@ -49,13 +66,26 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.Name.Content}" Target="{Binding ElementName=txtName}" />
-            <TextBox x:Name="txtName" Text="{Binding Name}" />
+            <TextBox x:Name="txtName" Text="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.ToolTip>
+                    <ToolTip Visibility="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}"
+                             Content="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.(Validation.Errors)[0].ErrorContent}">
+                    </ToolTip>
+                </TextBox.ToolTip>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Border BorderBrush="Red" BorderThickness="1" ToolTip="{Binding Path=ErrorContent}">
+                            <AdornedElementPlaceholder/>
+                        </Border>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.Birthday.Content}" />
             <DatePickerTextBox
                 x:Name="txtBirthday"
-                Text="{Binding Birthday, StringFormat={StaticResource NewCustomerWindow.Label.Birthday.StringFormat}}"/>
+                Text="{Binding Birthday, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, StringFormat={StaticResource NewCustomerWindow.Label.Birthday.StringFormat}}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.Gender.Content}" />
@@ -63,15 +93,15 @@
                       ItemsSource="{x:Static infra:Constants.Genders}"
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
-                      SelectedValue="{Binding Gender}"/>
+                      SelectedValue="{Binding Gender, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.Phone.Content}" />
-            <TextBox x:Name="txtPhone" Text="{Binding Phone}" />
+            <TextBox x:Name="txtPhone" Text="{Binding Phone, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.CardNo.Content}" />
-            <TextBox x:Name="txtCarNo" Text="{Binding CardNo}" />
+            <TextBox x:Name="txtCarNo" Text="{Binding CardNo, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button x:Name="btnOK"
