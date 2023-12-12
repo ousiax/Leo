@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Web.Api", "src\Leo.Web.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3B193AA2-A718-4DBD-9B15-B02A4403628B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Data.Domain.Tests", "test\Leo.Data.Domain.Tests\Leo.Data.Domain.Tests.csproj", "{E2FFDE7C-DAEF-4FFA-BF22-39CC06DAB9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Data.Domain.Tests", "test\Leo.Data.Domain.Tests\Leo.Data.Domain.Tests.csproj", "{E2FFDE7C-DAEF-4FFA-BF22-39CC06DAB9F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Web.Api.Tests", "test\Leo.Web.Api.Tests\Leo.Web.Api.Tests.csproj", "{37EAACD0-5191-4033-9BE6-13B93436FC2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Web.Api.Tests", "test\Leo.Web.Api.Tests\Leo.Web.Api.Tests.csproj", "{37EAACD0-5191-4033-9BE6-13B93436FC2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Wpf.App", "src\Leo.Wpf.App\Leo.Wpf.App.csproj", "{43C50767-3488-4E68-82BA-247B52AB178E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Wpf.App", "src\Leo.Wpf.App\Leo.Wpf.App.csproj", "{43C50767-3488-4E68-82BA-247B52AB178E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Wpf.App.Tests", "test\Leo.Wpf.App.Tests\Leo.Wpf.App.Tests.csproj", "{592FA109-B0F2-40F6-8C9F-2DB738109A37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,18 @@ Global
 		{43C50767-3488-4E68-82BA-247B52AB178E}.Release|x64.Build.0 = Release|Any CPU
 		{43C50767-3488-4E68-82BA-247B52AB178E}.Release|x86.ActiveCfg = Release|Any CPU
 		{43C50767-3488-4E68-82BA-247B52AB178E}.Release|x86.Build.0 = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|x64.Build.0 = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Debug|x86.Build.0 = Debug|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x64.ActiveCfg = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x64.Build.0 = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x86.ActiveCfg = Release|Any CPU
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +186,7 @@ Global
 		{E2FFDE7C-DAEF-4FFA-BF22-39CC06DAB9F0} = {3B193AA2-A718-4DBD-9B15-B02A4403628B}
 		{37EAACD0-5191-4033-9BE6-13B93436FC2B} = {3B193AA2-A718-4DBD-9B15-B02A4403628B}
 		{43C50767-3488-4E68-82BA-247B52AB178E} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
+		{592FA109-B0F2-40F6-8C9F-2DB738109A37} = {3B193AA2-A718-4DBD-9B15-B02A4403628B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA7F0677-1F7B-476F-A1BF-A55979EDF2E5}
