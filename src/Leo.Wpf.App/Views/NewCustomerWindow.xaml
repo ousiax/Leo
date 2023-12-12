@@ -85,7 +85,7 @@
             <Label Content="{StaticResource NewCustomerWindow.Label.Birthday.Content}" />
             <DatePickerTextBox
                 x:Name="txtBirthday"
-                Text="{Binding Birthday, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, StringFormat={StaticResource NewCustomerWindow.Label.Birthday.StringFormat}}"/>
+                Text="{Binding Birthday, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus, StringFormat={StaticResource NewCustomerWindow.Label.Birthday.StringFormat}}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label Content="{StaticResource NewCustomerWindow.Label.Gender.Content}" />

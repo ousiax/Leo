@@ -21,23 +21,26 @@ namespace Leo.Wpf.App.ViewModels
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _name;
 
+        [Required]
         [Phone]
         [NotifyDataErrorInfo]
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _phone;
 
+        [Required]
         [EnumDataType(typeof(Gender))]
         [NotifyDataErrorInfo]
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         private string? _gender;
 
+        [Required]
         [DataType(DataType.Date)]
         [NotifyDataErrorInfo]
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
-        private DateOnly? _birthday;
+        private DateTime? _birthday; // DateOnly
 
         [Required(AllowEmptyStrings = false)]
         [NotifyDataErrorInfo]
