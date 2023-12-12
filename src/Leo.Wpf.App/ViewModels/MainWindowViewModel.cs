@@ -88,12 +88,12 @@ namespace Leo.Wpf.App.ViewModels
             _findWindow.ShowDialog();
         }
 
-        private bool CanEditCustomer(CustomerViewModel? customer)
+        private static bool CanEditCustomer(CustomerViewModel? customer)
         {
             return customer != null;
         }
 
-        private bool CanNewCustomerDetail(string? customerId)
+        private static bool CanNewCustomerDetail(string? customerId)
         {
             return customerId != null;
         }

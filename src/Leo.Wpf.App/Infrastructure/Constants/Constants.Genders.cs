@@ -4,7 +4,7 @@ namespace Leo.Wpf.App.Infrastructure
 {
     public partial class Constants
     {
-        public static Dictionary<string, string> Genders = new()
+        public static readonly Dictionary<string, string> Genders = new()
         {
             {"Unkonw", GetString("Unkonw") },
             {"Male", GetString("Male") },
