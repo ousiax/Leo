@@ -9,7 +9,7 @@ namespace Leo.Wpf.App.Views
     /// </summary>
     public partial class FindWindow : Window
     {
-        private IMessenger _messenger;
+        private readonly IMessenger _messenger;
 
         public FindWindow(FindCustomerViewModel viewModel, IMessenger messenger)
         {
