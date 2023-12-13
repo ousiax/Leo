@@ -31,6 +31,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<CustomerEditorViewModel>();
             services.AddTransient<ICustomerEditorWindowService, CustomerEditorWindowService>();
 
+            services.AddTransient<EchoViewModel>();
+            services.AddTransient<IEchoWindowService, EchoWindowService>();
+
             return services;
         }
     }

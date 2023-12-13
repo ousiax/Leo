@@ -23,6 +23,7 @@ namespace Leo.Wpf.App.ViewModels
         private readonly ICustomerEditorWindowService _customerEditorWindow;
         private readonly INewCustomerDetailWindowService _newCustomerDetailWindow;
         private readonly IFindWindowService _findWindow;
+        private readonly IEchoWindowService _echoWindow;
 
         public MainWindowViewModel(
             ICustomerService customerService,
@@ -32,6 +33,7 @@ namespace Leo.Wpf.App.ViewModels
             ICustomerEditorWindowService customerEditorWindow,
             INewCustomerDetailWindowService newCustomerDetailWindowService,
             IFindWindowService findWindowService,
+            IEchoWindowService echoWindowService,
             IMessenger messenger) : base(messenger)
         {
             _customerService = customerService;
@@ -41,6 +43,7 @@ namespace Leo.Wpf.App.ViewModels
             _customerEditorWindow = customerEditorWindow;
             _newCustomerDetailWindow = newCustomerDetailWindowService;
             _findWindow = findWindowService;
+            _echoWindow = echoWindowService;
 
             Messenger.Register<CustomerCreatedMessage>(this, (rcpt, msg) =>
             {
@@ -86,6 +89,12 @@ namespace Leo.Wpf.App.ViewModels
         private void FindCustomer()
         {
             _findWindow.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void Echo()
+        {
+            _echoWindow.Show();
         }
 
         private static bool CanEditCustomer(CustomerViewModel? customer)

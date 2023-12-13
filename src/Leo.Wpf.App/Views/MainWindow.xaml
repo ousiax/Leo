@@ -43,7 +43,8 @@
                         CommandParameter="{Binding CurrentCustomer}"/>
                 <Button Content="{StaticResource MainWindow.ToolBar.Button.Find.Content}"
                         Command="{Binding FindCustomerCommand}" />
-                <Button Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}" />
+                <Button Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}"
+                        Command="{Binding EchoCommand}"/>
             </ToolBar>
         </ToolBarTray>
         <StackPanel Grid.Row="1">
