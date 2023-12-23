@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Leo.Data.Domain.Entities;
-using System.Data;
 
 namespace Leo.Web.Data.SqlServer.Repositories
 {
@@ -18,7 +17,7 @@ namespace Leo.Web.Data.SqlServer.Repositories
             detail.Id = Guid.NewGuid();
 
             var parameters = new DynamicParameters();
-            parameters.Add("id", detail.Id, dbType: DbType.String);
+            parameters.Add("id", detail.Id);
             parameters.Add("customer_id", detail.CustomerId);
             parameters.Add("date", detail.Date);
             parameters.Add("item", detail.Item);
@@ -41,7 +40,7 @@ namespace Leo.Web.Data.SqlServer.Repositories
         {
             var commandText = "SELECT * FROM customer_detail WHERE id = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", id, DbType.String);
+            parameters.Add("id", id);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryFirstOrDefaultAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);
@@ -51,7 +50,7 @@ namespace Leo.Web.Data.SqlServer.Repositories
         {
             var commandText = "SELECT * FROM customer_detail WHERE customer_id = @customer_id";
             var parameters = new DynamicParameters();
-            parameters.Add("customer_id", customerId, DbType.String);
+            parameters.Add("customer_id", customerId);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);

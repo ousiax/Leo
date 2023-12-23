@@ -1,18 +1,13 @@
-using Dapper;
-using Leo.Web.Data.Services;
-using Leo.Web.Data.SQLite.TypeHandlers;
+﻿using Leo.Web.Data.Services;
 using Leo.Web.Data.SqlServer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Leo.Web.Data
+namespace Leo.Web.Data.SqlServer
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            SqlMapper.AddTypeHandler(new GuidToStringHandler());
-            //SqlMapper.AddTypeHandler(new GuidAsBinaryHandler());
-
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddScoped<IDatabaseService, DatabaseService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

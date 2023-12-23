@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Leo.Data.Domain.Entities;
-using System.Data;
 
 namespace Leo.Web.Data.SqlServer.Repositories
 {
@@ -18,7 +17,7 @@ namespace Leo.Web.Data.SqlServer.Repositories
             var commandText = "SELECT * FROM customer "
                 + "WHERE id = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", id, DbType.String);
+            parameters.Add("id", id);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryFirstOrDefaultAsync<Customer>(cmdDef).ConfigureAwait(false);
@@ -41,14 +40,14 @@ namespace Leo.Web.Data.SqlServer.Repositories
                 + "VALUES (@id, @name, @phone, @gender, @birthday, @cardno, "
                 + "@created_at, @created_by)";
             var parameters = new DynamicParameters();
-            parameters.Add("id", customer.Id, DbType.String);
+            parameters.Add("id", customer.Id);
             parameters.Add("name", customer.Name);
             parameters.Add("phone", customer.Phone);
             parameters.Add("gender", customer.Gender);
             parameters.Add("birthday", customer.Birthday);
             parameters.Add("cardno", customer.CardNo);
             parameters.Add("created_at", customer.CreatedAt);
-            parameters.Add("created_by", customer.CreatedBy);
+            parameters.Add("created_by", customer.CreatedBy); ;
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
@@ -62,7 +61,7 @@ namespace Leo.Web.Data.SqlServer.Repositories
                 + "updated_at = @updated_at, updated_by = @updated_by "
                 + "WHERE id=@id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", customer.Id, DbType.String);
+            parameters.Add("id", customer.Id);
             parameters.Add("name", customer.Name);
             parameters.Add("phone", customer.Phone);
             parameters.Add("gender", customer.Gender);

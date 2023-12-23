@@ -20,7 +20,15 @@ namespace Leo.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDataServices();
+            var dbEngine = Configuration.GetValue<string>("Database.Engine");
+            if (dbEngine == null || string.Equals(dbEngine, "mssql", StringComparison.OrdinalIgnoreCase))
+            {
+                Leo.Web.Data.SqlServer.ServiceCollectionExtensions.AddDataServices(services);
+            }
+            else
+            {
+                services.AddDataServices();
+            }
             services.AddControllers(options =>
             {
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));

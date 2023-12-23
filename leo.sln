@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leo.Wpf.App", "src\Leo.Wpf.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Wpf.App.Tests", "test\Leo.Wpf.App.Tests\Leo.Wpf.App.Tests.csproj", "{592FA109-B0F2-40F6-8C9F-2DB738109A37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leo.Web.Data.SqlServer", "src\Leo.Web.Data.SqlServer\Leo.Web.Data.SqlServer.csproj", "{F78EED74-EA60-4915-B8BF-E4718A7B03B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,18 @@ Global
 		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x64.Build.0 = Release|Any CPU
 		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x86.ActiveCfg = Release|Any CPU
 		{592FA109-B0F2-40F6-8C9F-2DB738109A37}.Release|x86.Build.0 = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|x64.Build.0 = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Debug|x86.Build.0 = Debug|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|x64.ActiveCfg = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|x64.Build.0 = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|x86.ActiveCfg = Release|Any CPU
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,6 +201,7 @@ Global
 		{37EAACD0-5191-4033-9BE6-13B93436FC2B} = {3B193AA2-A718-4DBD-9B15-B02A4403628B}
 		{43C50767-3488-4E68-82BA-247B52AB178E} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
 		{592FA109-B0F2-40F6-8C9F-2DB738109A37} = {3B193AA2-A718-4DBD-9B15-B02A4403628B}
+		{F78EED74-EA60-4915-B8BF-E4718A7B03B1} = {E719A028-C79F-4B69-A87B-614DD4CC5748}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA7F0677-1F7B-476F-A1BF-A55979EDF2E5}

@@ -15,6 +15,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Leo.Web.Data.SQLite\Leo.Web.Data.SQLite.csproj" />
+    <ProjectReference Include="..\Leo.Web.Data.SqlServer\Leo.Web.Data.SqlServer.csproj" />
   </ItemGroup>
   
   <ItemGroup>
