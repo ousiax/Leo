@@ -1,5 +1,4 @@
 ﻿using Alyio.AspNetCore.ApiMessages;
-using Leo.Web.Data;
 using Leo.Web.Routing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +26,7 @@ namespace Leo.Web
             }
             else
             {
-                services.AddDataServices();
+                Leo.Web.Data.SQLite.ServiceCollectionExtensions.AddDataServices(services);
             }
             services.AddControllers(options =>
             {

@@ -2,7 +2,7 @@
 using Leo.Data.Domain.Entities;
 using System.Data;
 
-namespace Leo.Web.Data.SqlServer.Repositories
+namespace Leo.Web.Data.SQLite.Repositories
 {
     internal sealed class CustomerRepository : ICustomerRepository
     {

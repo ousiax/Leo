@@ -2,7 +2,7 @@
 using System.Data.Common;
 using System.Data.SQLite;
 
-namespace Leo.Web.Data.Services
+namespace Leo.Web.Data.SQLite.Services
 {
     internal class DbConnectionFactory : IDbConnectionFactory
     {

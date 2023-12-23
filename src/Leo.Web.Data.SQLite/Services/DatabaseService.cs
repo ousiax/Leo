@@ -1,6 +1,6 @@
 ﻿using Dapper;
 
-namespace Leo.Web.Data.Services
+namespace Leo.Web.Data.SQLite.Services
 {
     // https://sqlite.org/datatype3.html
     internal class DatabaseService : IDatabaseService

@@ -1,10 +1,10 @@
 using Dapper;
-using Leo.Web.Data.Services;
+using Leo.Web.Data.SQLite.Repositories;
+using Leo.Web.Data.SQLite.Services;
 using Leo.Web.Data.SQLite.TypeHandlers;
-using Leo.Web.Data.SqlServer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Leo.Web.Data
+namespace Leo.Web.Data.SQLite
 {
     public static class ServiceCollectionExtensions
     {
