@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Leo.Web.Data.Commands
 {
-    public sealed class CreateCustomerRequest : IRequest<string>
+    public sealed class CreateCustomerRequest : IRequest<Guid>
     {
         public CustomerDto CustomerDto { get; set; } = null!;
 

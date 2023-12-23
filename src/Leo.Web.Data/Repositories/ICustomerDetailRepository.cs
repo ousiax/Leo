@@ -4,10 +4,10 @@ namespace Leo.Web.Data
 {
     public interface ICustomerDetailRepository
     {
-        Task<IEnumerable<CustomerDetail>> GetByCustomerIdAsync(string customerId);
+        Task<IEnumerable<CustomerDetail>> GetByCustomerIdAsync(Guid customerId);
 
-        Task<CustomerDetail?> GetByIdAsync(string id);
+        Task<CustomerDetail?> GetByIdAsync(Guid id);
 
-        Task<string> CreateAsync(CustomerDetail detail);
+        Task<Guid> CreateAsync(CustomerDetail detail);
     }
 }

@@ -13,12 +13,12 @@ namespace Leo.Web.Data.SQLite.Repositories
             _dbConnectionManager = dbConnectionManager;
         }
 
-        public async Task<Customer?> GetAsync(string id)
+        public async Task<Customer?> GetAsync(Guid id)
         {
             var commandText = "SELECT * FROM customer "
                 + "WHERE id = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", id, dbType: DbType.String);
+            parameters.Add("id", id, DbType.String);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryFirstOrDefaultAsync<Customer>(cmdDef).ConfigureAwait(false);
@@ -32,23 +32,23 @@ namespace Leo.Web.Data.SQLite.Repositories
             return await conn.QueryAsync<Customer>(cmdDef).ConfigureAwait(false);
         }
 
-        public async Task<string> CreateAsync(Customer customer)
+        public async Task<Guid> CreateAsync(Customer customer)
         {
-            customer.Id = Guid.NewGuid().ToString();
+            customer.Id = Guid.NewGuid();
 
             var commandText = "INSERT INTO customer (id, name, phone, gender, birthday, cardno,"
                 + "created_at, created_by) "
                 + "VALUES (@id, @name, @phone, @gender, @birthday, @cardno, "
                 + "@created_at, @created_by)";
             var parameters = new DynamicParameters();
-            parameters.Add("id", customer.Id, dbType: DbType.String);
+            parameters.Add("id", customer.Id, DbType.String);
             parameters.Add("name", customer.Name);
             parameters.Add("phone", customer.Phone);
             parameters.Add("gender", customer.Gender);
             parameters.Add("birthday", customer.Birthday);
             parameters.Add("cardno", customer.CardNo);
             parameters.Add("created_at", customer.CreatedAt);
-            parameters.Add("created_by", customer.CreatedBy); ;
+            parameters.Add("created_by", customer.CreatedBy);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
@@ -62,7 +62,7 @@ namespace Leo.Web.Data.SQLite.Repositories
                 + "updated_at = @updated_at, updated_by = @updated_by "
                 + "WHERE id=@id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", customer.Id, dbType: DbType.String);
+            parameters.Add("id", customer.Id, DbType.String);
             parameters.Add("name", customer.Name);
             parameters.Add("phone", customer.Phone);
             parameters.Add("gender", customer.Gender);

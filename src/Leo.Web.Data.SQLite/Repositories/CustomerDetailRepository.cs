@@ -13,9 +13,9 @@ namespace Leo.Web.Data.SQLite.Repositories
             _dbConnectionManager = dbConnectionManager;
         }
 
-        public async Task<string> CreateAsync(CustomerDetail detail)
+        public async Task<Guid> CreateAsync(CustomerDetail detail)
         {
-            detail.Id = Guid.NewGuid().ToString();
+            detail.Id = Guid.NewGuid();
 
             var parameters = new DynamicParameters();
             parameters.Add("id", detail.Id, dbType: DbType.String);
@@ -37,21 +37,21 @@ namespace Leo.Web.Data.SQLite.Repositories
             return detail.Id;
         }
 
-        public async Task<CustomerDetail?> GetByIdAsync(string id)
+        public async Task<CustomerDetail?> GetByIdAsync(Guid id)
         {
             var commandText = "SELECT * FROM customer_detail WHERE id = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("id", id);
+            parameters.Add("id", id, DbType.String);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryFirstOrDefaultAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<CustomerDetail>> GetByCustomerIdAsync(string customerId)
+        public async Task<IEnumerable<CustomerDetail>> GetByCustomerIdAsync(Guid customerId)
         {
             var commandText = "SELECT * FROM customer_detail WHERE customer_id = @customer_id";
             var parameters = new DynamicParameters();
-            parameters.Add("customer_id", customerId);
+            parameters.Add("customer_id", customerId, DbType.String);
             var cmdDef = new CommandDefinition(commandText, parameters);
             using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);

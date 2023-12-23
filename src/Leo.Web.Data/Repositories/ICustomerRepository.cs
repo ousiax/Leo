@@ -4,11 +4,11 @@ namespace Leo.Web.Data
 {
     public interface ICustomerRepository
     {
-        Task<Customer?> GetAsync(string id);
+        Task<Customer?> GetAsync(Guid id);
 
         Task<IEnumerable<Customer>> GetAsync();
 
-        Task<string> CreateAsync(Customer customer);
+        Task<Guid> CreateAsync(Customer customer);
 
         Task UpdateAsync(Customer customer);
     }

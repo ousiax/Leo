@@ -21,7 +21,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomerDetailDto?> GetByIdAsync(string id)
+        public async Task<CustomerDetailDto?> GetByIdAsync(Guid id)
         {
             return await _mediator.Send(new GetCustomerDetailByIdRequest { Id = id }, HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }

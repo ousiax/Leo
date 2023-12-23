@@ -29,7 +29,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomerDto?> GetAsync(string id)
+        public async Task<CustomerDto?> GetAsync(Guid id)
         {
             return await _mediator.Send(new GetCustomerByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }
@@ -60,7 +60,7 @@ namespace Leo.Web.Controllers
         }
 
         [HttpGet("{id}/details")]
-        public Task<List<CustomerDetailDto>> GetByCustomerIdAsync(string id)
+        public Task<List<CustomerDetailDto>> GetByCustomerIdAsync(Guid id)
         {
             return _mediator.Send(new GetCustomerDetailsByCustomerIdRequest { CustomerId = id }, this.HttpContext.RequestAborted);
         }

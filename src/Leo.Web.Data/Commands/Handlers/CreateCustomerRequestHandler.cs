@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Leo.Web.Data.Commands.Handlers
 {
-    internal sealed class CreateCustomerRequestHandler : IRequestHandler<CreateCustomerRequest, string>
+    internal sealed class CreateCustomerRequestHandler : IRequestHandler<CreateCustomerRequest, Guid>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ namespace Leo.Web.Data.Commands.Handlers
             _mapper = mapper;
         }
 
-        public Task<string> Handle(CreateCustomerRequest request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(CreateCustomerRequest request, CancellationToken cancellationToken)
         {
             var customer = _mapper.Map<Customer>(request.CustomerDto);
             if (request.User != null)

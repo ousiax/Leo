@@ -5,6 +5,6 @@ namespace Leo.Web.Data.Queries
 {
     public sealed class GetCustomerByIdRequest : IRequest<CustomerDto>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
