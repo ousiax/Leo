@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.UI;
 using Leo.Wpf.App.Messages;
+using Microsoft.Extensions.Logging;
 using static Leo.Wpf.App.ViewModels.CustomerViewModel;
 
 namespace Leo.Wpf.App.ViewModels
@@ -24,6 +25,7 @@ namespace Leo.Wpf.App.ViewModels
         private readonly INewCustomerDetailWindowService _newCustomerDetailWindow;
         private readonly IFindWindowService _findWindow;
         private readonly IEchoWindowService _echoWindow;
+        private readonly ILogger<MainWindowViewModel> _logger;
 
         public MainWindowViewModel(
             ICustomerService customerService,
@@ -34,7 +36,8 @@ namespace Leo.Wpf.App.ViewModels
             INewCustomerDetailWindowService newCustomerDetailWindowService,
             IFindWindowService findWindowService,
             IEchoWindowService echoWindowService,
-            IMessenger messenger) : base(messenger)
+            IMessenger messenger,
+            ILogger<MainWindowViewModel> logger) : base(messenger)
         {
             _customerService = customerService;
             _detailService = detailService;
@@ -44,20 +47,30 @@ namespace Leo.Wpf.App.ViewModels
             _newCustomerDetailWindow = newCustomerDetailWindowService;
             _findWindow = findWindowService;
             _echoWindow = echoWindowService;
+            _logger = logger;
 
             Messenger.Register<CustomerCreatedMessage>(this, (rcpt, msg) =>
             {
-                Task.Run(() => ReloadCurrentCustomerAsync(msg.Id));
+                _ = ReloadCurrentCustomerAsync(msg.Id);
             });
 
             Messenger.Register<CustomerFoundMessage>(this, (rcpt, msg) =>
             {
-                Task.Run(() => ReloadCurrentCustomerAsync(msg.Id));
+                ReloadCurrentCustomerAsync(msg.Id).ContinueWith(t =>
+                {
+                    if (t.Exception is not null)
+                    {
+                        _logger.LogError(t.Exception, t.Exception.Message);
+                    }
+                });
             });
 
             Messenger.Register<CustomerDetailCreatedMessage>(this, (rcpt, msg) =>
             {
-                Task.Run(() => ReloadCurrentCustomerAsync(msg.customerId));
+                Task.Factory.StartNew(() => ReloadCurrentCustomerAsync(msg.customerId),
+                    CancellationToken.None,
+                    TaskCreationOptions.None,
+                    TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
 
