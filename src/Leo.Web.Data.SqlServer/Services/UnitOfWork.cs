@@ -1,4 +1,4 @@
-﻿namespace Leo.Web.Data.Services
+﻿namespace Leo.Web.Data.SqlServer.Services
 {
     internal sealed class UnitOfWork : IUnitOfWork
     {

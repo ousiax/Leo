@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Data.Common;
 
-namespace Leo.Web.Data.Services
+namespace Leo.Web.Data.SqlServer.Services
 {
     internal class DbConnectionFactory : IDbConnectionFactory
     {

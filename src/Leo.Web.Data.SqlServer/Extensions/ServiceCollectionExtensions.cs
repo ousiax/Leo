@@ -1,5 +1,5 @@
-﻿using Leo.Web.Data.Services;
-using Leo.Web.Data.SqlServer.Repositories;
+﻿using Leo.Web.Data.SqlServer.Repositories;
+using Leo.Web.Data.SqlServer.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Leo.Web.Data.SqlServer
