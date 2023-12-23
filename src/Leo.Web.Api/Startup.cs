@@ -19,12 +19,12 @@ namespace Leo.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var dbEngine = Configuration.GetValue<string>("Database.Engine");
-            if (dbEngine == null || string.Equals(dbEngine, "mssql", StringComparison.OrdinalIgnoreCase))
+            var dbEngine = Configuration.GetValue<string>("Database:Engine");
+            if (string.Equals(dbEngine, "mssql", StringComparison.OrdinalIgnoreCase))
             {
                 Leo.Web.Data.SqlServer.ServiceCollectionExtensions.AddDataServices(services);
             }
-            else
+            else // "sqlite"
             {
                 Leo.Web.Data.SQLite.ServiceCollectionExtensions.AddDataServices(services);
             }
