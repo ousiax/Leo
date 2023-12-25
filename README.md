@@ -39,7 +39,7 @@ NOTE: For simplify, the desktop application also launchs the Web API application
 
 NOTE: You can see more information about how to launch both the Desktop application and a backend Web API service application in one process at `Leo.Windows.Program.Main` and `Leo.Wpf.App.App`.
 
-TIP: By default, the SQLite is used as the backend database. Here is the code snippet at the `Startup` class in the project `Leo.Web.Api`:
+TIP: By default, the SQLite is used as the backend database. Here is the code snippet at `src/Leo.Web.Api/Startup.cs`:
 
 ```cs
 namespace Leo.Web
