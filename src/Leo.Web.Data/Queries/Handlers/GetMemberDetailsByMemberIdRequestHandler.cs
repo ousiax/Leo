@@ -17,7 +17,7 @@ namespace Leo.Web.Data.Queries.Handlers
 
         public async Task<List<CustomerDetailDto>> Handle(GetCustomerDetailsByCustomerIdRequest request, CancellationToken cancellationToken)
         {
-            if (request.CustomerId == null)
+            if (request.CustomerId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(request.CustomerId));
             }
