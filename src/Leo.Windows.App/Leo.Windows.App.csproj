@@ -15,7 +15,7 @@
     <Content Include="leon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.57.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.59.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Leo.UI.Services\Leo.UI.Services.csproj" />
