@@ -6,8 +6,6 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <ImplicitUsings>true</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <ApplicationIcon>leon.ico</ApplicationIcon>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".App",""))</RootNamespace>
   </PropertyGroup>
