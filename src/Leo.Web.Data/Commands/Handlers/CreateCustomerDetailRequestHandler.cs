@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Leo.Web.Data.Commands.Handlers
 {
-    internal class CreateCustomerDetailRequestHandler : IRequestHandler<CreateCustomerDetailRequest, Guid>
+    internal sealed class CreateCustomerDetailRequestHandler : IRequestHandler<CreateCustomerDetailRequest, Guid>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

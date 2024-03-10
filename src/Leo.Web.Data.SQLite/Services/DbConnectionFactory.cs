@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace Leo.Web.Data.SQLite.Services
 {
-    internal class DbConnectionFactory : IDbConnectionFactory
+    internal sealed class DbConnectionFactory : IDbConnectionFactory
     {
         private readonly IConfiguration _configuration;
 

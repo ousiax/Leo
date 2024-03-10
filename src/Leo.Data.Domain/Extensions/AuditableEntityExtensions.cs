@@ -8,14 +8,14 @@ namespace Leo.Data.Domain
         public static IAuditableEntity Create(this IAuditableEntity entity, ClaimsPrincipal principal)
         {
             entity.CreatedAt = DateTime.UtcNow;
-            entity.CreatedBy = principal.FindFirst("preferred_username").Value; // TODO using oid instead of name
+            entity.CreatedBy = principal.FindFirst("preferred_username")!.Value; // TODO using oid instead of name
             return entity;
         }
 
         public static IAuditableEntity Update(this IAuditableEntity entity, ClaimsPrincipal principal)
         {
             entity.UpdatedAt = DateTime.UtcNow;
-            entity.UpdatedBy = principal.FindFirst("preferred_username").Value; // TODO using oid instead of name
+            entity.UpdatedBy = principal.FindFirst("preferred_username")!.Value; // TODO using oid instead of name
             return entity;
         }
 

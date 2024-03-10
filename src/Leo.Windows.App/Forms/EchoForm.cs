@@ -88,7 +88,13 @@ namespace Leo.Windows.Forms
 
         private void AppendListView(string direction, string message)
         {
-            lstvResponse.Items.Insert(0, new ListViewItem(new string[] { string.Empty, direction, message, DateTime.Now.ToString("HH:mm:ss", CultureInfo.CurrentUICulture) }));
+            lstvResponse.Items.Insert(
+                0,
+                new ListViewItem(new string[] {
+                    string.Empty,
+                    direction, message,
+                    DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture) })
+                );
         }
 
         private async Task DisconnectAsync()

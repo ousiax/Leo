@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 namespace Leo.Windows.ViewModels
@@ -87,7 +88,7 @@ namespace Leo.Windows.ViewModels
                 else
                 {
                     var num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
-                    return string.Format("{0} 岁", num);
+                    return string.Format(CultureInfo.InvariantCulture, "{0} 岁", num);
                 }
             }
         }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal class GetCustomersRequesttHandler : IRequestHandler<GetCustomersRequest, List<CustomerDto>>
+    internal sealed class GetCustomersRequesttHandler : IRequestHandler<GetCustomersRequest, List<CustomerDto>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

@@ -22,7 +22,7 @@ namespace Leo.Web.Controllers
             }
         }
 
-        public async Task EchoAsync(WebSocket ws, CancellationToken cancellationToken = default)
+        public async static Task EchoAsync(WebSocket ws, CancellationToken cancellationToken = default)
         {
             var buffer = new byte[4096];
             var recv = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken).ConfigureAwait(false);

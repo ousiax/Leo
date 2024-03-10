@@ -9,9 +9,9 @@ using Leo.Wpf.App.Messages;
 namespace Leo.Wpf.App.ViewModels
 {
     public partial class NewCustomerDetailViewModel(
-        ICustomerDetailService _detailService,
-        IMapper _mapper,
-        IMessenger _messenger) : ObservableObject
+        ICustomerDetailService detailService,
+        IMapper mapper,
+        IMessenger messenger) : ObservableObject
     {
         [ObservableProperty]
         private string? _id;
@@ -37,10 +37,10 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand]
         private async Task SaveAsync()
         {
-            var dto = _mapper.Map<CustomerDetailDto>(this);
-            var detailId = await _detailService.CreateAsync(dto);
-            _messenger.Send(new CustomerDetailCreatedMessage(CustomerId, detailId));
-            _messenger.Send(new CloseWindowMessage());
+            var dto = mapper.Map<CustomerDetailDto>(this);
+            var detailId = await detailService.CreateAsync(dto);
+            messenger.Send(new CustomerDetailCreatedMessage(CustomerId, detailId));
+            messenger.Send(new CloseWindowMessage());
         }
 
         [RelayCommand]

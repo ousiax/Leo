@@ -5,6 +5,7 @@ using Leo.UI.Services;
 using Leo.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 using System.Runtime.Versioning;
 
 namespace Leo.Windows.Forms
@@ -84,7 +85,7 @@ namespace Leo.Windows.Forms
 
                     if (currentMouseOverRow >= 0)
                     {
-                        menu.Items.Add(new ToolStripMenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+                        menu.Items.Add(new ToolStripMenuItem(string.Format(CultureInfo.InvariantCulture, "Do something to row {0}", currentMouseOverRow)));
                     }
 
                     menu.Show(this.dgvCustomerDetails, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);

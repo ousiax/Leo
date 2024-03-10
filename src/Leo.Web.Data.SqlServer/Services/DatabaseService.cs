@@ -1,6 +1,6 @@
 ﻿namespace Leo.Web.Data.SqlServer.Services
 {
-    internal class DatabaseService : IDatabaseService
+    internal sealed class DatabaseService : IDatabaseService
     {
         public Task InitializeAsync()
         {

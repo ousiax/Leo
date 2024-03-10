@@ -11,9 +11,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Leo.Wpf.App.ViewModels
 {
     public partial class NewCustomerViewModel(
-        ICustomerService _customerService,
-        IMapper _mapper,
-        IMessenger _messenger) : ObservableValidator
+        ICustomerService customerService,
+        IMapper mapper,
+        IMessenger messenger) : ObservableValidator
     {
         [Required(AllowEmptyStrings = false)]
         [NotifyDataErrorInfo]
@@ -54,9 +54,9 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand(CanExecute = nameof(CanSave))]
         private async Task SaveAsync()
         {
-            var dto = _mapper.Map<CustomerDto>(this);
-            var id = await _customerService.CreateAsync(dto);
-            _messenger.Send(new CustomerCreatedMessage(id));
+            var dto = mapper.Map<CustomerDto>(this);
+            var id = await customerService.CreateAsync(dto);
+            messenger.Send(new CustomerCreatedMessage(id));
             Close();
         }
 

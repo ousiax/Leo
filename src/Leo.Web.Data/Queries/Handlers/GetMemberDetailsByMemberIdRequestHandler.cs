@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal class GetCustomerDetailsByCustomerIdRequestHandler : IRequestHandler<GetCustomerDetailsByCustomerIdRequest, List<CustomerDetailDto>>
+    internal sealed class GetCustomerDetailsByCustomerIdRequestHandler : IRequestHandler<GetCustomerDetailsByCustomerIdRequest, List<CustomerDetailDto>>
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace Leo.Web.Data.Queries.Handlers
         {
             if (request.CustomerId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(request.CustomerId));
+                throw new ArgumentException(nameof(request.CustomerId));
             }
 
             var detail = await _uow.CustomerDetailRepository.GetByCustomerIdAsync(request.CustomerId).ConfigureAwait(false);

@@ -51,7 +51,7 @@ namespace Leo.Windows.Forms
 
             this.btnSearch.Click += (s, a) =>
             {
-                var selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem).Key;
+                var selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem!).Key;
 
                 switch (selectedValue)
                 {

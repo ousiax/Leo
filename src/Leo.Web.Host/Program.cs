@@ -14,7 +14,7 @@ namespace Leo.Web
 
             var app = builder.Build();
 
-            startup.Configure(app, app.Environment);
+            Startup.Configure(app, app.Environment);
 
             using (var scope = app.Services.CreateScope())
             {

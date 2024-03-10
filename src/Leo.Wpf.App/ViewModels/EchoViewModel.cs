@@ -97,7 +97,7 @@ namespace Leo.Wpf.App.ViewModels
         private bool CanSend()
         {
             return !string.IsNullOrEmpty(Message) &&
-                string.Equals("Disconnect", ConnectButtonSate) &&
+                string.Equals("Disconnect", ConnectButtonSate, StringComparison.OrdinalIgnoreCase) &&
                 State == WebSocketState.Open;
         }
 

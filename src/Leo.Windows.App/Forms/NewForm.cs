@@ -22,18 +22,24 @@ namespace Leo.Windows.Forms
 
             for (int i = 0; i < this.combGender.Items.Count; i++)
             {
-                if (string.Equals(_customer.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                if (string.Equals(
+                    _customer.Gender,
+                    ((KeyValuePair<string, string>)this.combGender.Items[i]!).Key,
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     this.combGender.SelectedIndex = i;
                 }
             }
             _customer.PropertyChanged += (s, a) =>
             {
-                if (string.Equals("Gender", a.PropertyName))
+                if (string.Equals("Gender", a.PropertyName, StringComparison.OrdinalIgnoreCase))
                 {
                     for (int i = 0; i < this.combGender.Items.Count; i++)
                     {
-                        if (string.Equals(_customer.Gender, ((KeyValuePair<string, string>)this.combGender.Items[i]).Key))
+                        if (string.Equals(
+                            _customer.Gender,
+                            ((KeyValuePair<string, string>)this.combGender.Items[i]!).Key,
+                            StringComparison.OrdinalIgnoreCase))
                         {
                             this.combGender.SelectedIndex = i;
                         }

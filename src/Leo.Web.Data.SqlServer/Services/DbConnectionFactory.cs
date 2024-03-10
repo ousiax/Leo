@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace Leo.Web.Data.SqlServer.Services
 {
-    internal class DbConnectionFactory : IDbConnectionFactory
+    internal sealed class DbConnectionFactory : IDbConnectionFactory
     {
         private readonly IConfiguration _configuration;
 
