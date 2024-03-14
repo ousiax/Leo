@@ -1,4 +1,6 @@
-﻿using Microsoft.Identity.Client;
+﻿// MIT License
+
+using Microsoft.Identity.Client;
 
 namespace Leo.UI.Services
 {

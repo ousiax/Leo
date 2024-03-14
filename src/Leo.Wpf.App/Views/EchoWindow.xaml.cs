@@ -1,4 +1,6 @@
-﻿using Leo.Wpf.App.ViewModels;
+﻿// MIT License
+
+using Leo.Wpf.App.ViewModels;
 using System.Windows;
 
 namespace Leo.Wpf.App.Views

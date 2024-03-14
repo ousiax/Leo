@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿// MIT License
+
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 
 namespace Leo.UI.Services.Services

@@ -1,4 +1,6 @@
-﻿namespace Leo.Web.Data.SQLite.Services
+﻿// MIT License
+
+namespace Leo.Web.Data.SQLite.Services
 {
     internal sealed class UnitOfWork : IUnitOfWork
     {

@@ -1,4 +1,6 @@
-﻿namespace Leo.UI.Options
+﻿// MIT License
+
+namespace Leo.UI.Options
 {
     public sealed class WebOptions
     {

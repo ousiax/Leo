@@ -1,4 +1,6 @@
-﻿namespace Leo.Wpf.App
+﻿// MIT License
+
+namespace Leo.Wpf.App
 {
     public interface INewCustomerDetailWindowService
     {

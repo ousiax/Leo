@@ -1,3 +1,5 @@
+// MIT License
+
 using Leo.Data.Domain.Dtos;
 using Microsoft.AspNetCore.Http;
 using System.Net;

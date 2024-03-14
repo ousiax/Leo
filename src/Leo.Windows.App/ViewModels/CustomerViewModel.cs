@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// MIT License
+
+using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 

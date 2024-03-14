@@ -1,4 +1,6 @@
-﻿using Leo.Data.Domain.Dtos;
+﻿// MIT License
+
+using Leo.Data.Domain.Dtos;
 
 namespace Leo.UI
 {

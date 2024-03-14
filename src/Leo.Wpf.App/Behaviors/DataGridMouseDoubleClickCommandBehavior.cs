@@ -1,4 +1,6 @@
-﻿using Microsoft.Xaml.Behaviors;
+﻿// MIT License
+
+using Microsoft.Xaml.Behaviors;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

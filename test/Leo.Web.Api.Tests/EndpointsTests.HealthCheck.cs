@@ -1,3 +1,5 @@
+// MIT License
+
 using System.Net;
 
 namespace Leo.Web.Api.Tests

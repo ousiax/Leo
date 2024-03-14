@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿// MIT License
+
+using CommunityToolkit.Mvvm.Messaging;
 using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using Microsoft.Extensions.DependencyInjection;

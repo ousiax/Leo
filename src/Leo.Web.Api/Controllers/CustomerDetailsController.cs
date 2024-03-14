@@ -1,3 +1,5 @@
+// MIT License
+
 using Alyio.AspNetCore.ApiMessages;
 using Leo.Data.Domain.Dtos;
 using Leo.Web.Data.Commands;

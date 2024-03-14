@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿// MIT License
+
+using System.Globalization;
 using System.Windows.Data;
 
 namespace Leo.Wpf.App.Converters

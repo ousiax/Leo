@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// MIT License
+
+using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

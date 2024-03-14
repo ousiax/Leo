@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿// MIT License
+
+using Dapper;
 
 namespace Leo.Web.Data.SQLite.Services
 {

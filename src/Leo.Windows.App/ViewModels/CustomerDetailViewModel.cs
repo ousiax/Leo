@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// MIT License
+
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Leo.Windows.ViewModels

@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿// MIT License
+
+using Dapper;
 using Leo.Data.Domain.Entities;
 using System.Data;
 

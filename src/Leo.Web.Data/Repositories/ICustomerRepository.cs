@@ -1,4 +1,6 @@
-﻿using Leo.Data.Domain.Entities;
+﻿// MIT License
+
+using Leo.Data.Domain.Entities;
 
 namespace Leo.Web.Data
 {

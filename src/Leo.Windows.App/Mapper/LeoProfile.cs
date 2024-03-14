@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿// MIT License
+
+using AutoMapper;
 using Leo.Data.Domain.Dtos;
 using Leo.Windows.ViewModels;
 

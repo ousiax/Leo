@@ -1,4 +1,6 @@
-﻿using Leo.Wpf.App.ViewModels;
+﻿// MIT License
+
+using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 
 namespace Leo.Wpf.App.Services

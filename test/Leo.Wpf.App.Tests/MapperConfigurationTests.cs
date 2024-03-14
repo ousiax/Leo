@@ -1,3 +1,5 @@
+// MIT License
+
 using AutoMapper;
 using Leo.Windows.Mapper;
 

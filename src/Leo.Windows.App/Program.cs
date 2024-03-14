@@ -1,4 +1,6 @@
-﻿using Leo.UI.Options;
+﻿// MIT License
+
+using Leo.UI.Options;
 using Leo.UI.Services;
 using Leo.Windows.Forms;
 using Microsoft.AspNetCore.Hosting;

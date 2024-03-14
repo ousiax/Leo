@@ -1,4 +1,6 @@
-﻿using Leo.UI.Options;
+﻿// MIT License
+
+using Leo.UI.Options;
 using Leo.UI.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

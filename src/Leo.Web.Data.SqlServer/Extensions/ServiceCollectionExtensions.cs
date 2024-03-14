@@ -1,4 +1,6 @@
-﻿using Leo.Web.Data.SqlServer.Repositories;
+﻿// MIT License
+
+using Leo.Web.Data.SqlServer.Repositories;
 using Leo.Web.Data.SqlServer.Services;
 using Microsoft.Extensions.DependencyInjection;
 

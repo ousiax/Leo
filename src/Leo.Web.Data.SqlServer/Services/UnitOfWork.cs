@@ -1,4 +1,6 @@
-﻿namespace Leo.Web.Data.SqlServer.Services
+﻿// MIT License
+
+namespace Leo.Web.Data.SqlServer.Services
 {
     internal sealed class UnitOfWork : IUnitOfWork
     {

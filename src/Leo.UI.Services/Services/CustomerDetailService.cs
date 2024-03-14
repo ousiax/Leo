@@ -1,4 +1,6 @@
-﻿using Leo.Data.Domain.Dtos;
+﻿// MIT License
+
+using Leo.Data.Domain.Dtos;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;

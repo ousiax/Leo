@@ -1,4 +1,6 @@
-﻿using System.Data.Common;
+﻿// MIT License
+
+using System.Data.Common;
 
 namespace Leo.Web.Data
 {

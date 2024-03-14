@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿// MIT License
+
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Leo.Web.Data

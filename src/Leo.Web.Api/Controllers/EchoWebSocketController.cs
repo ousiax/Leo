@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// MIT License
+
+using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
 
 namespace Leo.Web.Controllers

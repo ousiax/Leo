@@ -1,4 +1,6 @@
-﻿using Leo.UI.Options;
+﻿// MIT License
+
+using Leo.UI.Options;
 using Leo.UI.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;

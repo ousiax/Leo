@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿// MIT License
+
+using AutoMapper;
 using Leo.Data.Domain;
 using Leo.Data.Domain.Entities;
 using MediatR;

@@ -1,4 +1,6 @@
-﻿using Leo.Web.Data;
+﻿// MIT License
+
+using Leo.Web.Data;
 
 namespace Leo.Web
 {

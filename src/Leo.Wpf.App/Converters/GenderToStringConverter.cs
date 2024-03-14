@@ -1,4 +1,6 @@
-﻿using Leo.Data.Domain.Entities;
+﻿// MIT License
+
+using Leo.Data.Domain.Entities;
 using Leo.Wpf.App.Infrastructure;
 using System.Globalization;
 using System.Windows.Data;

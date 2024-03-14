@@ -1,4 +1,6 @@
-﻿using Alyio.AspNetCore.ApiMessages;
+﻿// MIT License
+
+using Alyio.AspNetCore.ApiMessages;
 using Leo.Web.Routing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

@@ -1,4 +1,6 @@
-﻿namespace Leo.Web.Data
+﻿// MIT License
+
+namespace Leo.Web.Data
 {
     public interface IDatabaseService
     {

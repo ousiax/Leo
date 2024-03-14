@@ -1,3 +1,5 @@
+// MIT License
+
 using Dapper;
 using Leo.Web.Data.SQLite.Repositories;
 using Leo.Web.Data.SQLite.Services;

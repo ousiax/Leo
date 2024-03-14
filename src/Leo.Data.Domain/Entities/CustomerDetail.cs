@@ -1,4 +1,6 @@
-﻿namespace Leo.Data.Domain.Entities
+﻿// MIT License
+
+namespace Leo.Data.Domain.Entities
 {
     public class CustomerDetail : IAuditableEntity
     {

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// MIT License
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Leo.Data.Domain.Dtos
 {

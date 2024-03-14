@@ -1,3 +1,5 @@
+// MIT License
+
 using Leo.Windows.ViewModels;
 
 namespace Leo.Windows.Forms

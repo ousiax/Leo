@@ -1,4 +1,6 @@
-﻿using Leo.Wpf.App.ViewModels;
+﻿// MIT License
+
+using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;

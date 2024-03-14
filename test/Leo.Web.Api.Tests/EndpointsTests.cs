@@ -1,3 +1,5 @@
+// MIT License
+
 namespace Leo.Web.Api.Tests
 {
     public partial class EndpointsTests : IClassFixture<LeoWebApplicationFactory<Program>>
