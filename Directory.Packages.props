@@ -7,7 +7,7 @@
     <PackageVersion Include="Alyio.AspNetCore.ApiMessages" Version="8.0.0" />
     <PackageVersion Include="Alyio.Extensions" Version="2.3.0" />
     <PackageVersion Include="Alyio.Extensions.Http.Logging" Version="3.0.0" />
-    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageVersion Include="AutoMapper" Version="13.0.1" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageVersion Include="Dapper" Version="2.1.35" />
     <PackageVersion Include="MediatR" Version="12.2.0" />
