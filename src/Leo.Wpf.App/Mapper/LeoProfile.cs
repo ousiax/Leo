@@ -1,7 +1,7 @@
 ﻿// MIT License
 
 using AutoMapper;
-using Leo.Data.Domain.Dtos;
+using Leo.UI.Services.Models;
 using Leo.Wpf.App.ViewModels;
 using static Leo.Wpf.App.ViewModels.CustomerViewModel;
 

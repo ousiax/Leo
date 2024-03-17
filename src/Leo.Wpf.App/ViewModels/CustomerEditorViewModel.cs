@@ -4,8 +4,8 @@ using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Leo.Data.Domain.Dtos;
 using Leo.UI;
+using Leo.UI.Services.Models;
 using Leo.Wpf.App.Messages;
 
 namespace Leo.Wpf.App.ViewModels

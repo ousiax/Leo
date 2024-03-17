@@ -1,10 +1,10 @@
 ﻿// MIT License
 
-using Leo.Data.Domain.Dtos;
-using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
+using Leo.UI.Services.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Leo.UI.Services
 {

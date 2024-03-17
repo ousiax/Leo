@@ -1,7 +1,7 @@
 ﻿// MIT License
 
 using AutoMapper;
-using Leo.Data.Domain.Dtos;
+using Leo.UI.Services.Models;
 using Leo.Windows.ViewModels;
 
 namespace Leo.Windows.Mapper

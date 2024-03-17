@@ -9,8 +9,4 @@
     <PackageReference Include="AutoMapper" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Leo.Data.Domain\Leo.Data.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

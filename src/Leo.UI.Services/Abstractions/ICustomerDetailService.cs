@@ -1,6 +1,6 @@
 ﻿// MIT License
 
-using Leo.Data.Domain.Dtos;
+using Leo.UI.Services.Models;
 
 namespace Leo.UI
 {

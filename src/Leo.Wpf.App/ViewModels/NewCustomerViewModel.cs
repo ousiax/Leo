@@ -1,14 +1,13 @@
 ﻿// MIT License
 
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Leo.Data.Domain.Dtos;
-using Leo.Data.Domain.Entities;
 using Leo.UI;
+using Leo.UI.Services.Models;
 using Leo.Wpf.App.Messages;
-using System.ComponentModel.DataAnnotations;
 
 namespace Leo.Wpf.App.ViewModels
 {

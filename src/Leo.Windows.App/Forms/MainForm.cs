@@ -1,14 +1,14 @@
 ﻿// MIT License
 
+using System.Globalization;
+using System.Runtime.Versioning;
 using AutoMapper;
-using Leo.Data.Domain.Dtos;
 using Leo.UI;
 using Leo.UI.Services;
+using Leo.UI.Services.Models;
 using Leo.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Globalization;
-using System.Runtime.Versioning;
 
 namespace Leo.Windows.Forms
 {
