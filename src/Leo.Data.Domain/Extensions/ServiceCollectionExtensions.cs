@@ -11,5 +11,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
+        public static IServiceCollection AddCQRS(this IServiceCollection services)
+        {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            return services;
+        }
     }
 }
