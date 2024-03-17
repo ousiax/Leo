@@ -1,6 +1,6 @@
 ﻿// MIT License
 
-namespace Leo.UI.Options
+namespace Leo.UI.Services.Options
 {
     public sealed class WebOptions
     {

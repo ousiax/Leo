@@ -1,14 +1,14 @@
 ﻿// MIT License
 
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Leo.UI.Options;
-using Leo.UI.Services;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using System.Collections.ObjectModel;
 using System.Net.WebSockets;
 using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Leo.UI.Services;
+using Leo.UI.Services.Options;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 namespace Leo.Wpf.App.ViewModels
 {

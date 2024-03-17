@@ -1,12 +1,12 @@
 ﻿// MIT License
 
-using Leo.UI.Options;
-using Leo.UI.Services;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using System.Globalization;
 using System.Net.WebSockets;
 using System.Text;
+using Leo.UI.Services;
+using Leo.UI.Services.Options;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 namespace Leo.Windows.Forms
 {

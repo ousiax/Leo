@@ -3,7 +3,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 
-namespace Leo.UI.Services.Services
+namespace Leo.UI.Services
 {
     sealed class AuthenticationService : IAuthenticationService
     {

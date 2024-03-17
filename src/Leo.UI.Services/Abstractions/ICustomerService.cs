@@ -2,7 +2,7 @@
 
 using Leo.UI.Services.Models;
 
-namespace Leo.UI
+namespace Leo.UI.Services
 {
     public interface ICustomerService
     {

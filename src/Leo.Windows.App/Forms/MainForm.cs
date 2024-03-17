@@ -3,7 +3,6 @@
 using System.Globalization;
 using System.Runtime.Versioning;
 using AutoMapper;
-using Leo.UI;
 using Leo.UI.Services;
 using Leo.UI.Services.Models;
 using Leo.Windows.ViewModels;

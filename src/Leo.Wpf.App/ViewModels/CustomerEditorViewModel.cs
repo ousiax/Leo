@@ -4,7 +4,7 @@ using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Leo.UI;
+using Leo.UI.Services;
 using Leo.UI.Services.Models;
 using Leo.Wpf.App.Messages;
 

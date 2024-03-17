@@ -1,7 +1,10 @@
 ﻿// MIT License
 
-using Leo.UI.Options;
+using System.Globalization;
+using System.IO;
+using System.Windows;
 using Leo.UI.Services;
+using Leo.UI.Services.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -9,9 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
-using System.Globalization;
-using System.IO;
-using System.Windows;
 
 namespace Leo.Wpf.App;
 

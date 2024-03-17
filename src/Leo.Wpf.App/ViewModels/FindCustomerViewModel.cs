@@ -1,15 +1,15 @@
 ﻿// MIT License
 
-using AutoMapper;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using Leo.UI;
-using Leo.Wpf.App.Messages;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
+using AutoMapper;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Leo.UI.Services;
+using Leo.Wpf.App.Messages;
 
 namespace Leo.Wpf.App.ViewModels
 {
