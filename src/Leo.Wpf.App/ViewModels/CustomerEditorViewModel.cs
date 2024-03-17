@@ -12,7 +12,7 @@ namespace Leo.Wpf.App.ViewModels
 {
     public partial class CustomerEditorViewModel : ObservableObject
     {
-        private CustomerViewModel? _seletedCustomer;
+        private CustomerViewModel? _selectedCustomer;
 
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
@@ -26,17 +26,17 @@ namespace Leo.Wpf.App.ViewModels
             _customerService = customerService;
             _mapper = mapper;
             _messenger = messenger;
-            SaveCommand = new AsyncRelayCommand(SaveAsync, () => SeletedCustomer != null);
+            SaveCommand = new AsyncRelayCommand(SaveAsync, () => SelectedCustomer != null);
         }
 
-        public CustomerViewModel? SeletedCustomer
+        public CustomerViewModel? SelectedCustomer
         {
-            get { return _seletedCustomer; }
+            get { return _selectedCustomer; }
             set
             {
-                if (_seletedCustomer != value)
+                if (_selectedCustomer != value)
                 {
-                    SetProperty(ref _seletedCustomer, value);
+                    SetProperty(ref _selectedCustomer, value);
                     SaveCommand.NotifyCanExecuteChanged();
                 }
             }
@@ -46,7 +46,7 @@ namespace Leo.Wpf.App.ViewModels
 
         public event Action? CloseAction;
 
-        public async Task LoadSeletedCustomerAsync(string customerId)
+        public async Task LoadSelectedCustomerAsync(string customerId)
         {
             ArgumentException.ThrowIfNullOrEmpty(customerId, nameof(customerId));
 
@@ -54,17 +54,17 @@ namespace Leo.Wpf.App.ViewModels
             var customerViewModel = _mapper.Map<CustomerViewModel>(dto);
             if (customerViewModel != null)
             {
-                SeletedCustomer = customerViewModel;
+                SelectedCustomer = customerViewModel;
             }
         }
 
         private async Task SaveAsync()
         {
-            if (SeletedCustomer != null)
+            if (SelectedCustomer != null)
             {
-                var dto = _mapper.Map<CustomerDto>(this.SeletedCustomer);
+                var dto = _mapper.Map<CustomerDto>(this.SelectedCustomer);
                 await _customerService.UpdateAsync(dto);
-                _messenger.Send(new CustomerCreatedMessage(SeletedCustomer.Id));
+                _messenger.Send(new CustomerCreatedMessage(SelectedCustomer.Id));
             }
             Close();
         }

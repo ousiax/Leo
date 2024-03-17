@@ -12,7 +12,7 @@ namespace Leo.Wpf.App.Services
         public bool? ShowDialog(string customerId)
         {
             var viewModel = _services.GetRequiredService<CustomerEditorViewModel>();
-            _ = viewModel.LoadSeletedCustomerAsync(customerId);
+            _ = viewModel.LoadSelectedCustomerAsync(customerId);
             var window = new CustomerEditorWindow(viewModel)
             {
                 Owner = Application.Current.MainWindow,
