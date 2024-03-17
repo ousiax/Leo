@@ -1,11 +1,11 @@
 ﻿// MIT License
 
+using System.Runtime.CompilerServices;
 using AutoMapper;
 using Leo.Data.Domain.Dtos;
 using Leo.Data.Domain.Entities;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Leo.Data.Domain.Tests")]
+[assembly: InternalsVisibleTo("Leo.Web.Data.Domain.Tests")]
 namespace Leo.Data.Domain.Mapper
 {
     internal sealed class LeoProfile : Profile

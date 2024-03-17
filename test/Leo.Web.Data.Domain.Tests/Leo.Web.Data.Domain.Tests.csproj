@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Leo.Data.Domain\Leo.Data.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Leo.Web.Data.Domain\Leo.Web.Data.Domain.csproj" />
   </ItemGroup>
 
 </Project>
