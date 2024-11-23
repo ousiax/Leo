@@ -1,20 +1,13 @@
 ﻿// MIT License
 
-using Microsoft.Extensions.Configuration;
 using System.Data.Common;
 using System.Data.SQLite;
+using Microsoft.Extensions.Configuration;
 
 namespace Leo.Web.Data.SQLite.Services
 {
-    internal sealed class DbConnectionFactory : IDbConnectionFactory
+    internal sealed class DbConnectionFactory(IConfiguration configuration) : IDbConnectionFactory
     {
-        private readonly IConfiguration _configuration;
-
-        public DbConnectionFactory(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public DbConnection Open()
         {
             return GetDbConnection().OpenAndReturn();
@@ -22,7 +15,7 @@ namespace Leo.Web.Data.SQLite.Services
 
         public async Task<DbConnection> OpenAsync()
         {
-            var conn = GetDbConnection();
+            SQLiteConnection conn = GetDbConnection();
             await conn.OpenAsync().ConfigureAwait(false);
 
             return conn;
@@ -30,7 +23,7 @@ namespace Leo.Web.Data.SQLite.Services
 
         private SQLiteConnection GetDbConnection()
         {
-            return new SQLiteConnection(_configuration.GetConnectionString("sqlite"));
+            return new SQLiteConnection(configuration.GetConnectionString("sqlite"));
         }
     }
 }

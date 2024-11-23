@@ -1,10 +1,10 @@
 // MIT License
 
-using Leo.Data.Domain.Dtos;
-using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
+using Leo.Data.Domain.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Leo.Web.Api.Tests
 {
@@ -15,9 +15,9 @@ namespace Leo.Web.Api.Tests
         [Fact]
         public async Task Get_Customers_ReturnOK()
         {
-            var resp = await _client.GetAsync(_customersPathSegment);
+            HttpResponseMessage resp = await _client.GetAsync(_customersPathSegment);
 
-            var customers = await resp.Content.ReadFromJsonAsync<IEnumerable<CustomerDto>>();
+            IEnumerable<CustomerDto>? customers = await resp.Content.ReadFromJsonAsync<IEnumerable<CustomerDto>>();
 
             Assert.NotNull(customers);
         }
@@ -32,12 +32,12 @@ namespace Leo.Web.Api.Tests
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
+            HttpResponseMessage res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
 
             Assert.Equal(HttpStatusCode.Created, res.StatusCode);
 
-            var result = await res.Content.ReadFromJsonAsync<JsonObject>();
-            var id = result!["id"]!.ToString();
+            JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
+            string id = result!["id"]!.ToString();
 
             Assert.NotEmpty(id);
         }
@@ -52,9 +52,9 @@ namespace Leo.Web.Api.Tests
                 CardNo = "test",
                 Phone = "test",
             };
-            var res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
-            var result = await res.Content.ReadFromJsonAsync<JsonObject>();
-            var id = result!["id"]!.ToString();
+            HttpResponseMessage res = await _client.PostAsJsonAsync(_customersPathSegment, customer);
+            JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
+            string id = result!["id"]!.ToString();
 
             res = await _client.GetAsync($"{_customersPathSegment}/{id}");
 

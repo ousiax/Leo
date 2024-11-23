@@ -10,40 +10,40 @@ namespace Leo.Windows.Forms
 
         public NewForm(CustomerViewModel customer)
         {
-            this._customer = customer;
+            _customer = customer;
             InitializeComponent();
-            this.Load += (s, a) => InitializeDataBindings();
+            Load += (s, a) => InitializeDataBindings();
         }
 
         private void InitializeDataBindings()
         {
-            this.txtName.DataBindings.Add(new Binding("Text", _customer, "Name"));
-            this.txtCardNo.DataBindings.Add(new Binding("Text", _customer, "CardNo"));
-            this.txtPhone.DataBindings.Add(new Binding("Text", _customer, "Phone"));
-            this.dtpBirthday.DataBindings.Add(new Binding("Value", _customer, "Birthday"));
+            txtName.DataBindings.Add(new Binding("Text", _customer, "Name"));
+            txtCardNo.DataBindings.Add(new Binding("Text", _customer, "CardNo"));
+            txtPhone.DataBindings.Add(new Binding("Text", _customer, "Phone"));
+            dtpBirthday.DataBindings.Add(new Binding("Value", _customer, "Birthday"));
 
-            for (int i = 0; i < this.combGender.Items.Count; i++)
+            for (int i = 0; i < combGender.Items.Count; i++)
             {
                 if (string.Equals(
                     _customer.Gender,
-                    ((KeyValuePair<string, string>)this.combGender.Items[i]!).Key,
+                    ((KeyValuePair<string, string>)combGender.Items[i]!).Key,
                     StringComparison.OrdinalIgnoreCase))
                 {
-                    this.combGender.SelectedIndex = i;
+                    combGender.SelectedIndex = i;
                 }
             }
             _customer.PropertyChanged += (s, a) =>
             {
                 if (string.Equals("Gender", a.PropertyName, StringComparison.OrdinalIgnoreCase))
                 {
-                    for (int i = 0; i < this.combGender.Items.Count; i++)
+                    for (int i = 0; i < combGender.Items.Count; i++)
                     {
                         if (string.Equals(
                             _customer.Gender,
-                            ((KeyValuePair<string, string>)this.combGender.Items[i]!).Key,
+                            ((KeyValuePair<string, string>)combGender.Items[i]!).Key,
                             StringComparison.OrdinalIgnoreCase))
                         {
-                            this.combGender.SelectedIndex = i;
+                            combGender.SelectedIndex = i;
                         }
                     }
                 }
@@ -52,20 +52,20 @@ namespace Leo.Windows.Forms
 
         private void NewForm_Load(object sender, EventArgs e)
         {
-            this.combGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
-            this.combGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
-            this.btnCancel.Click += (s, a) =>
+            combGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
+            combGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
+            btnCancel.Click += (s, a) =>
             {
-                this.Close();
-                this.DialogResult = DialogResult.Cancel;
+                Close();
+                DialogResult = DialogResult.Cancel;
             };
-            this.btnConfirm.Click += (s, a) =>
+            btnConfirm.Click += (s, a) =>
             {
                 if (combGender.SelectedItem != null)
                 {
-                    this._customer.Gender = ((KeyValuePair<string, string>)combGender.SelectedItem).Key;
+                    _customer.Gender = ((KeyValuePair<string, string>)combGender.SelectedItem).Key;
                 }
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             };
         }
     }

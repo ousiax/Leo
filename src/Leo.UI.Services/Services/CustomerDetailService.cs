@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 using Leo.UI.Services.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 
 namespace Leo.UI.Services
 {
@@ -21,13 +22,13 @@ namespace Leo.UI.Services
             _logger = logger;
 
             // TODO
-            var auth = _auth.ExecuteAsync().Result;
+            AuthenticationResult auth = _auth.ExecuteAsync().Result;
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
         public async Task<CustomerDetailDto?> GetAsync(string id)
         {
-            var res = await _http.GetAsync($"/customer-details/{id}");
+            HttpResponseMessage res = await _http.GetAsync($"/customer-details/{id}");
             res.EnsureSuccessStatusCode();
             return await res.Content.ReadFromJsonAsync<CustomerDetailDto?>();
         }
@@ -35,32 +36,32 @@ namespace Leo.UI.Services
         public async Task<List<CustomerDetailDto>> GetByCustomerIdAsync(string customerId)
         {
             List<CustomerDetailDto>? details = null;
-            var res = await _http.GetAsync($"/customers/{customerId}/details");
+            HttpResponseMessage res = await _http.GetAsync($"/customers/{customerId}/details");
             if (res.IsSuccessStatusCode)
             {
                 details = await res.Content.ReadFromJsonAsync<List<CustomerDetailDto>>();
             }
             else
             {
-                var error = await res.Content.ReadAsStringAsync();
+                string error = await res.Content.ReadAsStringAsync();
                 _logger.LogError("Failed to read customer details: {}", error);
             }
-            return details ?? new();
+            return details ?? [];
         }
 
         public async Task<string?> CreateAsync(CustomerDetailDto detail)
         {
             string? id = null;
 
-            var res = await _http.PostAsJsonAsync("/customer-details", detail);
+            HttpResponseMessage res = await _http.PostAsJsonAsync("/customer-details", detail);
             if (res.IsSuccessStatusCode)
             {
-                var result = await res.Content.ReadFromJsonAsync<JsonObject>();
+                JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
                 id = result!["id"]!.ToString();
             }
             else
             {
-                var error = await res.Content.ReadAsStringAsync();
+                string error = await res.Content.ReadAsStringAsync();
                 _logger.LogError("Failed to create customer detail: {}", error);
             }
 

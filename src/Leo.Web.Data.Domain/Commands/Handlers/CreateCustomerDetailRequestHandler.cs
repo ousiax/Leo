@@ -20,7 +20,7 @@ namespace Leo.Web.Data.Commands.Handlers
 
         public Task<Guid> Handle(CreateCustomerDetailRequest request, CancellationToken cancellationToken)
         {
-            var detail = _mapper.Map<CustomerDetail>(request.CustomerDetailDto);
+            CustomerDetail detail = _mapper.Map<CustomerDetail>(request.CustomerDetailDto);
             if (request.User != null)
             {
                 detail.Create(request.User);

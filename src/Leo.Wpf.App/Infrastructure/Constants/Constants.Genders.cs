@@ -8,7 +8,7 @@ namespace Leo.Wpf.App.Infrastructure
     {
         public static readonly Dictionary<string, string> Genders = new()
         {
-            {"Unkonw", GetString("Unkonw") },
+            {"Unknown", GetString("Unknown") },
             {"Male", GetString("Male") },
             {"Female", GetString("Female") },
         };
@@ -18,13 +18,13 @@ namespace Leo.Wpf.App.Infrastructure
         {
             var enUS = new Dictionary<string, string>()
             {
-                {"Unkonw", "Unkonw" },
+                {"Unknown", "Unknown" },
                 {"Male", "Male" },
                 {"Female", "Female" },
             };
             var zhCN = new Dictionary<string, string>()
             {
-                {"Unkonw", "未知" },
+                {"Unknown", "未知" },
                 {"Male", "男" },
                 {"Female", "女" },
             };

@@ -35,7 +35,7 @@ namespace Leo.Web.Api.Tests
 
         protected override IHost CreateHost(IHostBuilder builder)
         {
-            var host = base.CreateHost(builder);
+            IHost host = base.CreateHost(builder);
 
             //using (var scope = host.Services.CreateScope())
             //{

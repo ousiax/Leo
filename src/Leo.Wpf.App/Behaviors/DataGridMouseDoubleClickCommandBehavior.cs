@@ -1,9 +1,9 @@
 ﻿// MIT License
 
-using Microsoft.Xaml.Behaviors;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Xaml.Behaviors;
 
 namespace Leo.Wpf.App.Behaviors
 {
@@ -25,15 +25,15 @@ namespace Leo.Wpf.App.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            this.AssociatedObject.LoadingRow += OnLoadingRow;
-            this.AssociatedObject.UnloadingRow += OnUnloadingRow;
+            AssociatedObject.LoadingRow += OnLoadingRow;
+            AssociatedObject.UnloadingRow += OnUnloadingRow;
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            this.AssociatedObject.LoadingRow -= OnLoadingRow;
-            this.AssociatedObject.UnloadingRow -= OnUnloadingRow;
+            AssociatedObject.LoadingRow -= OnLoadingRow;
+            AssociatedObject.UnloadingRow -= OnUnloadingRow;
         }
 
         private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
@@ -48,11 +48,11 @@ namespace Leo.Wpf.App.Behaviors
 
         void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (this.Command != null)
+            if (Command != null)
             {
-                if (this.Command.CanExecute(null))
+                if (Command.CanExecute(null))
                 {
-                    this.Command.Execute(null); // Or pass any relevant parameters.
+                    Command.Execute(null); // Or pass any relevant parameters.
                 }
             }
         }

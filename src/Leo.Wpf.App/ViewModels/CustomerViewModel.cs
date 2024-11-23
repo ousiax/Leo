@@ -1,8 +1,8 @@
 ﻿// MIT License
 
-using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Leo.Wpf.App.ViewModels
 {
@@ -36,8 +36,8 @@ namespace Leo.Wpf.App.ViewModels
                 }
                 else
                 {
-                    var num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
-                    return string.Format(CultureInfo.InvariantCulture,"{0} 岁", num);
+                    double num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
+                    return string.Format(CultureInfo.InvariantCulture, "{0} 岁", num);
                 }
             }
         }

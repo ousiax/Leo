@@ -86,7 +86,7 @@ namespace Leo.Wpf.App.ViewModels
                     filter = item =>
                     {
                         var viewModel = (CustomerViewModel)item;
-                        var filter = viewModel.Name?.Contains(SearchText);
+                        bool? filter = viewModel.Name?.Contains(SearchText);
                         return filter ?? true;
                     };
                     break;
@@ -94,7 +94,7 @@ namespace Leo.Wpf.App.ViewModels
                     filter = item =>
                     {
                         var viewModel = (CustomerViewModel)item;
-                        var filter = viewModel.CardNo?.Contains(SearchText);
+                        bool? filter = viewModel.CardNo?.Contains(SearchText);
                         return filter ?? true;
                     };
                     break;
@@ -102,7 +102,7 @@ namespace Leo.Wpf.App.ViewModels
                     filter = item =>
                     {
                         var viewModel = (CustomerViewModel)item;
-                        var filter = viewModel.Phone?.Contains(SearchText);
+                        bool? filter = viewModel.Phone?.Contains(SearchText);
                         return filter ?? true;
                     };
                     break;
@@ -127,8 +127,8 @@ namespace Leo.Wpf.App.ViewModels
         {
             IsLoading = true;
 
-            var dtos = await _customerService.GetAsync();
-            foreach (var dto in dtos)
+            List<UI.Services.Models.CustomerDto> dtos = await _customerService.GetAsync();
+            foreach (UI.Services.Models.CustomerDto dto in dtos)
             {
                 AllCustomers.Add(_mapper.Map<CustomerViewModel>(dto));
             }

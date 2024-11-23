@@ -1,7 +1,7 @@
 // MIT License
 
-using Leo.Windows.ViewModels;
 using System.Diagnostics.CodeAnalysis;
+using Leo.Windows.ViewModels;
 
 namespace Leo.Windows.Forms
 {
@@ -21,39 +21,38 @@ namespace Leo.Windows.Forms
 
         private void InitializeDataBindings()
         {
-            this.combSearchField.Items.Add(new KeyValuePair<string, string>("phone", "手机"));
-            this.combSearchField.Items.Add(new KeyValuePair<string, string>("name", "姓名"));
-            this.combSearchField.Items.Add(new KeyValuePair<string, string>("card", "卡号"));
-            this.combSearchField.SelectedIndex = 0;
+            combSearchField.Items.Add(new KeyValuePair<string, string>("phone", "手机"));
+            combSearchField.Items.Add(new KeyValuePair<string, string>("name", "姓名"));
+            combSearchField.Items.Add(new KeyValuePair<string, string>("card", "卡号"));
+            combSearchField.SelectedIndex = 0;
 
-            this.colGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
-            this.colGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
-            this.colGender.ValueMember = "Key";
-            this.colGender.DisplayMember = "Value";
+            colGender.Items.Add(new KeyValuePair<string, string>("Male", "男"));
+            colGender.Items.Add(new KeyValuePair<string, string>("Female", "女"));
+            colGender.ValueMember = "Key";
+            colGender.DisplayMember = "Value";
 
-            this.dgvCustomers.RowTemplate.Height += 10;
+            dgvCustomers.RowTemplate.Height += 10;
         }
 
 
         private void SearchForm_Load(object sender, EventArgs e)
         {
-            this.dgvCustomers.MouseDoubleClick += (s, a) =>
+            dgvCustomers.MouseDoubleClick += (s, a) =>
             {
                 if (a.Button == MouseButtons.Left && dgvCustomers.HitTest(a.X, a.Y).RowIndex >= 0)
                 {
-                    var mem = dgvCustomers.CurrentRow.DataBoundItem as CustomerViewModel;
-                    if (mem != null)
+                    if (dgvCustomers.CurrentRow.DataBoundItem is CustomerViewModel mem)
                     {
-                        this.Index = mem;
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
+                        Index = mem;
+                        DialogResult = DialogResult.OK;
+                        Close();
                     }
                 }
             };
 
-            this.btnSearch.Click += (s, a) =>
+            btnSearch.Click += (s, a) =>
             {
-                var selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem!).Key;
+                string selectedValue = ((KeyValuePair<string, string>)combSearchField.SelectedItem!).Key;
 
                 switch (selectedValue)
                 {
@@ -61,10 +60,10 @@ namespace Leo.Windows.Forms
                         bdsCustomers.DataSource = _customers.Where(m => m.Name?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "card":
-                        this.bdsCustomers.DataSource = _customers.Where(m => m.CardNo?.Contains(txtSearchText.Text) ?? false).ToList();
+                        bdsCustomers.DataSource = _customers.Where(m => m.CardNo?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                     case "phone":
-                        this.bdsCustomers.DataSource = _customers.Where(m => m.Phone?.Contains(txtSearchText.Text) ?? false).ToList();
+                        bdsCustomers.DataSource = _customers.Where(m => m.Phone?.Contains(txtSearchText.Text) ?? false).ToList();
                         break;
                 }
             };

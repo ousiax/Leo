@@ -1,30 +1,23 @@
 ﻿// MIT License
 
+using System.Data.Common;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System.Data.Common;
 
 namespace Leo.Web.Data.SqlServer.Services
 {
-    internal sealed class DbConnectionFactory : IDbConnectionFactory
+    internal sealed class DbConnectionFactory(IConfiguration configuration) : IDbConnectionFactory
     {
-        private readonly IConfiguration _configuration;
-
-        public DbConnectionFactory(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public DbConnection Open()
         {
-            var conn = GetDbConnection();
+            SqlConnection conn = GetDbConnection();
             conn.Open();
             return conn;
         }
 
         public async Task<DbConnection> OpenAsync()
         {
-            var conn = GetDbConnection();
+            SqlConnection conn = GetDbConnection();
             await conn.OpenAsync().ConfigureAwait(false);
 
             return conn;
@@ -32,7 +25,7 @@ namespace Leo.Web.Data.SqlServer.Services
 
         private SqlConnection GetDbConnection()
         {
-            return new SqlConnection(_configuration.GetConnectionString("mssql"));
+            return new SqlConnection(configuration.GetConnectionString("mssql"));
         }
     }
 }

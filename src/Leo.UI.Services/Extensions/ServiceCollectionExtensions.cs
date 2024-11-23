@@ -16,7 +16,7 @@ namespace Leo.UI.Services
 
             services.AddHttpClient("Leo", (s, c) =>
             {
-                var addressProvider = s.GetRequiredService<IOptions<WebOptions>>();
+                IOptions<WebOptions> addressProvider = s.GetRequiredService<IOptions<WebOptions>>();
                 c.BaseAddress = addressProvider.Value.BaseAddress;
             }).AddLoggerHandler(ignoreRequestContent: false, ignoreResponseContent: false);
 

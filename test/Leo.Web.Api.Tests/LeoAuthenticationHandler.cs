@@ -1,11 +1,11 @@
 ﻿// MIT License
 
+using System.Security.Claims;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
-using System.Security.Claims;
-using System.Text.Encodings.Web;
 
 namespace Leo.Web.Api.Tests
 {
@@ -19,10 +19,10 @@ namespace Leo.Web.Api.Tests
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            var claims = new[] {
+            Claim[] claims = [
                 new Claim(ClaimConstants.Name,"Test User"),
                 new Claim(ClaimConstants.PreferredUserName, "test@user.me")
-            };
+            ];
             var identity = new ClaimsIdentity(claims, AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, AuthenticationScheme);

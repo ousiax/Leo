@@ -2,18 +2,12 @@
 
 namespace Leo.Web.Data.SQLite.Services
 {
-    internal sealed class UnitOfWork : IUnitOfWork
+    internal sealed class UnitOfWork(
+        ICustomerRepository customerRepository,
+        ICustomerDetailRepository customerDetailRepository) : IUnitOfWork
     {
-        public UnitOfWork(
-            ICustomerRepository customerRepository,
-            ICustomerDetailRepository customerDetailRepository)
-        {
-            CustomerRepository = customerRepository;
-            CustomerDetailRepository = customerDetailRepository;
-        }
+        public ICustomerRepository CustomerRepository { get; } = customerRepository;
 
-        public ICustomerRepository CustomerRepository { get; }
-
-        public ICustomerDetailRepository CustomerDetailRepository { get; }
+        public ICustomerDetailRepository CustomerDetailRepository { get; } = customerDetailRepository;
     }
 }

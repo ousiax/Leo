@@ -1,10 +1,10 @@
 ﻿// MIT License
 
+using System.Windows;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
 namespace Leo.Wpf.App.Services
 {
@@ -12,7 +12,7 @@ namespace Leo.Wpf.App.Services
     {
         public bool? ShowDialog()
         {
-            var viewModel = _services.GetRequiredService<FindCustomerViewModel>();
+            FindCustomerViewModel viewModel = _services.GetRequiredService<FindCustomerViewModel>();
             var window = new FindWindow(viewModel, _messenger)
             {
                 Owner = Application.Current.MainWindow,

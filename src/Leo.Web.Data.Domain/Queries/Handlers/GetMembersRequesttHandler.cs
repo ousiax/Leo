@@ -2,25 +2,17 @@
 
 using AutoMapper;
 using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.Entities;
 using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal sealed class GetCustomersRequesttHandler : IRequestHandler<GetCustomersRequest, List<CustomerDto>>
+    internal sealed class GetCustomersRequestHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<GetCustomersRequest, List<CustomerDto>>
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
-
-        public GetCustomersRequesttHandler(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            _uow = unitOfWork;
-            _mapper = mapper;
-        }
-
         public async Task<List<CustomerDto>> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
         {
-            var customers = await _uow.CustomerRepository.GetAsync().ConfigureAwait(false);
-            return _mapper.Map<List<CustomerDto>>(customers);
+            IEnumerable<Customer> customers = await unitOfWork.CustomerRepository.GetAsync().ConfigureAwait(false);
+            return mapper.Map<List<CustomerDto>>(customers);
         }
     }
 }

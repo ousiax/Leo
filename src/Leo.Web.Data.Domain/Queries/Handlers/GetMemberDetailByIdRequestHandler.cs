@@ -2,21 +2,13 @@
 
 using AutoMapper;
 using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.Entities;
 using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal sealed class GetCustomerDetailByIdRequestHandler : IRequestHandler<GetCustomerDetailByIdRequest, CustomerDetailDto>
+    internal sealed class GetCustomerDetailByIdRequestHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<GetCustomerDetailByIdRequest, CustomerDetailDto>
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
-
-        public GetCustomerDetailByIdRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            _uow = unitOfWork;
-            _mapper = mapper;
-        }
-
         public async Task<CustomerDetailDto> Handle(GetCustomerDetailByIdRequest request, CancellationToken cancellationToken)
         {
             if (request.Id == Guid.Empty)
@@ -24,8 +16,8 @@ namespace Leo.Web.Data.Queries.Handlers
                 throw new ArgumentException(nameof(request.Id));
             }
 
-            var detail = await _uow.CustomerDetailRepository.GetByIdAsync(request.Id).ConfigureAwait(false);
-            return _mapper.Map<CustomerDetailDto>(detail);
+            CustomerDetail? detail = await unitOfWork.CustomerDetailRepository.GetByIdAsync(request.Id).ConfigureAwait(false);
+            return mapper.Map<CustomerDetailDto>(detail);
         }
     }
 }

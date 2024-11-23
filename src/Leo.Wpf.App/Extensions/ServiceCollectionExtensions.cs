@@ -1,10 +1,10 @@
 ﻿// MIT License
 
+using System.Reflection;
 using CommunityToolkit.Mvvm.Messaging;
 using Leo.Wpf.App;
 using Leo.Wpf.App.Services;
 using Leo.Wpf.App.ViewModels;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

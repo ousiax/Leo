@@ -14,7 +14,7 @@ namespace Leo.Windows.ViewModels
         private string? _gender;
         private DateTime? _birthday;
         private string? _cardNo;
-        private readonly List<CustomerDetailViewModel> _details = new();
+        private readonly List<CustomerDetailViewModel> _details = [];
 
         public string? Id
         {
@@ -61,7 +61,7 @@ namespace Leo.Windows.ViewModels
             get
             {
                 return new Dictionary<string, string> {
-                    {"Unkonw", "未知" },
+                    {"Unknown", "未知" },
                     {"Male","男" },
                     {"Female","女" },
                 }
@@ -89,7 +89,7 @@ namespace Leo.Windows.ViewModels
                 }
                 else
                 {
-                    var num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
+                    double num = Math.Round(DateTime.Now.Subtract(Birthday.Value).TotalDays / 365, 1);
                     return string.Format(CultureInfo.InvariantCulture, "{0} 岁", num);
                 }
             }

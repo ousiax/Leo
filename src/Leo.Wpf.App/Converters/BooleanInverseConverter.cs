@@ -13,6 +13,7 @@ namespace Leo.Wpf.App.Converters
             {
                 return !b;
             }
+
             return value;
         }
 
@@ -22,6 +23,7 @@ namespace Leo.Wpf.App.Converters
             {
                 return !b;
             }
+
             return value;
         }
     }

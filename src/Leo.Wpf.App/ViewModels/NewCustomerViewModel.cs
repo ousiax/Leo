@@ -55,8 +55,8 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand(CanExecute = nameof(CanSave))]
         private async Task SaveAsync()
         {
-            var dto = mapper.Map<CustomerDto>(this);
-            var id = await customerService.CreateAsync(dto);
+            CustomerDto dto = mapper.Map<CustomerDto>(this);
+            string? id = await customerService.CreateAsync(dto);
             messenger.Send(new CustomerCreatedMessage(id));
             Close();
         }

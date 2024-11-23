@@ -50,8 +50,8 @@ namespace Leo.Wpf.App.ViewModels
         {
             ArgumentException.ThrowIfNullOrEmpty(customerId, nameof(customerId));
 
-            var dto = await _customerService.GetAsync(customerId);
-            var customerViewModel = _mapper.Map<CustomerViewModel>(dto);
+            CustomerDto? dto = await _customerService.GetAsync(customerId);
+            CustomerViewModel customerViewModel = _mapper.Map<CustomerViewModel>(dto);
             if (customerViewModel != null)
             {
                 SelectedCustomer = customerViewModel;
@@ -62,7 +62,7 @@ namespace Leo.Wpf.App.ViewModels
         {
             if (SelectedCustomer != null)
             {
-                var dto = _mapper.Map<CustomerDto>(this.SelectedCustomer);
+                CustomerDto dto = _mapper.Map<CustomerDto>(SelectedCustomer);
                 await _customerService.UpdateAsync(dto);
                 _messenger.Send(new CustomerCreatedMessage(SelectedCustomer.Id));
             }

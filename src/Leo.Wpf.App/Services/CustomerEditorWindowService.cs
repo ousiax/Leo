@@ -1,9 +1,9 @@
 ﻿// MIT License
 
+using System.Windows;
 using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
 namespace Leo.Wpf.App.Services
 {
@@ -11,7 +11,7 @@ namespace Leo.Wpf.App.Services
     {
         public bool? ShowDialog(string customerId)
         {
-            var viewModel = _services.GetRequiredService<CustomerEditorViewModel>();
+            CustomerEditorViewModel viewModel = _services.GetRequiredService<CustomerEditorViewModel>();
             _ = viewModel.LoadSelectedCustomerAsync(customerId);
             var window = new CustomerEditorWindow(viewModel)
             {

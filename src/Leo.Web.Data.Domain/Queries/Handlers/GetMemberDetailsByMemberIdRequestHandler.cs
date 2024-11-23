@@ -2,21 +2,13 @@
 
 using AutoMapper;
 using Leo.Data.Domain.Dtos;
+using Leo.Data.Domain.Entities;
 using MediatR;
 
 namespace Leo.Web.Data.Queries.Handlers
 {
-    internal sealed class GetCustomerDetailsByCustomerIdRequestHandler : IRequestHandler<GetCustomerDetailsByCustomerIdRequest, List<CustomerDetailDto>>
+    internal sealed class GetCustomerDetailsByCustomerIdRequestHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<GetCustomerDetailsByCustomerIdRequest, List<CustomerDetailDto>>
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
-
-        public GetCustomerDetailsByCustomerIdRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            _uow = unitOfWork;
-            _mapper = mapper;
-        }
-
         public async Task<List<CustomerDetailDto>> Handle(GetCustomerDetailsByCustomerIdRequest request, CancellationToken cancellationToken)
         {
             if (request.CustomerId == Guid.Empty)
@@ -24,8 +16,8 @@ namespace Leo.Web.Data.Queries.Handlers
                 throw new ArgumentException(nameof(request.CustomerId));
             }
 
-            var detail = await _uow.CustomerDetailRepository.GetByCustomerIdAsync(request.CustomerId).ConfigureAwait(false);
-            return _mapper.Map<List<CustomerDetailDto>>(detail);
+            IEnumerable<CustomerDetail> detail = await unitOfWork.CustomerDetailRepository.GetByCustomerIdAsync(request.CustomerId).ConfigureAwait(false);
+            return mapper.Map<List<CustomerDetailDto>>(detail);
         }
     }
 }

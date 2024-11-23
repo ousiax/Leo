@@ -1,7 +1,7 @@
 ﻿// MIT License
 
-using Dapper;
 using System.Data;
+using Dapper;
 
 namespace Leo.Web.Data.SQLite.TypeHandlers
 {

@@ -19,7 +19,7 @@ namespace Leo.UI.Services
         public async Task<AuthenticationResult> ExecuteAsync()
         {
             AuthenticationResult result;
-            var accounts = await _app.GetAccountsAsync();
+            IEnumerable<IAccount> accounts = await _app.GetAccountsAsync();
             try
             {
                 result = await _app.AcquireTokenSilent(_scopes, accounts.FirstOrDefault())

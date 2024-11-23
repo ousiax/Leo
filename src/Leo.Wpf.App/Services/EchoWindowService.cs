@@ -1,9 +1,9 @@
 ﻿// MIT License
 
+using System.Windows;
 using Leo.Wpf.App.ViewModels;
 using Leo.Wpf.App.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
 namespace Leo.Wpf.App.Services
 {
@@ -11,7 +11,7 @@ namespace Leo.Wpf.App.Services
     {
         public void Show()
         {
-            var viewModel = _services.GetRequiredService<EchoViewModel>();
+            EchoViewModel viewModel = _services.GetRequiredService<EchoViewModel>();
             var window = new EchoWindow(viewModel)
             {
                 Owner = Application.Current.MainWindow,

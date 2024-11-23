@@ -22,19 +22,19 @@ namespace Leo.Windows.Forms
 
             InitializeComponent();
 
-            this.txtAddress.Text = new UriBuilder(webOptions.Value.BaseAddress!)
+            txtAddress.Text = new UriBuilder(webOptions.Value.BaseAddress!)
             {
                 Scheme = Uri.UriSchemeWs,
                 Path = DEFAULT_WS_PATH
             }.Uri.ToString();
 
-            this.FormClosed += async (s, a) =>
+            FormClosed += async (s, a) =>
             {
                 await DisconnectAsync();
             };
         }
 
-        private Uri WsUri => new(this.txtAddress.Text);
+        private Uri WsUri => new(txtAddress.Text);
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
@@ -42,15 +42,15 @@ namespace Leo.Windows.Forms
             {
                 await DisconnectAsync();
                 btnConnect.Text = "Connect";
-                var direction = "<-";
-                var message = $"Disconnected from {WsUri}";
+                string direction = "<-";
+                string message = $"Disconnected from {WsUri}";
                 AppendListView(direction, message);
                 btnSend.Enabled = false;
             }
             else
             {
                 _ws = new ClientWebSocket();
-                var result = await _authenticationService.ExecuteAsync();
+                Microsoft.Identity.Client.AuthenticationResult result = await _authenticationService.ExecuteAsync();
                 _ws.Options.SetRequestHeader(HeaderNames.Authorization, $"Bearer {result.IdToken}");
                 _ws.Options.KeepAliveInterval = TimeSpan.FromMinutes(5);
 
@@ -58,15 +58,15 @@ namespace Leo.Windows.Forms
                 btnConnect.Text = "Disconnect";
                 btnSend.Enabled = true;
                 lstvResponse.Items.Clear();
-                var message = $"Connected to {WsUri}";
-                var direction = "->";
+                string message = $"Connected to {WsUri}";
+                string direction = "->";
                 AppendListView(direction, message);
             }
         }
 
         private async void btnSend_Click(object sender, EventArgs e)
         {
-            var cancellationToken = CancellationToken.None;
+            CancellationToken cancellationToken = CancellationToken.None;
 
             await _ws!.SendAsync(
                 new ArraySegment<byte>(Encoding.UTF8.GetBytes(txtMessage.Text)),
@@ -75,10 +75,10 @@ namespace Leo.Windows.Forms
                 cancellationToken);
             AppendListView("->", txtMessage.Text);
 
-            var BUFFER_SIZE = 1024 * 4;
-            var buffer = new byte[BUFFER_SIZE];
+            int BUFFER_SIZE = 1024 * 4;
+            byte[] buffer = new byte[BUFFER_SIZE];
             var msg = new List<byte>(BUFFER_SIZE);
-            var recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
+            WebSocketReceiveResult recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
             msg.AddRange(new ArraySegment<byte>(buffer, 0, recv.Count));
             while (!recv.EndOfMessage)
             {
@@ -92,10 +92,10 @@ namespace Leo.Windows.Forms
         {
             lstvResponse.Items.Insert(
                 0,
-                new ListViewItem(new string[] {
+                new ListViewItem([
                     string.Empty,
                     direction, message,
-                    DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture) })
+                    DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture) ])
                 );
         }
 

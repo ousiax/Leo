@@ -38,11 +38,11 @@ namespace Leo.Windows.Forms
 
             InitializeComponent();
             InitializeContextMenu();
-            this.Load += async (s, e) => await LoadCustomersAsync();
-            this.Load += async (s, a) =>
+            Load += async (s, e) => await LoadCustomersAsync();
+            Load += async (s, a) =>
             {
-                var result = await _authenticationService.ExecuteAsync();
-                this.Text = $"{this.Text} ({result.Account.Username})";
+                Microsoft.Identity.Client.AuthenticationResult result = await _authenticationService.ExecuteAsync();
+                Text = $"{Text} ({result.Account.Username})";
             };
         }
 
@@ -52,14 +52,14 @@ namespace Leo.Windows.Forms
 
         private void InitializeContextMenu()
         {
-            this.dgvCustomerDetails.MouseClick += (_, e) =>
+            dgvCustomerDetails.MouseClick += (_, e) =>
             {
                 if (e.Button == MouseButtons.Right)
                 {
                     var menu = new ContextMenuStrip();
                     menu.Items.AddRange(new ToolStripMenuItem[]
                      {
-                        new ToolStripMenuItem("新增", null, async (s, a) => {
+                        new("新增", null, async (s, a) => {
                             var newCustomerDetailViewModel = new CustomerDetailViewModel
                             {
                                 Id = CurrentCustomer.Id,
@@ -68,14 +68,14 @@ namespace Leo.Windows.Forms
 
                             using var frm = new RecordForm(newCustomerDetailViewModel);
                             frm.Text = "新增";
-                            var result = frm.ShowDialog();
+                            DialogResult result = frm.ShowDialog();
                             if(result == DialogResult.OK)
                             {
-                                var newCustomerDetailDto = _mapper.Map<CustomerDetailDto>(newCustomerDetailViewModel);
+                                CustomerDetailDto newCustomerDetailDto = _mapper.Map<CustomerDetailDto>(newCustomerDetailViewModel);
                                 newCustomerDetailDto.CustomerId = CurrentCustomer.Id;
-                                var id = await _customerDetailService.CreateAsync(newCustomerDetailDto);
-                                var detailDto = await _customerDetailService.GetAsync(id!);
-                                var detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
+                                string? id = await _customerDetailService.CreateAsync(newCustomerDetailDto);
+                                CustomerDetailDto? detailDto = await _customerDetailService.GetAsync(id!);
+                                CustomerDetailViewModel detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
                                 CurrentCustomer.Details.Add(detailViewModel);
                                 bdsCustomerDetails.ResetBindings(false);
                             }
@@ -89,16 +89,16 @@ namespace Leo.Windows.Forms
                         menu.Items.Add(new ToolStripMenuItem(string.Format(CultureInfo.InvariantCulture, "Do something to row {0}", currentMouseOverRow)));
                     }
 
-                    menu.Show(this.dgvCustomerDetails, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);
+                    menu.Show(dgvCustomerDetails, new Point(e.X, e.Y), ToolStripDropDownDirection.Left);
                 }
             };
         }
 
         private async Task LoadCustomersAsync()
         {
-            var memeberDtos = await _customerService.GetAsync();
+            List<CustomerDto> memberDtos = await _customerService.GetAsync();
             var customers = new List<CustomerViewModel>();
-            customers.AddRange(_mapper.Map<List<CustomerViewModel>>(memeberDtos));
+            customers.AddRange(_mapper.Map<List<CustomerViewModel>>(memberDtos));
             bdsCustomers.DataSource = customers;
             //_bdsCustomers.ResetBindings(false);
         }
@@ -112,18 +112,18 @@ namespace Leo.Windows.Forms
                 var newCustomerViewModel = new CustomerViewModel { Birthday = DateTime.Now };
                 using var frm = new NewForm(newCustomerViewModel);
                 frm.Text = "新增会员信息";
-                var result = frm.ShowDialog();
+                DialogResult result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var newCustomerDto = _mapper.Map<CustomerDto>(newCustomerViewModel);
-                    var id = await _customerService.CreateAsync(newCustomerDto);
+                    CustomerDto newCustomerDto = _mapper.Map<CustomerDto>(newCustomerViewModel);
+                    string? id = await _customerService.CreateAsync(newCustomerDto);
                     if (id != null)
                     {
-                        var customerDto = await _customerService.GetAsync(id);
-                        var memeberViewMode = _mapper.Map<CustomerViewModel>(customerDto);
-                        Customers.Add(memeberViewMode);
+                        CustomerDto? customerDto = await _customerService.GetAsync(id);
+                        CustomerViewModel memberViewModel = _mapper.Map<CustomerViewModel>(customerDto);
+                        Customers.Add(memberViewModel);
                         bdsCustomers.ResetBindings(false);
-                        bdsCustomers.Position = Customers.IndexOf(memeberViewMode);
+                        bdsCustomers.Position = Customers.IndexOf(memberViewModel);
                     }
                 }
             };
@@ -137,10 +137,10 @@ namespace Leo.Windows.Forms
 
                 using var frm = new NewForm(CurrentCustomer);
                 frm.Text = "修改会员信息";
-                var result = frm.ShowDialog();
+                DialogResult result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var customerDto = _mapper.Map<CustomerDto>(CurrentCustomer);
+                    CustomerDto customerDto = _mapper.Map<CustomerDto>(CurrentCustomer);
                     await _customerService.UpdateAsync(customerDto);
                     bdsCustomers.ResetBindings(false);
                     //bdsCustomers.Position = Customers.IndexOf(CurrentCustomer);
@@ -152,7 +152,7 @@ namespace Leo.Windows.Forms
                 if (Customers.Count == 0) { return; }
 
                 using var frm = new FindForm(Customers);
-                var result = frm.ShowDialog();
+                DialogResult result = frm.ShowDialog();
                 if (result == DialogResult.OK && frm.Index != null)
                 {
                     bdsCustomers.Position = Customers.IndexOf(frm.Index);
@@ -161,7 +161,7 @@ namespace Leo.Windows.Forms
 
             menuEcho.Click += (s, a) =>
             {
-                using var scope = _serviceProvider.CreateScope();
+                using IServiceScope scope = _serviceProvider.CreateScope();
                 scope.ServiceProvider.GetRequiredService<EchoForm>().ShowDialog();
             };
         }
@@ -175,8 +175,8 @@ namespace Leo.Windows.Forms
             {
                 _previousCustomerViewModel = customer;
 
-                var detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id!);
-                var detailViewModels = _mapper.Map<IEnumerable<CustomerDetailViewModel>>(detailDtos);
+                List<CustomerDetailDto> detailDtos = await _customerDetailService.GetByCustomerIdAsync(customer.Id!);
+                IEnumerable<CustomerDetailViewModel> detailViewModels = _mapper.Map<IEnumerable<CustomerDetailViewModel>>(detailDtos);
                 customer.Details.Clear();
                 customer.Details.AddRange(detailViewModels);
                 bdsCustomerDetails.DataSource = null;

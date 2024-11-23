@@ -9,7 +9,7 @@ namespace Leo.Web.Api.Tests
         [Fact]
         public async Task Get_HealthCheck_ReturnOK()
         {
-            var resp = await _client.GetAsync("/healthz");
+            HttpResponseMessage resp = await _client.GetAsync("/healthz");
 
             Assert.Equal(HttpStatusCode.OK, resp.StatusCode);
         }

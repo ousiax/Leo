@@ -126,17 +126,17 @@ namespace Leo.Wpf.App.ViewModels
         {
             if (string.IsNullOrEmpty(id)) return;
 
-            var dto = await _customerService.GetAsync(id);
+            UI.Services.Models.CustomerDto? dto = await _customerService.GetAsync(id);
             if (dto != null)
             {
-                var viewModel = _mapper.Map<CustomerViewModel>(dto);
-                var detailDtos = await _detailService.GetByCustomerIdAsync(id);
-                foreach (var detailDto in detailDtos)
+                CustomerViewModel viewModel = _mapper.Map<CustomerViewModel>(dto);
+                List<UI.Services.Models.CustomerDetailDto> detailDtos = await _detailService.GetByCustomerIdAsync(id);
+                foreach (UI.Services.Models.CustomerDetailDto detailDto in detailDtos)
                 {
-                    var detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
+                    CustomerDetailViewModel detailViewModel = _mapper.Map<CustomerDetailViewModel>(detailDto);
                     viewModel.Details.Add(detailViewModel);
                 }
-                this.CurrentCustomer = viewModel;
+                CurrentCustomer = viewModel;
             }
         }
 

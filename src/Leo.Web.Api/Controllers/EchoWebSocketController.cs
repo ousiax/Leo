@@ -1,7 +1,7 @@
 ﻿// MIT License
 
-using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Leo.Web.Controllers
 {
@@ -15,7 +15,7 @@ namespace Leo.Web.Controllers
         {
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
-                using var ws = await HttpContext.WebSockets.AcceptWebSocketAsync().ConfigureAwait(false);
+                using WebSocket ws = await HttpContext.WebSockets.AcceptWebSocketAsync().ConfigureAwait(false);
                 await EchoAsync(ws, HttpContext.RequestAborted);
             }
             else
@@ -26,8 +26,8 @@ namespace Leo.Web.Controllers
 
         public async static Task EchoAsync(WebSocket ws, CancellationToken cancellationToken = default)
         {
-            var buffer = new byte[4096];
-            var recv = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken).ConfigureAwait(false);
+            byte[] buffer = new byte[4096];
+            WebSocketReceiveResult recv = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken).ConfigureAwait(false);
 
             while (!recv.CloseStatus.HasValue)
             {

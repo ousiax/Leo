@@ -1,20 +1,14 @@
 ﻿// MIT License
 
+using System.Data;
+using System.Data.Common;
 using Dapper;
 using Leo.Data.Domain.Entities;
-using System.Data;
 
 namespace Leo.Web.Data.SQLite.Repositories
 {
-    internal sealed class CustomerDetailRepository : ICustomerDetailRepository
+    internal sealed class CustomerDetailRepository(IDbConnectionFactory dbConnectionManager) : ICustomerDetailRepository
     {
-        private readonly IDbConnectionFactory _dbConnectionManager;
-
-        public CustomerDetailRepository(IDbConnectionFactory dbConnectionManager)
-        {
-            _dbConnectionManager = dbConnectionManager;
-        }
-
         public async Task<Guid> CreateAsync(CustomerDetail detail)
         {
             detail.Id = Guid.NewGuid();
@@ -29,33 +23,33 @@ namespace Leo.Web.Data.SQLite.Repositories
             parameters.Add("weight", detail.Weight);
             parameters.Add("created_at", detail.CreatedAt);
             parameters.Add("created_by", detail.CreatedBy);
-            var commandText = "INSERT INTO customer_detail (id, customer_id, date, item, count, height, weight,"
+            string commandText = "INSERT INTO customer_detail (id, customer_id, date, item, count, height, weight,"
                 + "created_at, created_by) "
                 + "VALUES (@id, @customer_id, @date, @item, @count, @height, @weight, "
                 + "@created_at, @created_by)";
             var cmdDef = new CommandDefinition(commandText, parameters);
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
+            using DbConnection conn = await dbConnectionManager.OpenAsync().ConfigureAwait(false);
             await conn.ExecuteAsync(cmdDef).ConfigureAwait(false);
             return detail.Id;
         }
 
         public async Task<CustomerDetail?> GetByIdAsync(Guid id)
         {
-            var commandText = "SELECT * FROM customer_detail WHERE id = @id";
+            string commandText = "SELECT * FROM customer_detail WHERE id = @id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id, DbType.String);
             var cmdDef = new CommandDefinition(commandText, parameters);
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
+            using DbConnection conn = await dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryFirstOrDefaultAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<CustomerDetail>> GetByCustomerIdAsync(Guid customerId)
         {
-            var commandText = "SELECT * FROM customer_detail WHERE customer_id = @customer_id";
+            string commandText = "SELECT * FROM customer_detail WHERE customer_id = @customer_id";
             var parameters = new DynamicParameters();
             parameters.Add("customer_id", customerId, DbType.String);
             var cmdDef = new CommandDefinition(commandText, parameters);
-            using var conn = await _dbConnectionManager.OpenAsync().ConfigureAwait(false);
+            using DbConnection conn = await dbConnectionManager.OpenAsync().ConfigureAwait(false);
             return await conn.QueryAsync<CustomerDetail>(cmdDef).ConfigureAwait(false);
         }
     }

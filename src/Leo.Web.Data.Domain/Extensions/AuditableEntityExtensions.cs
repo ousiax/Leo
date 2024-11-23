@@ -1,7 +1,7 @@
 ﻿// MIT License
 
-using Leo.Data.Domain.Entities;
 using System.Security.Claims;
+using Leo.Data.Domain.Entities;
 
 namespace Leo.Data.Domain
 {

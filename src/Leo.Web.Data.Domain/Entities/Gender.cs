@@ -4,7 +4,7 @@ namespace Leo.Data.Domain.Entities
 {
     public enum Gender
     {
-        Unkonw,
+        Unknown,
         Male,
         Female,
     }

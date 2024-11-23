@@ -18,25 +18,25 @@ namespace Leo.Windows.Forms
 
         private void InitializeEvents()
         {
-            this.btnConfirm.Click += (s, a) =>
+            btnConfirm.Click += (s, a) =>
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             };
-            this.btnCancel.Click += (s, a) =>
+            btnCancel.Click += (s, a) =>
             {
-                this.DialogResult = DialogResult.Cancel;
-                this.Close();
+                DialogResult = DialogResult.Cancel;
+                Close();
             };
         }
 
         private void InitializeDataBinding()
         {
-            this.dtpDate.DataBindings.Add(new Binding("Value", _detail, "Date"));
-            this.txtItem.DataBindings.Add(new Binding("Text", _detail, "Item"));
-            this.txtCount.DataBindings.Add(new Binding("Text", _detail, "Count"));
-            this.txtHeight.DataBindings.Add(new Binding("Text", _detail, "Height"));
-            this.txtWeight.DataBindings.Add(new Binding("Text", _detail, "Weight"));
+            dtpDate.DataBindings.Add(new Binding("Value", _detail, "Date"));
+            txtItem.DataBindings.Add(new Binding("Text", _detail, "Item"));
+            txtCount.DataBindings.Add(new Binding("Text", _detail, "Count"));
+            txtHeight.DataBindings.Add(new Binding("Text", _detail, "Height"));
+            txtWeight.DataBindings.Add(new Binding("Text", _detail, "Weight"));
         }
 
         private void RecordForm_Load(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 using Leo.UI.Services.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 
 namespace Leo.UI.Services
 {
@@ -21,22 +22,22 @@ namespace Leo.UI.Services
             _logger = logger;
 
             // TODO
-            var auth = _auth.ExecuteAsync().Result;
+            AuthenticationResult auth = _auth.ExecuteAsync().Result;
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.IdToken);
         }
 
         public async Task<CustomerDto?> GetAsync(string id)
         {
-            var res = await _http.GetAsync($"/customers/{id}");
+            HttpResponseMessage res = await _http.GetAsync($"/customers/{id}");
             res.EnsureSuccessStatusCode();
             return await res.Content.ReadFromJsonAsync<CustomerDto?>();
         }
 
         public async Task<List<CustomerDto>> GetAsync()
         {
-            var res = await _http.GetAsync($"/customers");
+            HttpResponseMessage res = await _http.GetAsync($"/customers");
             res.EnsureSuccessStatusCode();
-            var customers = await res.Content.ReadFromJsonAsync<List<CustomerDto>>() ?? new();
+            List<CustomerDto> customers = await res.Content.ReadFromJsonAsync<List<CustomerDto>>() ?? [];
             return customers;
         }
 
@@ -44,15 +45,15 @@ namespace Leo.UI.Services
         {
             string? id = null;
 
-            var res = await _http.PostAsJsonAsync("/customers", customer);
+            HttpResponseMessage res = await _http.PostAsJsonAsync("/customers", customer);
             if (res.IsSuccessStatusCode)
             {
-                var result = await res.Content.ReadFromJsonAsync<JsonObject>();
+                JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
                 id = result!["id"]!.ToString();
             }
             else
             {
-                var error = await res.Content.ReadAsStringAsync();
+                string error = await res.Content.ReadAsStringAsync();
                 _logger.LogError("Failed to create customer: {}", error);
             }
 
@@ -61,7 +62,7 @@ namespace Leo.UI.Services
 
         public async Task<int> UpdateAsync(CustomerDto customer)
         {
-            var res = await _http.PutAsJsonAsync("/customers", customer);
+            HttpResponseMessage res = await _http.PutAsJsonAsync("/customers", customer);
             res.EnsureSuccessStatusCode();
             return 0;
         }

@@ -1,10 +1,10 @@
 // MIT License
 
-using Leo.Data.Domain.Dtos;
-using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
+using Leo.Data.Domain.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Leo.Web.Api.Tests
 {
@@ -22,12 +22,12 @@ namespace Leo.Web.Api.Tests
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };
-            var res = await _client.PostAsJsonAsync($"{_customerDetailPathSegment}", customerDetail);
+            HttpResponseMessage res = await _client.PostAsJsonAsync($"{_customerDetailPathSegment}", customerDetail);
 
             Assert.Equal(HttpStatusCode.Created, res.StatusCode);
 
-            var result = await res.Content.ReadFromJsonAsync<JsonObject>();
-            var id = result!["id"]!.ToString();
+            JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
+            string id = result!["id"]!.ToString();
 
             Assert.NotEmpty(id);
         }
@@ -42,9 +42,9 @@ namespace Leo.Web.Api.Tests
                 Date = DateTime.UtcNow,
                 Item = "test item",
             };
-            var res = await _client.PostAsJsonAsync(_customerDetailPathSegment, customerDetail);
-            var result = await res.Content.ReadFromJsonAsync<JsonObject>();
-            var id = result!["id"]!.ToString();
+            HttpResponseMessage res = await _client.PostAsJsonAsync(_customerDetailPathSegment, customerDetail);
+            JsonObject? result = await res.Content.ReadFromJsonAsync<JsonObject>();
+            string id = result!["id"]!.ToString();
 
             res = await _client.GetAsync($"{_customerDetailPathSegment}/{id}");
 

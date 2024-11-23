@@ -1,9 +1,9 @@
 ﻿// MIT License
 
-using Leo.Data.Domain.Entities;
-using Leo.Wpf.App.Infrastructure;
 using System.Globalization;
 using System.Windows.Data;
+using Leo.Data.Domain.Entities;
+using Leo.Wpf.App.Infrastructure;
 
 namespace Leo.Wpf.App.Converters
 {

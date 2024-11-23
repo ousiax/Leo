@@ -21,7 +21,7 @@ namespace Leo.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var dbEngine = Configuration.GetValue<string>("Database:Engine");
+            string? dbEngine = Configuration.GetValue<string>("Database:Engine");
             if (string.Equals(dbEngine, "mssql", StringComparison.OrdinalIgnoreCase))
             {
                 Leo.Web.Data.SqlServer.ServiceCollectionExtensions.AddDataServices(services);
@@ -33,7 +33,7 @@ namespace Leo.Web
             services.AddControllers(options =>
             {
                 options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddEndpointsApiExplorer();

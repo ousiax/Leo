@@ -1,8 +1,8 @@
 ﻿// MIT License
 
+using System.Security.Claims;
 using Leo.Data.Domain.Dtos;
 using MediatR;
-using System.Security.Claims;
 
 namespace Leo.Web.Data.Commands
 {

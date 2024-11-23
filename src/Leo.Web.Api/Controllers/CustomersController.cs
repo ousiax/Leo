@@ -27,25 +27,25 @@ namespace Leo.Web.Controllers
         [HttpGet]
         public Task<List<CustomerDto>> GetAsync()
         {
-            return _mediator.Send(new GetCustomersRequest(), this.HttpContext.RequestAborted);
+            return _mediator.Send(new GetCustomersRequest(), HttpContext.RequestAborted);
         }
 
         [HttpGet("{id}")]
         public async Task<CustomerDto?> GetAsync(Guid id)
         {
-            return await _mediator.Send(new GetCustomerByIdRequest { Id = id }, this.HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
+            return await _mediator.Send(new GetCustomerByIdRequest { Id = id }, HttpContext.RequestAborted).ConfigureAwait(false) ?? throw new NotFoundMessage();
         }
 
         [HttpPost]
         public async Task<CreatedMessage> CreateAsync([FromBody] CustomerDto customerDto)
         {
-            var id = await _mediator.Send(
+            Guid id = await _mediator.Send(
                 new CreateCustomerRequest
                 {
                     CustomerDto = customerDto,
-                    User = this.HttpContext.User,
+                    User = HttpContext.User,
                 },
-                this.HttpContext.RequestAborted).ConfigureAwait(false);
+                HttpContext.RequestAborted).ConfigureAwait(false);
             return this.CreatedMessageAtAction(nameof(GetAsync), new { id }, id.ToString());
         }
 
@@ -56,15 +56,15 @@ namespace Leo.Web.Controllers
                 new UpdateCustomerRequest
                 {
                     CustomerDto = customerDto,
-                    User = this.HttpContext.User,
+                    User = HttpContext.User,
                 },
-            this.HttpContext.RequestAborted).ConfigureAwait(false);
+            HttpContext.RequestAborted).ConfigureAwait(false);
         }
 
         [HttpGet("{id}/details")]
         public Task<List<CustomerDetailDto>> GetByCustomerIdAsync(Guid id)
         {
-            return _mediator.Send(new GetCustomerDetailsByCustomerIdRequest { CustomerId = id }, this.HttpContext.RequestAborted);
+            return _mediator.Send(new GetCustomerDetailsByCustomerIdRequest { CustomerId = id }, HttpContext.RequestAborted);
         }
     }
 }

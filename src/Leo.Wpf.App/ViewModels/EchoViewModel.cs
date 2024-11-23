@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 using Leo.UI.Services;
 using Leo.UI.Services.Options;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using Microsoft.Net.Http.Headers;
 
 namespace Leo.Wpf.App.ViewModels
@@ -51,14 +52,14 @@ namespace Leo.Wpf.App.ViewModels
             {
                 ConnectButtonSate = "Connect";
                 await DisconnectAsync();
-                var direction = "<-";
-                var message = $"Disconnected from {Address}";
+                string direction = "<-";
+                string message = $"Disconnected from {Address}";
                 AppendListView(direction, message);
             }
             else
             {
                 _ws = new ClientWebSocket();
-                var result = await _authenticationService.ExecuteAsync();
+                AuthenticationResult result = await _authenticationService.ExecuteAsync();
                 _ws.Options.SetRequestHeader(HeaderNames.Authorization, $"Bearer {result.IdToken}");
                 _ws.Options.KeepAliveInterval = TimeSpan.FromMinutes(5);
 
@@ -66,8 +67,8 @@ namespace Leo.Wpf.App.ViewModels
                 ConnectButtonSate = "Disconnect";
 
                 PingPongs.Clear();
-                var message = $"Connected to {Address}";
-                var direction = "->";
+                string message = $"Connected to {Address}";
+                string direction = "->";
                 AppendListView(direction, message);
             }
         }
@@ -75,7 +76,7 @@ namespace Leo.Wpf.App.ViewModels
         [RelayCommand(CanExecute = nameof(CanSend))]
         private async Task SendAsync()
         {
-            var cancellationToken = CancellationToken.None;
+            CancellationToken cancellationToken = CancellationToken.None;
             await _ws!.SendAsync(
                 new ArraySegment<byte>(Encoding.UTF8.GetBytes(Message!)),
                 WebSocketMessageType.Text,
@@ -83,10 +84,10 @@ namespace Leo.Wpf.App.ViewModels
                 cancellationToken);
             AppendListView("->", Message!);
 
-            var BUFFER_SIZE = 1024 * 4;
-            var buffer = new byte[BUFFER_SIZE];
+            int BUFFER_SIZE = 1024 * 4;
+            byte[] buffer = new byte[BUFFER_SIZE];
             var msg = new List<byte>(BUFFER_SIZE);
-            var recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
+            WebSocketReceiveResult recv = await _ws!.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
             msg.AddRange(new ArraySegment<byte>(buffer, 0, recv.Count));
             while (!recv.EndOfMessage)
             {
