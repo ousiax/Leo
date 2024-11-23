@@ -1,21 +1,24 @@
-﻿<Window x:Class="Leo.Wpf.App.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converter="clr-namespace:Leo.Wpf.App.Converters"
-        xmlns:viewModel="clr-namespace:Leo.Wpf.App.ViewModels"
-        mc:Ignorable="d"
-        Icon="../leon.ico"
-        Title="{StaticResource MainWindow.Title}" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}">
+﻿<Window
+    x:Class="Leo.Wpf.App.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Leo.Wpf.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:Leo.Wpf.App.ViewModels"
+    Title="{StaticResource MainWindow.Title}"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
+    Icon="../leon.ico"
+    mc:Ignorable="d">
     <Window.Resources>
         <converter:BooleanInverseConverter x:Key="BooleanInverseConverter" />
         <converter:GenderToStringConverter x:Key="GenderToStringConverter" />
         <Style TargetType="Label">
-            <Setter Property="MinWidth" Value="80"></Setter>
-            <Setter Property="Background" Value="Gainsboro"></Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Background" Value="Gainsboro" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="MinWidth" Value="100" />
@@ -36,15 +39,13 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0">
             <ToolBar>
-                <Button Content="{StaticResource MainWindow.ToolBar.Button.New.Content}"
-                        Command="{Binding NewCustomerCommand}"/>
-                <Button Content="{StaticResource MainWindow.ToolBar.Button.Edit.Content}"
-                        Command="{Binding EditCustomerCommand}"
-                        CommandParameter="{Binding CurrentCustomer}"/>
-                <Button Content="{StaticResource MainWindow.ToolBar.Button.Find.Content}"
-                        Command="{Binding FindCustomerCommand}" />
-                <Button Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}"
-                        Command="{Binding EchoCommand}"/>
+                <Button Command="{Binding NewCustomerCommand}" Content="{StaticResource MainWindow.ToolBar.Button.New.Content}" />
+                <Button
+                    Command="{Binding EditCustomerCommand}"
+                    CommandParameter="{Binding CurrentCustomer}"
+                    Content="{StaticResource MainWindow.ToolBar.Button.Edit.Content}" />
+                <Button Command="{Binding FindCustomerCommand}" Content="{StaticResource MainWindow.ToolBar.Button.Find.Content}" />
+                <Button Command="{Binding EchoCommand}" Content="{StaticResource MainWindow.ToolBar.Button.Echo.Content}" />
             </ToolBar>
         </ToolBarTray>
         <StackPanel Grid.Row="1">
@@ -69,37 +70,45 @@
                 <TextBox x:Name="txtCardNo" Text="{Binding CurrentCustomer.CardNo}" />
             </WrapPanel>
         </StackPanel>
-        <DataGrid Grid.Row="2"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  ItemsSource="{Binding CurrentCustomer.Details}">
+        <DataGrid
+            Grid.Row="2"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding CurrentCustomer.Details}">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="{StaticResource MainWindow.DataGrid.ContextMenu.MenuItem.New}"
-                              Command="{Binding NewCustomerDetailCommand}"
-                              CommandParameter="{Binding CurrentCustomer.Id}" />
+                    <MenuItem
+                        Command="{Binding NewCustomerDetailCommand}"
+                        CommandParameter="{Binding CurrentCustomer.Id}"
+                        Header="{StaticResource MainWindow.DataGrid.ContextMenu.MenuItem.New}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="colDate"
-                                    Header="{StaticResource MainWindow.DataGrid.Columns.Date.Header}"
-                                    Width="*"
-                                    Binding="{Binding Date, StringFormat={StaticResource MainWindow.DataGrid.Columns.Date.StringFormat}}"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colItem"
-                                    Header="{StaticResource MainWindow.DataGrid.Columns.Item.Header}"
-                                    Width="*"
-                                    Binding="{Binding Item}"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colCount" 
-                                    Header="{StaticResource MainWindow.DataGrid.Columns.Count.Header}" 
-                                    Width="*" 
-                                    Binding="{Binding Count}"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colHeight"
-                                    Header="{StaticResource MainWindow.DataGrid.Columns.Height.Header}" 
-                                    Width="*" Binding="{Binding Height}"></DataGridTextColumn>
-                <DataGridTextColumn x:Name="colWeight"
-                                    Header="{StaticResource MainWindow.DataGrid.Columns.Weight.Header}" 
-                                    Width="*" 
-                                    Binding="{Binding Weight}"></DataGridTextColumn>
+                <DataGridTextColumn
+                    x:Name="colDate"
+                    Width="*"
+                    Binding="{Binding Date, StringFormat={StaticResource MainWindow.DataGrid.Columns.Date.StringFormat}}"
+                    Header="{StaticResource MainWindow.DataGrid.Columns.Date.Header}" />
+                <DataGridTextColumn
+                    x:Name="colItem"
+                    Width="*"
+                    Binding="{Binding Item}"
+                    Header="{StaticResource MainWindow.DataGrid.Columns.Item.Header}" />
+                <DataGridTextColumn
+                    x:Name="colCount"
+                    Width="*"
+                    Binding="{Binding Count}"
+                    Header="{StaticResource MainWindow.DataGrid.Columns.Count.Header}" />
+                <DataGridTextColumn
+                    x:Name="colHeight"
+                    Width="*"
+                    Binding="{Binding Height}"
+                    Header="{StaticResource MainWindow.DataGrid.Columns.Height.Header}" />
+                <DataGridTextColumn
+                    x:Name="colWeight"
+                    Width="*"
+                    Binding="{Binding Weight}"
+                    Header="{StaticResource MainWindow.DataGrid.Columns.Weight.Header}" />
             </DataGrid.Columns>
         </DataGrid>
         <ProgressBar Grid.Row="3" IsIndeterminate="True" />

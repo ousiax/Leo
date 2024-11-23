@@ -1,15 +1,18 @@
-﻿<Window x:Class="Leo.Wpf.App.Views.FindWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:behaviors="clr-namespace:Leo.Wpf.App.Behaviors"
-        xmlns:viewModels="clr-namespace:Leo.Wpf.App.ViewModels"
-        xmlns:converters="clr-namespace:Leo.Wpf.App.Converters"
-        mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance viewModels:FindCustomerViewModel}"
-        Title="{StaticResource FindWindow.Title}" Height="450" Width="800">
+﻿<Window
+    x:Class="Leo.Wpf.App.Views.FindWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:Leo.Wpf.App.Behaviors"
+    xmlns:converters="clr-namespace:Leo.Wpf.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Leo.Wpf.App.ViewModels"
+    Title="{StaticResource FindWindow.Title}"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance viewModels:FindCustomerViewModel}"
+    mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="BaseStyle">
             <Setter Property="Control.Margin" Value="10,5,5,10" />
@@ -17,12 +20,11 @@
             <Setter Property="Control.MinHeight" Value="30" />
             <Setter Property="Control.VerticalContentAlignment" Value="Center" />
         </Style>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource BaseStyle}">
-        </Style>
-        <Style TargetType="TextBox" BasedOn="{StaticResource BaseStyle}">
+        <Style BasedOn="{StaticResource BaseStyle}" TargetType="ComboBox" />
+        <Style BasedOn="{StaticResource BaseStyle}" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150" />
         </Style>
-        <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}"></Style>
+        <Style BasedOn="{StaticResource BaseStyle}" TargetType="Button" />
         <converters:BooleanInverseConverter x:Key="BooleanInverseConverter" />
         <converters:GenderToStringConverter x:Key="GenderToStringConverter" />
     </Window.Resources>
@@ -36,56 +38,74 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <ComboBox x:Name="combSearchField"
-                      ItemsSource="{Binding SearchFields}"
-                      SelectedValue="{Binding SearchField}"
-                      DisplayMemberPath="Value"
-                      SelectedValuePath="Key">
-            </ComboBox>
-            <TextBox x:Name="txtSearchText" Text="{Binding SearchText}"/>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <ComboBox
+                x:Name="combSearchField"
+                DisplayMemberPath="Value"
+                ItemsSource="{Binding SearchFields}"
+                SelectedValue="{Binding SearchField}"
+                SelectedValuePath="Key" />
+            <TextBox x:Name="txtSearchText" Text="{Binding SearchText}" />
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1"
-                    FlowDirection="RightToLeft"
-                    Orientation="Horizontal">
-            <Button x:Name="btnFind" Content="{StaticResource FindWindow.Button.Find.Content}"
-                    Command="{Binding FindCommand}"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}" />
-            <Button x:Name="btnReset" Content="{StaticResource FindWindow.Button.Reset.Content}"
-                    Command="{Binding ResetCommand}"/>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            FlowDirection="RightToLeft"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnFind"
+                Command="{Binding FindCommand}"
+                Content="{StaticResource FindWindow.Button.Find.Content}"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverseConverter}}" />
+            <Button
+                x:Name="btnReset"
+                Command="{Binding ResetCommand}"
+                Content="{StaticResource FindWindow.Button.Reset.Content}" />
         </StackPanel>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  SelectedItem="{Binding SelectedCustomer}"
-                  ItemsSource="{Binding AllCustomersView}">
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding AllCustomersView}"
+            SelectedItem="{Binding SelectedCustomer}">
             <i:Interaction.Behaviors>
                 <behaviors:DataGridMouseDoubleClickCommandBehavior Command="{Binding ConfirmCommand}" />
             </i:Interaction.Behaviors>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="colName"
-                           Header="{StaticResource FindWindow.DataGrid.Columns.Name.Header}"
-                           Width="*"
-                           Binding="{Binding Name}" />
-                <DataGridTextColumn x:Name="colPhone"
-                           Header="{StaticResource FindWindow.DataGrid.Columns.Phone.Header}"
-                           Width="*"
-                           Binding="{Binding Phone}" />
-                <DataGridTextColumn x:Name="colGender" 
-                           Header="{StaticResource FindWindow.DataGrid.Columns.Gender.Header}" 
-                           Width="*" 
-                           Binding="{Binding Gender, Converter={StaticResource GenderToStringConverter}}" />
-                <DataGridTextColumn x:Name="colBirthday"
-                           Header="{StaticResource FindWindow.DataGrid.Columns.Birthday.Header}" 
-                           Width="*" Binding="{Binding Birthday, StringFormat={StaticResource FindWindow.DataGrid.Columns.Birthday.StringFormat}}" />
-                <DataGridTextColumn x:Name="colAge"
-                           Header="{StaticResource FindWindow.DataGrid.Columns.Age.Header}" 
-                           Width="*" 
-                           Binding="{Binding Age}" />
-                <DataGridTextColumn x:Name="colCardNo"
-                           Header="{StaticResource FindWindow.DataGrid.Columns.CardNo.Header}" 
-                           Width="*" 
-                           Binding="{Binding CardNo}" />
+                <DataGridTextColumn
+                    x:Name="colName"
+                    Width="*"
+                    Binding="{Binding Name}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.Name.Header}" />
+                <DataGridTextColumn
+                    x:Name="colPhone"
+                    Width="*"
+                    Binding="{Binding Phone}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.Phone.Header}" />
+                <DataGridTextColumn
+                    x:Name="colGender"
+                    Width="*"
+                    Binding="{Binding Gender, Converter={StaticResource GenderToStringConverter}}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.Gender.Header}" />
+                <DataGridTextColumn
+                    x:Name="colBirthday"
+                    Width="*"
+                    Binding="{Binding Birthday, StringFormat={StaticResource FindWindow.DataGrid.Columns.Birthday.StringFormat}}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.Birthday.Header}" />
+                <DataGridTextColumn
+                    x:Name="colAge"
+                    Width="*"
+                    Binding="{Binding Age}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.Age.Header}" />
+                <DataGridTextColumn
+                    x:Name="colCardNo"
+                    Width="*"
+                    Binding="{Binding CardNo}"
+                    Header="{StaticResource FindWindow.DataGrid.Columns.CardNo.Header}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
